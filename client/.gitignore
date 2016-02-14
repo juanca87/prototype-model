@@ -1,0 +1,9 @@
+/target/
+.classpath
+.project
+.springBeans
+.settings/
+fileName.txt
+imagen_Descargada.jpg
+derby.log
+

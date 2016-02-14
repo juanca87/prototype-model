@@ -1,0 +1,47 @@
+[
+    {
+        "company": "AAA",
+        "price": 98,
+        "Change": 8,
+        "perchange": 8,
+        "LastUpdated": "2",
+        "companyid": 1,
+        "User": "Juan"
+    },
+    {
+        "company": "BBB",
+        "price": 1,
+        "Change": 1,
+        "perchange": 1,
+        "LastUpdated": "1",
+        "companyid": 2,
+        "User": "Juan"
+    },
+    {
+        "company": "CCC",
+        "price": 7,
+        "Change": 4,
+        "perchange": 1,
+        "LastUpdated": "3",
+        "companyid": 3,
+        "User": "Juan"
+    },
+    {
+        "company": "DDD",
+        "price": 3,
+        "Change": 7,
+        "perchange": 6,
+        "LastUpdated": "2",
+        "companyid": 4,
+        "User": "Carlos"
+    },
+    {
+        "company": "EEE",
+        "price": 35,
+        "Change": 2,
+        "perchange": 9,
+        "LastUpdated": "1",
+        "companyid": 5,
+        "User": "Juan"
+    }
+]
