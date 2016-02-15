@@ -1,30 +1,36 @@
 <%@ include file="/WEB-INF/views/includes.jsp"%>
 <%@page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Welcome!</title>
 
-        <!-- BOOTSTRAP STYLES-->
-        <link href="resources/css/bootstrap.css" rel="stylesheet" />
-        <!-- FONTAWESOME STYLES-->
-        <link href="resources/css/font-awesome.css" rel="stylesheet" />
-        <!--CUSTOM BASIC STYLES-->
-        <link href="resources/css/basic.css" rel="stylesheet" />
-        <!--CUSTOM MAIN STYLES-->
-        <link href="resources/css/custom.css" rel="stylesheet" />
-        <!-- GOOGLE FONTS-->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-        <!-- JQGRID STYLES-->
-        <link rel="stylesheet" type="text/css" media="screen" href="resources/css/ui.jqgrid-bootstarp.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="resources/css/ui.jqgrid.css" />
-        <!-- JQUERY STYLES-->
-        <link rel="stylesheet" type="text/css" media="screen" href="resources/css/jquery.ui.base.css"/>
-        <link rel="stylesheet" type="text/css" media="screen" href="resources/css/jquery-ui.css"/>
-        <!-- PIE CHART STYLES-->
-        <link rel="stylesheet" type="text/css" href="resources/css/style-snazzy-chart-pie.css">
-    </head>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Welcome!</title>
+
+    <!-- BOOTSTRAP STYLES-->
+    <link href="resources/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="resources/css/font-awesome.css" rel="stylesheet" />
+    <!--CUSTOM BASIC STYLES-->
+    <link href="resources/css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="resources/css/custom.css" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- JQGRID STYLES-->
+    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/ui.jqgrid-bootstarp.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/ui.jqgrid.css" />
+    <!-- JQUERY STYLES-->
+    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/jquery.ui.base.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/jquery-ui.css"/>
+    <!-- PIE CHART STYLES-->
+    <link rel="stylesheet" type="text/css" href="resources/css/style-snazzy-chart-pie.css">
+    <!-- GET CONTEXT APP -->
+    <script type="text/javascript">
+        var contextPath='<%=request.getContextPath()%>';
+    </script>
+</head>
+
 <body>
 
     <c:url value="/j_spring_security_logout" var="logoutUrl" />
@@ -116,11 +122,10 @@
 
     </c:if>
 
-    <input type="button" value="Get and parse JSON" class="btn btn-primary" onclick="javascript:ver()"/>
+    <input type="button" value="Get and parse JSON" class="btn btn-primary" onclick="javascript:ver(contextPath)"/>
     <span id="results">
     
     </span>
-
 
     <div id="footer-sec">
         &copy; 2016 Prototipo | Design By : <a href="http://www.binarytheme.com/" target="_blank">Juan Calvopiña Morillo</a>
@@ -128,21 +133,21 @@
     <!-- /. FOOTER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-    <script src="resources/js/jquery-1.10.2.js"></script>
+    <script src="<c:url value="resources/js/jquery-1.10.2.js"/>"></script>
     <!-- BOOTSTRAP SCRIPTS -->
-    <script src="resources/js/bootstrap.js"></script>
+    <script src="<c:url value="resources/js/bootstrap.js"/>"></script>
     <!-- METISMENU SCRIPTS -->
-    <script src="resources/js/jquery.metisMenu.js"></script>
+    <script src="<c:url value="resources/js/jquery.metisMenu.js"/>"></script>
     <!-- CUSTOM SCRIPTS -->
-    <script src="resources/js/custom.js"></script>
+    <script src="<c:url value="resources/js/custom.js"/>"></script>
     <!-- jQuery & jQGrid -->
-    <script src="/prototype-model-client/resources/js/lib/jquery.min.js" type="text/javascript"></script>
-    <script src="/prototype-model-client/resources/js/lib/jquery.jqGrid.min.js" type="text/javascript"></script>
-    <script src="/prototype-model-client/resources/js/lib/i18n/grid.locale-en.js" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/lib/jquery.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/lib/jquery.jqGrid.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/lib/i18n/grid.locale-en.js"/>" type="text/javascript"></script>
 
-    <script src="/prototype-model-client/resources/js/app/home.js" type="text/javascript"></script> 
-    <script src="/prototype-model-client/resources/js/js-snazzy-chart-pie.js" type="text/javascript"></script>
-    <script src="/prototype-model-client/resources/js/js-prototype-app.js" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/app/home.js"/>" type="text/javascript"></script> 
+    <script src="<c:url value="/resources/js/js-snazzy-chart-pie.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/js-prototype-app.js"/>" type="text/javascript"></script>
 
 </body>
 </html>

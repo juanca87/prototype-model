@@ -6,7 +6,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.hbm2ddl.auto">create</property>
-        <mapping class="com.jcalvopinam.api.model.Person" />
+<!--         <mapping class="com.jcalvopinam.api.model.Person" /> -->
         <mapping class="com.jcalvopinam.api.model.ResultadoPrueba" />
         <mapping class="com.jcalvopinam.api.model.TipoParametro" />
         <mapping class="com.jcalvopinam.api.model.ResultadoEjecucion" />

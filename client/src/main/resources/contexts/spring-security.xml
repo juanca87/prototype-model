@@ -13,11 +13,12 @@
     <security:http auto-config="true" use-expressions="true">
         <security:csrf request-matcher-ref="csrfSecurityRequestMatcher"/>
         <security:intercept-url pattern="/home" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/dashboard" access="isAuthenticated()"/>
 <!--         <security:intercept-url pattern="/protected/**" access="isAuthenticated()"/> -->
 <!--         <security:intercept-url pattern="/unprotected/**" access="isAuthenticated()"/> -->
         <security:form-login
                 login-page="/login"
-                default-target-url="/protected"
+                default-target-url="/home"
                 authentication-failure-url="/login-fail"/>
         <security:logout logout-success-url="/logout"/>
     </security:http>

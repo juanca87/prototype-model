@@ -1,10 +1,13 @@
+var contextPathUrl = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+alert(contextPathUrl);
+
 var numberMessages = [];
 $(function () {
     'use strict';
 
     $("#datagrid").jqGrid({
         //url: "http://localhost:8080/example/resources/json/listado.json",
-        url: "http://localhost:8080/client/list",
+        url: "http://localhost:8080" + contextPathUrl + "/list",
         datatype: "json",
         jsonReader: {repeatitems: false, root: function (obj) { return obj; }},
         colNames:['Id','Nombre', 'Apellido', 'Edad','Email'],
