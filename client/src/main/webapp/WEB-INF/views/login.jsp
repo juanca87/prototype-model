@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ include file="/WEB-INF/views/includes.jsp"%>
+
 <c:url var="loginPostUrl" value="/j_spring_security_check"/>
 <c:url var="protectedUrl" value="/protected"/>
 <c:url var="unprotectedUrl" value="/unprotected"/>
@@ -23,6 +23,10 @@
 </head>
 <body>
 
+<c:if test="${pageContext.request.userPrincipal.name != null}">
+    <jsp:forward page="/home"></jsp:forward>
+</c:if>
+
 <div class="container-fluid">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
@@ -30,13 +34,12 @@
                 <div class="navbar-collapse collapse" id="additional-nav">
                     <sec:authorize access="isAnonymous()">
                         <ul class="nav navbar-nav">
-                            <li class="active" id="login"><a href="${loginUrl}">Login</a></li>
+                            <li class="active" id="login"><a href="${loginUrl}">Prototype Model</a></li>
                         </ul>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <ul class="nav navbar-nav">
-                            <li><a id="protected" href="${protectedUrl}">Protected</a></li>
-                            <li><a id="unprotected" href="${unprotectedUrl}">Unprotected</a></li>
+                            <li><a id="webApplicationTitle">Prototype Model</a></li>
                         </ul>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">

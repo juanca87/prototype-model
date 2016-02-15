@@ -34,6 +34,15 @@
 .mb-pink {
     background-color:#FF2F71;
 }
+.mb-amazonEC2 {
+    background-color:#fdf7ce;
+}
+.mb-googleAppEngine {
+    background-color:#c4e3fe;
+}
+.mb-heroku {
+    background-color:#fcd3fe;
+}
     .main-box h5 {
         font-size:16px;
         font-weight:800;
