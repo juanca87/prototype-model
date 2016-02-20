@@ -3,32 +3,30 @@
 <c:url var="loginPostUrl" value="/j_spring_security_check"/>
 <c:url var="logoutUrl" value="/j_spring_security_logout"/>
 <c:url var="loginUrl" value="/login"/>
+<c:url var="contextUrl" value="/"/>
 
 <html>
 
 <head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/styles.css">
+    <title>Home</title>
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
-
 
     <!-- BOOTSTRAP STYLES-->
     <link href="resources/css/bootstrap.css" rel="stylesheet" />
     <!-- FONTAWESOME STYLES-->
     <link href="resources/css/font-awesome.css" rel="stylesheet" />
-       <!--CUSTOM BASIC STYLES-->
+    <!-- CUSTOM BASIC STYLES-->
     <link href="resources/css/basic.css" rel="stylesheet" />
-    <!--CUSTOM MAIN STYLES-->
+    <!-- CUSTOM MAIN STYLES-->
     <link href="resources/css/custom.css" rel="stylesheet" />
+    <!-- CUSTOM STYLES -->
+    <link rel="stylesheet" type="text/css" href="resources/css/styles.css">
     <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-
-    <link rel="stylesheet" type="text/css" href="resources/css/styles.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
 </head>
 
-<body>
+<body class="body-custom">
 <div class="container-fluid">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
@@ -41,9 +39,10 @@
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <ul class="nav navbar-nav">
-                            <li><a id="amazonEC2" href="/amazonEC2">Amazon EC2</a></li>
-                            <li><a id="googleAppEngine" href="/gooleAppEngine">Google App Engine</a></li>
-                            <li><a id="heroku" href="/heroku">Heroku</a></li>
+                            <li id="home" class="active"><a href="${contextUrl}home">Home</a></li>
+                            <li id="amazonEC2"><a href="${contextUrl}amazonEC2">Amazon EC2</a></li>
+                            <li id="googleAppEngine"><a href="${contextUrl}gooleAppEngine">Google App Engine</a></li>
+                            <li id="heroku"><a href="${contextUrl}heroku">Heroku</a></li>
                         </ul>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
@@ -197,7 +196,7 @@
         </div>
     </div>
 
-    <input type="submit" value="Ejecutar Test" onclick="javascript:saveResultadoEjecucion()"/>
+    <input type="submit" value="Ejecutar Test" class="btn btn-primary" onclick="javascript:saveResultadoEjecucion()"/>
 
     <div id="waiting" class="centered" style="display: none">
         <p>Please wait...</p>
