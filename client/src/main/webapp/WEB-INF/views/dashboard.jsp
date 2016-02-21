@@ -1,71 +1,8 @@
 <%@ include file="/WEB-INF/views/includes.jsp"%>
-<%@page session="true"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Dashboard</title>
-
-    <!-- BOOTSTRAP STYLES-->
-    <link href="resources/css/bootstrap.css" rel="stylesheet" />
-    <!-- FONTAWESOME STYLES-->
-    <link href="resources/css/font-awesome.css" rel="stylesheet" />
-    <!--CUSTOM BASIC STYLES-->
-    <link href="resources/css/basic.css" rel="stylesheet" />
-    <!--CUSTOM MAIN STYLES-->
-    <link href="resources/css/custom.css" rel="stylesheet" />
-    <!-- CUSTOM STYLES -->
-    <link rel="stylesheet" type="text/css" href="resources/css/styles.css">
-    <!-- GOOGLE FONTS-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <!-- JQGRID STYLES-->
-    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/ui.jqgrid-bootstarp.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/ui.jqgrid.css" />
-    <!-- JQUERY STYLES-->
-    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/jquery.ui.base.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/jquery-ui.css"/>
-    <!-- PIE CHART STYLES-->
-    <link rel="stylesheet" type="text/css" href="resources/css/style-snazzy-chart-pie.css">
-
-    <!-- GET CONTEXT APP -->
-    <script type="text/javascript">
-        var contextPath='<%=request.getContextPath()%>';
-    </script>
-</head>
 
 <body class="body-custom">
 
-    <c:url value="/j_spring_security_logout" var="logoutUrl" />
-
-    <!-- csrt for log out-->
-    <form action="${logoutUrl}" method="post" id="logoutForm">
-      <input type="hidden" 
-        name="${_csrf.parameterName}"
-        value="${_csrf.token}" />
-    </form>
-
     <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <h2>
-            Welcome : ${pageContext.request.userPrincipal.name} | <a
-                href="javascript:formSubmit()"> Logout</a>
-        </h2>
-    </c:if>
-
-    <div class="wideBox">
-        <h1>Custom Snazzy</h1>
-    </div>
-
-    <h1><b>Title:</b> ${title}</h1>
-    <h3><b>Message:</b> ${message}</h3>
-    
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <h2>Welcome: ${pageContext.request.userPrincipal.name}</h2>
-
-        <table id="datagrid"><tr><td /></tr></table>
-        <div id="navGrid">99</div>
-
-        <br/>
 
         <div class="panel panel-default" style="min-width: 865px">
             <div class="panel-heading">
@@ -125,32 +62,10 @@
 
     </c:if>
 
-    <input type="button" value="Get and parse JSON" class="btn btn-primary" onclick="javascript:ver(contextPath)"/>
-    <span id="results">
-    
-    </span>
-
     <div id="footer-sec">
         &copy; 2016 Prototipo | Design By : <a href="http://www.binarytheme.com/" target="_blank">Juan Calvopiña Morillo</a>
     </div>
-    <!-- /. FOOTER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <script src="<c:url value="resources/js/jquery-1.10.2.js"/>"></script>
-    <!-- BOOTSTRAP SCRIPTS -->
-    <script src="<c:url value="resources/js/bootstrap.js"/>"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="<c:url value="resources/js/jquery.metisMenu.js"/>"></script>
-    <!-- CUSTOM SCRIPTS -->
-    <script src="<c:url value="resources/js/custom.js"/>"></script>
-    <!-- jQuery & jQGrid -->
-    <script src="<c:url value="/resources/js/lib/jquery.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/lib/jquery.jqGrid.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/lib/i18n/grid.locale-en.js"/>" type="text/javascript"></script>
 
-    <script src="<c:url value="/resources/js/app/home.js"/>" type="text/javascript"></script> 
-    <script src="<c:url value="/resources/js/js-snazzy-chart-pie.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/js-prototype-app.js"/>" type="text/javascript"></script>
-
-</body>
-</html>
+<!-- /. FOOTER  -->
+<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+<script src="<c:url value="/resources/js/js-snazzy-chart-pie.js"/>"></script>

@@ -75,7 +75,6 @@ public class HomeController {
         model.setViewName("login");
 
         return model;
-
     }
 
     @RequestMapping(value = "/getResults", method = RequestMethod.GET)

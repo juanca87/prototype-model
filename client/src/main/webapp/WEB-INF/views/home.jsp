@@ -40,8 +40,8 @@
                     <sec:authorize access="isAuthenticated()">
                         <ul class="nav navbar-nav">
                             <li id="home" class="active"><a href="${contextUrl}home">Home</a></li>
-                            <li id="amazonEC2"><a href="${contextUrl}amazonEC2">Amazon EC2</a></li>
-                            <li id="googleAppEngine"><a href="${contextUrl}gooleAppEngine">Google App Engine</a></li>
+                            <li id="amazonEC2"><a href="${contextUrl}amazon">Amazon EC2</a></li>
+                            <li id="googleAppEngine"><a href="${contextUrl}google">Google App Engine</a></li>
                             <li id="heroku"><a href="${contextUrl}heroku">Heroku</a></li>
                         </ul>
                     </sec:authorize>

@@ -41,8 +41,8 @@
                         <ul class="nav navbar-nav">
                             <li id="home"><a href="${contextUrl}home">Home</a></li>
                             <li id="amazonEC2"><a href="${contextUrl}amazon">Amazon EC2</a></li>
-                            <li id="googleAppEngine"><a href="${contextUrl}google">Google App Engine</a></li>
-                            <li id="heroku" class="active"><a href="${contextUrl}heroku">Heroku</a></li>
+                            <li id="googleAppEngine" class="active"><a href="${contextUrl}google">Google App Engine</a></li>
+                            <li id="heroku"><a href="${contextUrl}heroku">Heroku</a></li>
                         </ul>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
@@ -57,7 +57,7 @@
 
     <ol class="breadcrumb">
         <li class="active">Home</li>
-        <li class="active">Heroku</li>
+        <li class="active">Google App Engine</li>
     </ol>
 </div>
 
