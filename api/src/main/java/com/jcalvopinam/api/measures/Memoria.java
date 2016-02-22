@@ -2,7 +2,7 @@ package com.jcalvopinam.api.measures;
 
 import java.lang.reflect.Field;
 
-import com.jcalvopinam.api.model.Valor;
+import com.jcalvopinam.api.utils.Valor;
 
 import sun.misc.Unsafe;
 

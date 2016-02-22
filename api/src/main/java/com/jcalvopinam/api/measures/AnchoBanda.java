@@ -7,14 +7,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import com.jcalvopinam.api.model.Valor;
+import com.jcalvopinam.api.utils.Valor;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
  *
  */
 
-public class Bandwidth {
+public class AnchoBanda {
 
     public Valor getBandwith() {
 

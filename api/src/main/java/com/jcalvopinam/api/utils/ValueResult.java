@@ -1,4 +1,4 @@
-package com.jcalvopinam.api.model;
+package com.jcalvopinam.api.utils;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>

@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.jcalvopinam.api.model.Valor;
+import com.jcalvopinam.api.utils.Valor;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>

@@ -69,13 +69,15 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="page-head-line">Tabla de valores anteriores</h1>
-            <h1 class="page-subhead-line">Mediciones anteriores</h1>
+            <div id="accordion">
+              <h3>Mediciones anteriores</h3>
+              <div>
+                <table id="dataGrid" style="width: 100%"></table>
+                <div id="navGrid"></div>
+              </div>
+            </div>
+            <h1 class="page-subhead-line"></h1>
         </div>
-    </div>
-
-    <div>
-        <table id="dataGrid" class="table"></table>
-        <div id="navGrid"></div>
     </div>
 
     <br/>
@@ -119,11 +121,12 @@
 <script src="<c:url value="/resources/js/jquery.metisMenu.js"/>"></script>
 
 <script src="<c:url value="/resources/js/lib/jquery.min.js"/>"></script>
+<script src="<c:url value="/resources/js/lib/jquery-ui.min.js"/>"></script>
 <script src="<c:url value="/resources/js/lib/jquery.jqGrid.min.js"/>"></script>
 <script src="<c:url value="/resources/js/lib/i18n/grid.locale-en.js"/>"></script>
 
 <script src="<c:url value="/resources/js/js-prototype-app.js"/>"></script>
-<script src="<c:url value="/resources/js/app/tablaResultado.js"/>"></script> 
+<script src="<c:url value="/resources/js/app/tablaResultados.js"/>"></script> 
 <script src="<c:url value="/resources/js/app/resultadoEjecucion.js"/>"></script>
 
 </html>

@@ -3,6 +3,10 @@
  */
 package com.jcalvopinam.client.controller;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +20,9 @@ import com.jcalvopinam.client.model.ResultadoEjecucion;
  *
  */
 @Controller
-public class AmazonController {
+public class CloudController {
 
-    @RequestMapping(value = "/amazon", method = RequestMethod.GET )
+    @RequestMapping(value = "/amazon", method = RequestMethod.GET)
     public ModelAndView amazonHome() {
         ModelAndView model = new ModelAndView();
         model.addObject("servidor", "Amazon EC2");
@@ -27,6 +31,41 @@ public class AmazonController {
 
         return model;
     }
+    
+    @RequestMapping(value = "/google", method = RequestMethod.GET)
+    public ModelAndView googleHome() {
+        Locale locale = new Locale("es");
+
+        Date date = new Date();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+
+        String formattedDate = dateFormat.format(date);
+
+        ModelAndView model = new ModelAndView();
+        model.addObject("title", "Spring security - Hello World!");
+        model.addObject("message", "Welcome, the server Time is:" + formattedDate);
+        model.setViewName("google");
+
+        return model;
+    }
+    
+    @RequestMapping(value = "/heroku", method = RequestMethod.GET)
+    public ModelAndView herkuHome() {
+        Locale locale = new Locale("es");
+
+        Date date = new Date();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+
+        String formattedDate = dateFormat.format(date);
+
+        ModelAndView model = new ModelAndView();
+        model.addObject("title", "Spring security - Hello World!");
+        model.addObject("message", "Welcome, the server Time is:" + formattedDate);
+        model.setViewName("heroku");
+
+        return model;
+    }
+    
     public ModelAndView loadAmazonValues(@RequestBody ResultadoEjecucion jsonString){
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Loading values...");

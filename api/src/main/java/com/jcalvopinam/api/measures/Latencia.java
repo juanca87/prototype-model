@@ -4,7 +4,7 @@ import java.net.Socket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import com.jcalvopinam.api.model.Valor;
+import com.jcalvopinam.api.utils.Valor;
 
 import java.net.SocketAddress;
 import java.net.InetSocketAddress;
@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  */
 
-public class Latency {
+public class Latencia {
 
     public Valor getLatency() {
         String result = "";

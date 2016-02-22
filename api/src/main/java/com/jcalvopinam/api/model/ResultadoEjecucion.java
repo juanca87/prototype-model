@@ -1,63 +1,25 @@
 package com.jcalvopinam.api.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
  *
  */
 
-@Entity
 public class ResultadoEjecucion {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private int id;
-
-    @Column
     private String cpu;
-
-    @Column
     private String lecturaMemoria;
-
-    @Column
     private String escrituraMemoria;
-
-    @Column
     private String lecturaDisco;
-
-    @Column
     private String escrituraDisco;
-
-    @Column
     private String anchoBanda;
-
-    @Column
     private String latencia;
-
-    @Column
     private String instruccionesMinuto;
-
-    public ResultadoEjecucion() {
-    }
-
-    public ResultadoEjecucion(int id, String cpu, String lecturaMemoria, String escrituraMemoria, String lecturaDisco,
-            String escrituraDisco, String anchoBanda, String latencia, String instruccionesMinuto) {
-        super();
-        this.id = id;
-        this.cpu = cpu;
-        this.lecturaMemoria = lecturaMemoria;
-        this.escrituraMemoria = escrituraMemoria;
-        this.lecturaDisco = lecturaDisco;
-        this.escrituraDisco = escrituraDisco;
-        this.anchoBanda = anchoBanda;
-        this.latencia = latencia;
-        this.instruccionesMinuto = instruccionesMinuto;
-    }
+    private Date fecha;
+    private String servidor;
 
     public int getId() {
         return id;
@@ -129,6 +91,22 @@ public class ResultadoEjecucion {
 
     public void setInstruccionesMinuto(String instruccionesMinuto) {
         this.instruccionesMinuto = instruccionesMinuto;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getServidor() {
+        return servidor;
+    }
+
+    public void setServidor(String servidor) {
+        this.servidor = servidor;
     }
 
 }

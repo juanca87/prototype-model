@@ -6,7 +6,7 @@ function saveResultadoEjecucion() {
 
   //obtiene la url
   var contents = $("#url").val()
-  //var contents = "http://localhost:8080/prototype-model-api/dashboardMockup.json";
+  //var contents = "http://localhost:8080/prototype-model-api/getResultadoEjecucionMockup.json";
 
   //limia en nodo dash
   var myNode = document.getElementById("dash");

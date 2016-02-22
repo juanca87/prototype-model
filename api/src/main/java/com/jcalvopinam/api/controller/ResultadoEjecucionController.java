@@ -1,19 +1,23 @@
 package com.jcalvopinam.api.controller;
 
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jcalvopinam.api.measures.Bandwidth;
+import com.jcalvopinam.api.measures.AnchoBanda;
 import com.jcalvopinam.api.measures.CPU;
 import com.jcalvopinam.api.measures.Disco;
-import com.jcalvopinam.api.measures.Latency;
+import com.jcalvopinam.api.measures.Latencia;
 import com.jcalvopinam.api.measures.Memoria;
 import com.jcalvopinam.api.model.ResultadoEjecucion;
-import com.jcalvopinam.api.model.Valor;
+import com.jcalvopinam.api.utils.Localizacion;
+import com.jcalvopinam.api.utils.Valor;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
@@ -23,18 +27,13 @@ import com.jcalvopinam.api.model.Valor;
 @Controller
 public class ResultadoEjecucionController {
 
-    // @Autowired
-    // private IResultadoEjecucionService resultadoEjecucion;
-
-    @RequestMapping(value = "saveResultadoEjecucion", method = { RequestMethod.GET, RequestMethod.POST })
-    public String doAction(ResultadoEjecucion resultadoPrueba, ModelMap model) {
-        model.addAttribute("cpu", resultadoPrueba.getCpu());
-        System.out.println(resultadoPrueba.getCpu());
-        return "resultadoPrueba";
-    }
+    Logger logResultadoEjecucion = LoggerFactory.getLogger(ResultadoEjecucionController.class);
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public ModelAndView loadValues() {
+    public ModelAndView loadDashboardValues() {
+
+        logResultadoEjecucion.info("Entra en el metodo loadDashboardValues");
+
         long startTime = System.nanoTime();
 
         Disco escrituraDiscoMeasure = new Disco();
@@ -52,10 +51,10 @@ public class ResultadoEjecucionController {
         Memoria lecturaMemoriaMeasure = new Memoria();
         Valor lecturaMemoriaResult = lecturaMemoriaMeasure.getTiempoLecturaMemoria();
 
-        Bandwidth bandwithMeasure = new Bandwidth();
+        AnchoBanda bandwithMeasure = new AnchoBanda();
         Valor bandwithResult = bandwithMeasure.getBandwith();
 
-        Latency latencyMeasure = new Latency();
+        Latencia latencyMeasure = new Latencia();
         Valor latencyResult = latencyMeasure.getLatency();
 
         long endTime = System.nanoTime();
@@ -78,6 +77,8 @@ public class ResultadoEjecucionController {
         resultadoEjecucion.setLatencia(latencyResult.getResult());
         resultadoEjecucion.setLecturaDisco(lecturaDiscoResult.getResult());
         resultadoEjecucion.setLecturaMemoria(lecturaMemoriaResult.getResult());
+        resultadoEjecucion.setFecha(new Date());
+        resultadoEjecucion.setServidor(Localizacion.getInfoServidor());
 
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Loading values...");
@@ -94,9 +95,11 @@ public class ResultadoEjecucionController {
 
     }
 
-    @RequestMapping(value = "/dashboardMockup", method = RequestMethod.GET)
+    @RequestMapping(value = "/getResultadoEjecucionMockup", method = RequestMethod.GET)
     @ResponseBody
-    public ResultadoEjecucion loadValuesMockup() {
+    public ResultadoEjecucion getResultadoEjecucionMockup() {
+
+        logResultadoEjecucion.info("Entra en el metodo getResultadoEjecucionMockup");
 
         ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion();
         resultadoEjecucion.setAnchoBanda("123");
@@ -107,6 +110,8 @@ public class ResultadoEjecucionController {
         resultadoEjecucion.setLatencia("923");
         resultadoEjecucion.setLecturaDisco("234");
         resultadoEjecucion.setLecturaMemoria("521");
+        resultadoEjecucion.setFecha(new Date());
+        resultadoEjecucion.setServidor(Localizacion.getInfoServidor());
 
         return resultadoEjecucion;
     }
@@ -114,6 +119,9 @@ public class ResultadoEjecucionController {
     @RequestMapping(value = "/getResultadoEjecucion", method = RequestMethod.GET)
     @ResponseBody
     public ResultadoEjecucion getResultadoEjecucion() {
+
+        logResultadoEjecucion.info("Entra en el metodo getResultadoEjecucion");
+
         long startTime = System.nanoTime();
 
         Disco escrituraDiscoMeasure = new Disco();
@@ -131,10 +139,10 @@ public class ResultadoEjecucionController {
         Memoria lecturaMemoriaMeasure = new Memoria();
         Valor lecturaMemoriaResult = lecturaMemoriaMeasure.getTiempoLecturaMemoria();
 
-        Bandwidth bandwithMeasure = new Bandwidth();
+        AnchoBanda bandwithMeasure = new AnchoBanda();
         Valor bandwithResult = bandwithMeasure.getBandwith();
 
-        Latency latencyMeasure = new Latency();
+        Latencia latencyMeasure = new Latencia();
         Valor latencyResult = latencyMeasure.getLatency();
 
         long endTime = System.nanoTime();
@@ -157,6 +165,8 @@ public class ResultadoEjecucionController {
         resultadoEjecucion.setLatencia(latencyResult.getResult());
         resultadoEjecucion.setLecturaDisco(lecturaDiscoResult.getResult());
         resultadoEjecucion.setLecturaMemoria(lecturaMemoriaResult.getResult());
+        resultadoEjecucion.setFecha(new Date());
+        resultadoEjecucion.setServidor(Localizacion.getInfoServidor());
 
         return resultadoEjecucion;
     }

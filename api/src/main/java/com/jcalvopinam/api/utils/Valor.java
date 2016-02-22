@@ -1,4 +1,9 @@
-package com.jcalvopinam.client.model;
+package com.jcalvopinam.api.utils;
+
+/**
+ * @author Juan Calvopina M. <juan.calvopina@gmail.com>
+ *
+ */
 
 public class Valor {
 

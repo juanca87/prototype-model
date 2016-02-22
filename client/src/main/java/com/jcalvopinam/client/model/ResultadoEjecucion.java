@@ -1,5 +1,7 @@
 package com.jcalvopinam.client.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,22 +39,11 @@ public class ResultadoEjecucion {
     @Column
     private String instruccionesMinuto;
 
-    public ResultadoEjecucion() {
-    }
+    @Column
+    private Date fecha;
 
-    public ResultadoEjecucion(int id, String cpu, String lecturaMemoria, String escrituraMemoria, String lecturaDisco,
-            String escrituraDisco, String anchoBanda, String latencia, String instruccionesMinuto) {
-        super();
-        this.id = id;
-        this.cpu = cpu;
-        this.lecturaMemoria = lecturaMemoria;
-        this.escrituraMemoria = escrituraMemoria;
-        this.lecturaDisco = lecturaDisco;
-        this.escrituraDisco = escrituraDisco;
-        this.anchoBanda = anchoBanda;
-        this.latencia = latencia;
-        this.instruccionesMinuto = instruccionesMinuto;
-    }
+    @Column
+    private String servidor;
 
     public int getId() {
         return id;
@@ -124,6 +115,22 @@ public class ResultadoEjecucion {
 
     public void setInstruccionesMinuto(String instruccionesMinuto) {
         this.instruccionesMinuto = instruccionesMinuto;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getServidor() {
+        return servidor;
+    }
+
+    public void setServidor(String servidor) {
+        this.servidor = servidor;
     }
 
 }

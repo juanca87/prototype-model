@@ -3,7 +3,7 @@ package com.jcalvopinam.api.measures;
 import java.lang.management.ManagementFactory;
 import java.util.Random;
 
-import com.jcalvopinam.api.model.Valor;
+import com.jcalvopinam.api.utils.Valor;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
