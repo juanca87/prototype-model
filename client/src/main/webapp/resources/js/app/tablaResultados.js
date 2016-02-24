@@ -1,11 +1,14 @@
 //obtiene el contexto de la aplicacion
 var contextPathUrl = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 
-//obtiene el nombre del servidor
+//obtiene el nombre del servidor quien hace la peticion
 var serverName = $("#serverName").val();
 
+//obtiene la ip del servidor cliente
+var hostAddress = $("#hostAddress").val();
+
 // url para obtener el historial de ejecuciones se envia como parametro el nombre del servidor
-var jsonUrl = "http://localhost:8080" + contextPathUrl + "/getHistorialEjecuciones/" + serverName;
+var jsonUrl = "http://" + hostAddress + ":8080" + contextPathUrl + "/getHistorialEjecuciones/" + serverName;
 
 $(document).ready(function () {
 

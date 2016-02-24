@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jcalvopinam.client.utils.Localizacion;
+
 /**
  * @author Juan Calvopina Morillo <juan.calvopina@gmail.com>
  *
@@ -24,6 +26,7 @@ public class CloudController {
         ModelAndView model = new ModelAndView();
         model.addObject("servidor", "Amazon EC2");
         model.addObject("serverName", "amazon");
+        model.addObject("hostAddress", Localizacion.getInfoServidor());
         model.addObject("mensaje", "Para iniciar el test presione clic en boton <Iniciar>");
         model.setViewName("amazon");
 
@@ -42,6 +45,7 @@ public class CloudController {
         ModelAndView model = new ModelAndView();
         model.addObject("servidor", "Google App Engine");
         model.addObject("serverName", "google");
+        model.addObject("hostAddress", Localizacion.getInfoServidor());
         model.addObject("message", "Welcome, the server Time is:" + formattedDate);
         model.setViewName("google");
 
@@ -60,6 +64,7 @@ public class CloudController {
         ModelAndView model = new ModelAndView();
         model.addObject("servidor", "Heroku");
         model.addObject("serverName", "heroku");
+        model.addObject("hostAddress", Localizacion.getInfoServidor());
         model.addObject("message", "Welcome, the server Time is:" + formattedDate);
         model.setViewName("heroku");
 

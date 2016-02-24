@@ -37,13 +37,18 @@ function saveResultadoEjecucion() {
       processData : false,
       beforeSend : function(xhr) {
         xhr.setRequestHeader('X-CSRF-Token', csrf_token);
+        //muestra barra de progreso
+        $("#waiting").show();
       },
       success : function(data) {
         //agrega el resultado en el id="dash"
         $("#dash").append(data);
+        //oculta barra de progreso
+        $("#waiting").hide();
       },
       error : function(data, status, er) {
-        alert("error: " + data + " status: " + status + " er:" + er);
+        alert("Error code: " + data.status + "\nStatus: " + status + "\nError description:" + er);
+        $("#waiting").hide();
       }
     });
   });

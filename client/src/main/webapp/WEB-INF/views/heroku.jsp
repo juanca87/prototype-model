@@ -68,7 +68,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-head-line">Tabla de valores anteriores</h1>
+            <h3 class="page-head-line">Historial de Ejecuciones</h3>
             <div id="accordion">
               <h3>Mediciones anteriores</h3>
               <div>
@@ -84,26 +84,25 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-head-line">Tabla de valores anteriores</h1>
-            <h1 class="page-subhead-line">Mediciones anteriores</h1>
-        </div>
-
-        <div class="form-group">
-            <table style="width:100%">
-              <tr>
-                <td style="width:10%; padding-left: 40px">
-                    <label for="url">URL:</label>
-                </td>
-                <td style="width:90%; padding-right: 10px">
-                    <input type="text" class="form-control" id="url"
-                        placeholder="Ingrese la url del servidor" autocomplete="on">
-                </td>
-                <td style="width:90%; padding-right: 20px">
-                    <input type="submit" value="Ejecutar Test" class="btn btn-primary"
-                        onclick="javascript:saveResultadoEjecucion()"/>
-                </td>
-              </tr>
-            </table>
+            <h3 class="page-head-line">Nuevas Mediciones</h3>
+            <div class="form-group">
+                <table style="width:100%">
+                  <tr>
+                    <td style="width:10%; padding-left: 40px">
+                        <label for="url">URL:</label>
+                    </td>
+                    <td style="width:90%; padding-right: 10px">
+                        <input type="text" class="form-control" id="url"
+                            placeholder="Ingrese la url del servidor" autocomplete="on">
+                    </td>
+                    <td style="width:90%; padding-right: 20px">
+                        <input type="submit" value="Ejecutar Test" class="btn btn-primary"
+                            onclick="javascript:saveResultadoEjecucion()"/>
+                    </td>
+                  </tr>
+                </table>
+            </div>
+            <h3 class="page-subhead-line"></h3>
         </div>
     </div>
 
@@ -114,6 +113,7 @@
     <div id="dash"></div>
     <div style="display:none;">
         <input id="serverName" type="text" value="${serverName}">
+        <input id="hostAddress" type="text" value="${hostAddress}">
     </div>
 </div>
 
