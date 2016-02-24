@@ -16,4 +16,6 @@ public interface IResultadoEjecucionDao {
 
     public List<ResultadoEjecucion> getAllResultadosEjecucion();
 
+    public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName);
+
 }

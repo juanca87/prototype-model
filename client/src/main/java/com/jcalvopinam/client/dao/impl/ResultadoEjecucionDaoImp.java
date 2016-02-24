@@ -10,11 +10,11 @@ import com.jcalvopinam.client.dao.IResultadoEjecucionDao;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 
 @Repository
-public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao{
+public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
     @Autowired
     private SessionFactory session;
-    
+
     @Override
     public void add(ResultadoEjecucion resultado) {
         session.getCurrentSession().save(resultado);
@@ -35,9 +35,19 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao{
         return (ResultadoEjecucion) session.getCurrentSession().get(ResultadoEjecucion.class, id);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<ResultadoEjecucion> getAllResultadosEjecucion() {
         return session.getCurrentSession().createQuery("from ResultadoEjecucion").list();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName) {
+        return session.getCurrentSession()
+                .createQuery("from ResultadoEjecucion where servidor = :serverName")
+                .setParameter("serverName", serverName)
+                .list();
     }
 
 }

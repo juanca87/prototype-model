@@ -1,8 +1,11 @@
 //obtiene el contexto de la aplicacion
 var contextPathUrl = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 
-//var jsonUrl = "http://localhost:8080/" + contextPathUrl +"example/resources/json/listado.json";
-var jsonUrl = "http://localhost:8080" + contextPathUrl + "/getHistorialEjecuciones.json";
+//obtiene el nombre del servidor
+var serverName = $("#serverName").val();
+
+// url para obtener el historial de ejecuciones se envia como parametro el nombre del servidor
+var jsonUrl = "http://localhost:8080" + contextPathUrl + "/getHistorialEjecuciones/" + serverName;
 
 $(document).ready(function () {
 

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +21,10 @@ public class ResultadoEjecucionController {
     @Autowired
     private IResultadoEjecucionService resultadoEjecucion;
 
-    @RequestMapping(value = "saveResultadoEjecucion", consumes = "application/json", method = RequestMethod.POST)
+    /**
+     * Guarda el resultado de la ejecucion
+     * */
+    @RequestMapping(value = "/saveResultadoEjecucion", consumes = "application/json", method = RequestMethod.POST)
     public String save(@RequestBody ResultadoEjecucion resultadoJson, ModelMap model) {
 
         model.addAttribute("title", "Loading values...");
@@ -38,12 +43,16 @@ public class ResultadoEjecucionController {
     }
 
     /**
-     * Devuelve un json con el historial de ejecuciones
+     * Devuelve un json con el historial de ejecuciones filtrado por servidor
      * */
-    @RequestMapping(value = "/getHistorialEjecuciones", method = RequestMethod.GET)
+    @RequestMapping(value = "/getHistorialEjecuciones/{serverName}", method = RequestMethod.GET)
     @ResponseBody
-    public List<ResultadoEjecucion> getHistorialEjecuciones() {
-        return resultadoEjecucion.getAllResultadosEjecucion();
+    public List<ResultadoEjecucion> getHistorialEjecuciones(@PathVariable String serverName) {
+        if (StringUtils.isEmpty(serverName)){
+            return resultadoEjecucion.getAllResultadosEjecucion();
+        }else{
+            return resultadoEjecucion.getAllResultadosEjecucion(serverName);
+        }
     }
 
 }

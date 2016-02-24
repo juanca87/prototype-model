@@ -112,6 +112,9 @@
     </div>
 
     <div id="dash"></div>
+    <div style="display:none;">
+        <input id="serverName" type="text" value="${serverName}">
+    </div>
 </div>
 
 </body>

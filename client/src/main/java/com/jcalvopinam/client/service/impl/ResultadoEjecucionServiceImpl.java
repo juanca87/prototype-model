@@ -41,4 +41,9 @@ public class ResultadoEjecucionServiceImpl implements IResultadoEjecucionService
         return resultadoEjecucionDao.getAllResultadosEjecucion();
     }
 
+    @Transactional
+    public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName) {
+        return resultadoEjecucionDao.getAllResultadosEjecucion(serverName);
+    }
+
 }

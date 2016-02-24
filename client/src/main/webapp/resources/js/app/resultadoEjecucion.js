@@ -5,9 +5,14 @@ function saveResultadoEjecucion() {
   var header = $("meta[name='_csrf_header']").attr("content");
 
   //obtiene la url
-  var contents = $("#url").val()
+  var contents = $("#url").val();
   //var contents = "http://localhost:8080/prototype-model-api/getResultadoEjecucionMockup.json";
 
+  //obtiene el nombre del servidor
+  var serverName = $("#serverName").val();
+
+  //agrega el nombre del servidor a la url para el request
+  var url = contents + "/" + serverName
   //limia en nodo dash
   var myNode = document.getElementById("dash");
   myNode.innerHTML = '';
@@ -17,7 +22,7 @@ function saveResultadoEjecucion() {
   }
 
   // obtiene el json de la url
-  $.getJSON(contents, function(json) {
+  $.getJSON(url, function(json) {
     //hace el submit
     $.ajax({
       headers : {
@@ -42,5 +47,7 @@ function saveResultadoEjecucion() {
       }
     });
   });
+
+  $('#dataGrid').trigger('reloadGrid');
 
 }

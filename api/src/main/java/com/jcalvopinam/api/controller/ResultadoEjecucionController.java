@@ -5,6 +5,7 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -95,9 +96,12 @@ public class ResultadoEjecucionController {
 
     }
 
-    @RequestMapping(value = "/getResultadoEjecucionMockup", method = RequestMethod.GET)
+    /**
+     * Mockup Obtiene el resultado de evaluar los atributos
+     */
+    @RequestMapping(value = "/getResultadoEjecucionMockup/{serverName}", method = RequestMethod.GET)
     @ResponseBody
-    public ResultadoEjecucion getResultadoEjecucionMockup() {
+    public ResultadoEjecucion getResultadoEjecucionMockup(@PathVariable String serverName) {
 
         logResultadoEjecucion.info("Entra en el metodo getResultadoEjecucionMockup");
 
@@ -111,14 +115,17 @@ public class ResultadoEjecucionController {
         resultadoEjecucion.setLecturaDisco("234");
         resultadoEjecucion.setLecturaMemoria("521");
         resultadoEjecucion.setFecha(new Date());
-        resultadoEjecucion.setServidor(Localizacion.getInfoServidor());
+        resultadoEjecucion.setServidor(serverName);
 
         return resultadoEjecucion;
     }
 
-    @RequestMapping(value = "/getResultadoEjecucion", method = RequestMethod.GET)
+    /**
+     * Obtiene el resultado de evaluar los atributos
+     */
+    @RequestMapping(value = "/getResultadoEjecucion/{serverName}", method = RequestMethod.GET)
     @ResponseBody
-    public ResultadoEjecucion getResultadoEjecucion() {
+    public ResultadoEjecucion getResultadoEjecucion(@PathVariable String serverName) {
 
         logResultadoEjecucion.info("Entra en el metodo getResultadoEjecucion");
 
@@ -126,24 +133,52 @@ public class ResultadoEjecucionController {
 
         Disco escrituraDiscoMeasure = new Disco();
         Valor escrituraDiscoResult = escrituraDiscoMeasure.getTiempoEscrituraDisco();
+        String resultadoED = "0";
+        if (escrituraDiscoResult.getErrorMessage().isEmpty()) {
+            resultadoED = escrituraDiscoResult.getResult();
+        }
 
         Disco lecturaDiscoMeasure = new Disco();
         Valor lecturaDiscoResult = lecturaDiscoMeasure.getTiempoLecturaDisco();
+        String resultadoLD = "0";
+        if (lecturaDiscoResult.getErrorMessage().isEmpty()) {
+            resultadoLD = lecturaDiscoResult.getResult();
+        }
 
         CPU cpuMeasure = new CPU();
         Valor cpuResult = cpuMeasure.getCPUMeasure();
+        String resultadoCPU = "0";
+        if (cpuResult.getErrorMessage().isEmpty()) {
+            resultadoCPU = cpuResult.getResult();
+        }
 
         Memoria escrituraMemoriaMeasure = new Memoria();
         Valor escrituraMemoriaResult = escrituraMemoriaMeasure.getTiempoEscrituraMemoria();
+        String resultadoEM = "0";
+        if (escrituraMemoriaResult.getErrorMessage().isEmpty()) {
+            resultadoEM = escrituraMemoriaResult.getResult();
+        }
 
         Memoria lecturaMemoriaMeasure = new Memoria();
         Valor lecturaMemoriaResult = lecturaMemoriaMeasure.getTiempoLecturaMemoria();
+        String resultadoLM = "0";
+        if (lecturaMemoriaResult.getErrorMessage().isEmpty()) {
+            resultadoLM = lecturaMemoriaResult.getResult();
+        }
 
         AnchoBanda bandwithMeasure = new AnchoBanda();
         Valor bandwithResult = bandwithMeasure.getBandwith();
+        String resultadoBA = "0";
+        if (bandwithResult.getErrorMessage().isEmpty()) {
+            resultadoBA = bandwithResult.getResult();
+        }
 
         Latencia latencyMeasure = new Latencia();
         Valor latencyResult = latencyMeasure.getLatency();
+        String resultadoL = "0";
+        if (latencyResult.getErrorMessage().isEmpty()) {
+            resultadoL = latencyResult.getResult();
+        }
 
         long endTime = System.nanoTime();
         long totalTime = endTime - startTime;
@@ -157,16 +192,16 @@ public class ResultadoEjecucionController {
         Valor instruccionesMinResult = new Valor(instruccionesMinMeasure, "");
 
         ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion();
-        resultadoEjecucion.setAnchoBanda(bandwithResult.getResult());
-        resultadoEjecucion.setCpu(cpuResult.getResult());
-        resultadoEjecucion.setEscrituraDisco(escrituraDiscoResult.getResult());
-        resultadoEjecucion.setEscrituraMemoria(escrituraMemoriaResult.getResult());
+        resultadoEjecucion.setAnchoBanda(resultadoBA);
+        resultadoEjecucion.setCpu(resultadoCPU);
+        resultadoEjecucion.setEscrituraDisco(resultadoED);
+        resultadoEjecucion.setEscrituraMemoria(resultadoEM);
         resultadoEjecucion.setInstruccionesMinuto(instruccionesMinResult.getResult());
-        resultadoEjecucion.setLatencia(latencyResult.getResult());
-        resultadoEjecucion.setLecturaDisco(lecturaDiscoResult.getResult());
-        resultadoEjecucion.setLecturaMemoria(lecturaMemoriaResult.getResult());
+        resultadoEjecucion.setLatencia(resultadoL);
+        resultadoEjecucion.setLecturaDisco(resultadoLD);
+        resultadoEjecucion.setLecturaMemoria(resultadoLM);
         resultadoEjecucion.setFecha(new Date());
-        resultadoEjecucion.setServidor(Localizacion.getInfoServidor());
+        resultadoEjecucion.setServidor(serverName);
 
         return resultadoEjecucion;
     }
