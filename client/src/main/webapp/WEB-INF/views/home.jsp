@@ -126,7 +126,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="main-box mb-amazonEC2">
-                <a href="${contextUrl}heroku">
+                <a href="${contextUrl}amazon">
                     <img src="resources/img/cloudsLogos/amazonEC2.png" alt="Amazon EC2"
                         style="width: 50 px; height: 50;" class="img-u image-responsive" />
                 <h5 style="color: orange;">Amazon EC2</h5>

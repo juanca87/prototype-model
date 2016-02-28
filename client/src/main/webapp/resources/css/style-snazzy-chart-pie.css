@@ -1,61 +1,66 @@
 .wideBox {
-    clear: both;
-    text-align: center;
-    margin-bottom: 50px;
-    padding: 10px;
-    background: #ebedf2;
-    border: 1px solid #333;
-    line-height: 80%;
+  clear: both;
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 10px;
+  background: #ebedf2;
+  border: 1px solid #333;
+  line-height: 80%;
 }
 
 #container {
-    width: 900px;
-    margin: 0 auto;
-}
-
-#chart, #chartData {
-    border: 1px solid #333;
-    background: #ebedf2 url("images/gradient.png") repeat-x 0 0;
-/* background-color: #67545d; */
+  width: 900px;
+  margin: 0 auto;
 }
 
 #chart {
-    display: block;
-    margin: 0 0 50px 0;
-    float: left;
-    cursor: pointer;
+  display: block;
+  margin: 0 0 50px 0;
+  float: left;
+  cursor: pointer;
+}
+
+#chart, #chartData {
+  border: 1px solid #ddd;
+  background: #ebedf2 url("../css/images/gradient.png") repeat-x 0 0;
 }
 
 #chartData {
-    width: 200px;
-    margin: 0 40px 0 0;
-    float: right;
-    border-collapse: collapse;
-    box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
-    background-position: 0 -100px;
+  width: 200px;
+  margin: 0 40px 0 0;
+  float: right;
+  border-collapse: collapse;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+  background-position: 0 -100px;
+  width: 200px;
+  border-color: #ddd;
+  border: 1px solid #ddd;
 }
 
 #chartData th, #chartData td {
-    padding: 0.5em;
-    border: 1px dotted #666;
-    text-align: left;
+  padding: 0.5em;
+  text-align: left;
 }
 
+/* Cabecera de la tabla*/
 #chartData th {
-    border-bottom: 2px solid #333;
-    text-transform: uppercase;
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-color: #ddd;
+  border: 1px solid #ddd;
+  background: #f2f2f2;
 }
-
-#chartData td {
-    cursor: pointer;
-}
+/* Filas de la tabla */
+#chartData td { 
+  cursor: pointer;
+ }
 
 #chartData td.highlight {
-    background: #e8e8e8;
+  background: #cccccc;
 }
 
 #chartData tr:hover td {
-    background: #f0f0f0;
+  background: #f0f0f0;
 }

@@ -28,7 +28,7 @@ $(document).ready(function () {
       jsonReader: {repeatitems: false, root: function (obj) { return obj; }},
       colNames:['id','CPU', 'LM','EM', 'LD', 'ED', 'AB', 'L', 'IM','Fecha','Servidor'],
       colModel:[
-                {name:'id',index:'id', key:true, width:60},
+                {name:'id',index:'id', key:true, width:60, hidden:true},
                 {name:'cpu',index:'cpu', width:60},
                 {name:'lecturaMemoria',index:'lecturaMemoria', width:60},
                 {name:'escrituraMemoria',index:'escrituraMemoria', width:60},
@@ -48,16 +48,14 @@ $(document).ready(function () {
                 {name:'servidor',index:'servidor', width:290},
           ],
       rowNum:10,
-      rowList:[3,6],
+      rowList:[10,20,30,40,50],
+      //sortname: 'id',
+      //sortorder: "asc",
       pager: '#navGrid',
-      sortname: 'id',
-      sortorder: "asc",
-      height: 210,
+      height: 230,
       viewrecords: true,
   });
 
-//  $("#dataGrid").jqGrid("setGridParam", {datatype: "json"})
-//  .trigger("reloadGrid", [{current: true, page: 1}]);
   $('#dataGrid').trigger('reloadGrid');
 
   var setTooltipsOnColumnHeader = function(grid, iColumn, text) {

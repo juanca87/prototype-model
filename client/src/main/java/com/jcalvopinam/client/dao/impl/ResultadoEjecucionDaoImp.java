@@ -45,8 +45,9 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
     @Override
     public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName) {
         return session.getCurrentSession()
-                .createQuery("from ResultadoEjecucion where servidor = :serverName")
+                .createQuery("from ResultadoEjecucion where servidor = :serverName order by fecha desc")
                 .setParameter("serverName", serverName)
+                .setMaxResults(50)
                 .list();
     }
 

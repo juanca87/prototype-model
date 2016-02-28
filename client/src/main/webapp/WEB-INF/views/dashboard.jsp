@@ -4,24 +4,24 @@
 
     <c:if test="${pageContext.request.userPrincipal.name != null}">
 
-        <div class="panel panel-default" style="min-width: 865px">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 Pie Chart - Atributos Core
             </div>
             <div id="container" class="panel-body">
                 <div class="table-responsive">
                     <br/>
-                    <canvas id="chart" width="600" height="500"></canvas>
+                    <canvas id="chart" width="600" height="600"></canvas>
                     <table id="chartData" class="table table-striped table-bordered table-hover">
                         <tr>
                             <th>Atributos</th>
                             <th>Valores</th>
                         </tr>
-                        <tr style="color: #C71585" >
+                        <tr style="color: #800080" >
                             <td>Velocidad de CPU</td>
                             <td>${cpuResult}</td>
                         </tr>
-                        <tr style="color: #ED9C13">
+                        <tr style="color: #008080">
                             <td>Tiempo de lectura en Memoria</td>
                             <td>${lecturaMemoriaResult}</td>
                         </tr>
@@ -29,23 +29,23 @@
                             <td>Tiempo de escritura en Memoria</td>
                             <td>${escrituraMemoriaResult}</td>
                         </tr>
-                        <tr style="color: #057249">
-                            <td>Tiempo de lectura en Disco</td>
-                            <td>${lecturaDiscoResult}</td>
-                        </tr>
-                        <tr style="color: #00FFFF">
+                        <tr style="color: #804000">
                             <td>Tiempo de escritura en Disco</td>
                             <td>${escrituraDiscoResult}</td>
                         </tr>
-                        <tr style="color: #FFDEAD">
-                            <td>Ancho de Banda</td>
-                            <td>${bandwithResult}</td>
+                        <tr style="color: #004080">
+                            <td>Tiempo de lectura en Disco</td>
+                            <td>${lecturaDiscoResult}</td>
                         </tr>
-                        <tr style="color: #ADFF2F">
+                        <tr style="color: #408000">
                             <td>Latencia</td>
                             <td>${latencyResult}</td>
                         </tr>
-                        <tr style="color: #194E9C">
+                        <tr style="color: #800000">
+                            <td>Ancho de Banda</td>
+                            <td>${bandwithResult}</td>
+                        </tr>
+                        <tr style="color: #4C4C4C">
                             <td>Instrucciones por minuto</td>
                             <td>${instruccionesMinResult}</td>
                         </tr>

@@ -26,7 +26,7 @@ public class Latencia {
     public Valor getLatency() {
         String result = "";
         String errorMessage = "";
-        String ip = "173.194.42.78";
+        String ip = "www.google.com";
         int port = 80;
         int times = 5;
         String hostaddr = "";

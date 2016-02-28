@@ -35,14 +35,14 @@ public class Disco {
             File logFile = new File(filePath, fileName);
             writer = new BufferedWriter(new FileWriter(logFile));
             StringBuilder text = new StringBuilder();
-            int n = 1000000;
+            int n = 10000;
 
             for (Integer i = 0; i < n; i++) {
                 text.append("La vida es bella. ");
             }
-            for (Integer i = 0; i < n; i++) {
-                text.append("La vida es cara. ");
-            }
+//            for (Integer i = 0; i < n; i++) {
+//                text.append("La vida es cara. ");
+//            }
 
             writer.write(text.toString());
 
