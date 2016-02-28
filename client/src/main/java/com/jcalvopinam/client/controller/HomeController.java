@@ -34,8 +34,8 @@ public class HomeController {
     public ModelAndView adminPage() {
 
         ModelAndView model = new ModelAndView();
-        model.addObject("title", "Spring Security Custom Login Form");
-        model.addObject("message", "This is protected page!");
+        model.addObject("title", "Modelo para Evaluar a Proveedores de Servicio en la Nube.");
+        model.addObject("message", "Prototipo que permite evaluar algunos de los atributos claves.");
         model.setViewName("home");
 
         return model;

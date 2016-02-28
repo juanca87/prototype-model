@@ -1,14 +1,24 @@
 package com.jcalvopinam.api.controller;
 
+import static com.jcalvopinam.api.utils.Commons.getErrorMessage;
+import static com.jcalvopinam.api.utils.Commons.getHpptHeader;
+
 import java.util.Date;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jcalvopinam.api.measures.AnchoBanda;
@@ -30,6 +40,9 @@ public class ResultadoEjecucionController {
 
     Logger logResultadoEjecucion = LoggerFactory.getLogger(ResultadoEjecucionController.class);
 
+    /**
+     * @deprecated
+     */
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public ModelAndView loadDashboardValues() {
 
@@ -101,23 +114,37 @@ public class ResultadoEjecucionController {
      */
     @RequestMapping(value = "/getResultadoEjecucionMockup/{serverName}", method = RequestMethod.GET)
     @ResponseBody
-    public ResultadoEjecucion getResultadoEjecucionMockup(@PathVariable String serverName) {
+    public ResponseEntity<String> getResultadoEjecucionMockup(@PathVariable String serverName) {
 
         logResultadoEjecucion.info("Entra en el metodo getResultadoEjecucionMockup");
 
-        ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion();
-        resultadoEjecucion.setAnchoBanda("123");
-        resultadoEjecucion.setCpu("231");
-        resultadoEjecucion.setEscrituraDisco("345");
-        resultadoEjecucion.setEscrituraMemoria("325");
-        resultadoEjecucion.setInstruccionesMinuto("623");
-        resultadoEjecucion.setLatencia("923");
-        resultadoEjecucion.setLecturaDisco("234");
-        resultadoEjecucion.setLecturaMemoria("521");
-        resultadoEjecucion.setFecha(new Date());
-        resultadoEjecucion.setServidor(serverName);
+        try {
 
-        return resultadoEjecucion;
+            ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion();
+            resultadoEjecucion.setAnchoBanda("123");
+            resultadoEjecucion.setCpu("231");
+            resultadoEjecucion.setEscrituraDisco("345");
+            resultadoEjecucion.setEscrituraMemoria("325");
+            resultadoEjecucion.setInstruccionesMinuto("623");
+            resultadoEjecucion.setLatencia("923");
+            resultadoEjecucion.setLecturaDisco("234");
+            resultadoEjecucion.setLecturaMemoria("521");
+            resultadoEjecucion.setFecha(new Date());
+            resultadoEjecucion.setServidor(serverName);
+
+            ObjectMapper mapper = new ObjectMapper();
+            String data = mapper.writeValueAsString(resultadoEjecucion);
+
+            return (new ResponseEntity<String>(data, getHpptHeader(), HttpStatus.OK));
+
+        } catch (Exception e) {
+
+            logResultadoEjecucion.error(e.getMessage());
+
+            return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
+                    HttpStatus.BAD_REQUEST));
+        }
+
     }
 
     /**
@@ -125,84 +152,110 @@ public class ResultadoEjecucionController {
      */
     @RequestMapping(value = "/getResultadoEjecucion/{serverName}", method = RequestMethod.GET)
     @ResponseBody
-    public ResultadoEjecucion getResultadoEjecucion(@PathVariable String serverName) {
+    public ResponseEntity<String> getResultadoEjecucion(@PathVariable String serverName) {
 
         logResultadoEjecucion.info("Entra en el metodo getResultadoEjecucion");
 
-        long startTime = System.nanoTime();
+        try {
 
-        Disco escrituraDiscoMeasure = new Disco();
-        Valor escrituraDiscoResult = escrituraDiscoMeasure.getTiempoEscrituraDisco();
-        String resultadoED = "0";
-        if (escrituraDiscoResult.getErrorMessage().isEmpty()) {
-            resultadoED = escrituraDiscoResult.getResult();
+            long startTime = System.nanoTime();
+
+            Disco escrituraDiscoMeasure = new Disco();
+            Valor escrituraDiscoResult = escrituraDiscoMeasure.getTiempoEscrituraDisco();
+            String resultadoED = "0";
+            if (escrituraDiscoResult.getErrorMessage().isEmpty()) {
+                resultadoED = escrituraDiscoResult.getResult();
+            }
+
+            Disco lecturaDiscoMeasure = new Disco();
+            Valor lecturaDiscoResult = lecturaDiscoMeasure.getTiempoLecturaDisco();
+            String resultadoLD = "0";
+            if (lecturaDiscoResult.getErrorMessage().isEmpty()) {
+                resultadoLD = lecturaDiscoResult.getResult();
+            }
+
+            CPU cpuMeasure = new CPU();
+            Valor cpuResult = cpuMeasure.getCPUMeasure();
+            String resultadoCPU = "0";
+            if (cpuResult.getErrorMessage().isEmpty()) {
+                resultadoCPU = cpuResult.getResult();
+            }
+
+            Memoria escrituraMemoriaMeasure = new Memoria();
+            Valor escrituraMemoriaResult = escrituraMemoriaMeasure.getTiempoEscrituraMemoria();
+            String resultadoEM = "0";
+            if (escrituraMemoriaResult.getErrorMessage().isEmpty()) {
+                resultadoEM = escrituraMemoriaResult.getResult();
+            }
+
+            Memoria lecturaMemoriaMeasure = new Memoria();
+            Valor lecturaMemoriaResult = lecturaMemoriaMeasure.getTiempoLecturaMemoria();
+            String resultadoLM = "0";
+            if (lecturaMemoriaResult.getErrorMessage().isEmpty()) {
+                resultadoLM = lecturaMemoriaResult.getResult();
+            }
+
+            AnchoBanda bandwithMeasure = new AnchoBanda();
+            Valor bandwithResult = bandwithMeasure.getBandwith();
+            String resultadoBA = "0";
+            if (bandwithResult.getErrorMessage().isEmpty()) {
+                resultadoBA = bandwithResult.getResult();
+            }
+
+            Latencia latencyMeasure = new Latencia();
+            Valor latencyResult = latencyMeasure.getLatency();
+            String resultadoL = "0";
+            if (latencyResult.getErrorMessage().isEmpty()) {
+                resultadoL = latencyResult.getResult();
+            }
+
+            long endTime = System.nanoTime();
+            long totalTime = endTime - startTime;
+            String instruccionesMinMeasure = String.valueOf(totalTime);
+
+            if (instruccionesMinMeasure.length() > 5)
+                instruccionesMinMeasure = instruccionesMinMeasure.substring(0, 5);
+
+            System.out.println("Instrucciones por minuto: " + instruccionesMinMeasure);
+
+            Valor instruccionesMinResult = new Valor(instruccionesMinMeasure, "");
+
+            ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion();
+            resultadoEjecucion.setAnchoBanda(resultadoBA);
+            resultadoEjecucion.setCpu(resultadoCPU);
+            resultadoEjecucion.setEscrituraDisco(resultadoED);
+            resultadoEjecucion.setEscrituraMemoria(resultadoEM);
+            resultadoEjecucion.setInstruccionesMinuto(instruccionesMinResult.getResult());
+            resultadoEjecucion.setLatencia(resultadoL);
+            resultadoEjecucion.setLecturaDisco(resultadoLD);
+            resultadoEjecucion.setLecturaMemoria(resultadoLM);
+            resultadoEjecucion.setFecha(new Date());
+            resultadoEjecucion.setServidor(serverName);
+
+            ObjectMapper mapper = new ObjectMapper();
+            String data = mapper.writeValueAsString(resultadoEjecucion);
+            return (new ResponseEntity<String>(data, getHpptHeader(), HttpStatus.OK));
+
+        } catch (Exception e) {
+
+            logResultadoEjecucion.error(e.getMessage());
+
+            return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
+                    HttpStatus.BAD_REQUEST));
         }
+    }
 
-        Disco lecturaDiscoMeasure = new Disco();
-        Valor lecturaDiscoResult = lecturaDiscoMeasure.getTiempoLecturaDisco();
-        String resultadoLD = "0";
-        if (lecturaDiscoResult.getErrorMessage().isEmpty()) {
-            resultadoLD = lecturaDiscoResult.getResult();
-        }
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<String> handleException(Exception exception) {
+        logResultadoEjecucion.error(exception.getMessage());
 
-        CPU cpuMeasure = new CPU();
-        Valor cpuResult = cpuMeasure.getCPUMeasure();
-        String resultadoCPU = "0";
-        if (cpuResult.getErrorMessage().isEmpty()) {
-            resultadoCPU = cpuResult.getResult();
-        }
+        return (new ResponseEntity<String>(getErrorMessage("error", exception.getMessage()).toJSONString(),
+                getHpptHeader(), HttpStatus.BAD_REQUEST));
+    }
 
-        Memoria escrituraMemoriaMeasure = new Memoria();
-        Valor escrituraMemoriaResult = escrituraMemoriaMeasure.getTiempoEscrituraMemoria();
-        String resultadoEM = "0";
-        if (escrituraMemoriaResult.getErrorMessage().isEmpty()) {
-            resultadoEM = escrituraMemoriaResult.getResult();
-        }
-
-        Memoria lecturaMemoriaMeasure = new Memoria();
-        Valor lecturaMemoriaResult = lecturaMemoriaMeasure.getTiempoLecturaMemoria();
-        String resultadoLM = "0";
-        if (lecturaMemoriaResult.getErrorMessage().isEmpty()) {
-            resultadoLM = lecturaMemoriaResult.getResult();
-        }
-
-        AnchoBanda bandwithMeasure = new AnchoBanda();
-        Valor bandwithResult = bandwithMeasure.getBandwith();
-        String resultadoBA = "0";
-        if (bandwithResult.getErrorMessage().isEmpty()) {
-            resultadoBA = bandwithResult.getResult();
-        }
-
-        Latencia latencyMeasure = new Latencia();
-        Valor latencyResult = latencyMeasure.getLatency();
-        String resultadoL = "0";
-        if (latencyResult.getErrorMessage().isEmpty()) {
-            resultadoL = latencyResult.getResult();
-        }
-
-        long endTime = System.nanoTime();
-        long totalTime = endTime - startTime;
-        String instruccionesMinMeasure = String.valueOf(totalTime);
-
-        if (instruccionesMinMeasure.length() > 5)
-            instruccionesMinMeasure = instruccionesMinMeasure.substring(0, 5);
-
-        System.out.println("Instrucciones por minuto: " + instruccionesMinMeasure);
-
-        Valor instruccionesMinResult = new Valor(instruccionesMinMeasure, "");
-
-        ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion();
-        resultadoEjecucion.setAnchoBanda(resultadoBA);
-        resultadoEjecucion.setCpu(resultadoCPU);
-        resultadoEjecucion.setEscrituraDisco(resultadoED);
-        resultadoEjecucion.setEscrituraMemoria(resultadoEM);
-        resultadoEjecucion.setInstruccionesMinuto(instruccionesMinResult.getResult());
-        resultadoEjecucion.setLatencia(resultadoL);
-        resultadoEjecucion.setLecturaDisco(resultadoLD);
-        resultadoEjecucion.setLecturaMemoria(resultadoLM);
-        resultadoEjecucion.setFecha(new Date());
-        resultadoEjecucion.setServidor(serverName);
-
-        return resultadoEjecucion;
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleResourceNotFoundException() {
+        return "error";
     }
 }

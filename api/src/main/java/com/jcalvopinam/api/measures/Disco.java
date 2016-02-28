@@ -17,7 +17,7 @@ import com.jcalvopinam.api.utils.Valor;
 public class Disco {
 
     private String filePath = System.getProperty("user.dir") + File.separator;
-    private String fileName = "fileName.txt";
+    private String fileName = "testSavefileInHDD.txt";
     private String result = "";
     private String errorMessage = "";
 
@@ -30,13 +30,14 @@ public class Disco {
             File logFile = new File(filePath, fileName);
             writer = new BufferedWriter(new FileWriter(logFile));
             StringBuilder text = new StringBuilder();
-
-            for (Integer i = 0; i < 1000000; i++) {
+//            int n = 1000000;
+            int n = 10000;
+            for (Integer i = 0; i < n; i++) {
                 text.append("La vida es bella");
             }
-            for (Integer i = 0; i < 1000000; i++) {
-                text.append("La vida es cara");
-            }
+//            for (Integer i = 0; i < n; i++) {
+//                text.append("La vida es cara");
+//            }
 
             writer.write(text.toString());
             System.out.println(logFile.getCanonicalPath());

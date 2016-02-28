@@ -1,4 +1,6 @@
+//ejecuta y guarda el resultado
 function saveResultadoEjecucion() {
+  $("#waiting").show();
 
   //obtiene el header y el token para spring security
   var csrf_token = $("meta[name='_csrf']").attr("content");
@@ -53,6 +55,8 @@ function saveResultadoEjecucion() {
     });
   });
 
-  $('#dataGrid').trigger('reloadGrid');
+//  $('#dataGrid').trigger('reloadGrid');
 
+  $("#dataGrid").jqGrid("setGridParam", {datatype: "json"})
+  .trigger("reloadGrid", [{current: true, page: 1}]);
 }

@@ -66,6 +66,8 @@ public class Latencia {
         System.out.println("\nFinal Result: Average request - " + avg);
         if (result.length() > 5)
             result = result.substring(0, 5);
+        else
+            result = "0";
         return new Valor(result, errorMessage);
     }
 

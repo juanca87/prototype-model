@@ -1,11 +1,12 @@
 package com.jcalvopinam.client.controller;
 
+import static com.jcalvopinam.client.utils.Commons.getErrorMessage;
+import static com.jcalvopinam.client.utils.Commons.getHpptHeader;
+
 import org.codehaus.jackson.map.ObjectMapper;
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.acls.model.NotFoundException;
@@ -26,7 +27,7 @@ import com.jcalvopinam.client.service.IResultadoEjecucionService;
 
 @Controller
 public class ResultadoEjecucionController {
-    
+
     Logger log = LoggerFactory.getLogger(ResultadoEjecucionController.class);
 
     @Autowired
@@ -34,7 +35,7 @@ public class ResultadoEjecucionController {
 
     /**
      * Guarda el resultado de la ejecucion
-     * */
+     */
     @RequestMapping(value = "/saveResultadoEjecucion", consumes = "application/json", method = RequestMethod.POST)
     public String save(@RequestBody ResultadoEjecucion resultadoJson, ModelMap model) {
 
@@ -55,55 +56,58 @@ public class ResultadoEjecucionController {
 
     /**
      * Devuelve un json con el historial de ejecuciones filtrado por servidor
-     * */
-//    @RequestMapping(value = "/getHistorialEjecuciones/{serverName}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public List<ResultadoEjecucion> getHistorialEjecuciones(@PathVariable String serverName) {
-//        if (StringUtils.isEmpty(serverName)){
-//            return resultadoEjecucion.getAllResultadosEjecucion();
-//        }else{
-//            return resultadoEjecucion.getAllResultadosEjecucion(serverName);
-//        }
-//    }
-    
-    @SuppressWarnings("unchecked")
+     */
+    // @RequestMapping(value = "/getHistorialEjecuciones/{serverName}", method =
+    // RequestMethod.GET)
+    // @ResponseBody
+    // public List<ResultadoEjecucion> getHistorialEjecuciones(@PathVariable
+    // String serverName) {
+    // if (StringUtils.isEmpty(serverName)){
+    // return resultadoEjecucion.getAllResultadosEjecucion();
+    // }else{
+    // return resultadoEjecucion.getAllResultadosEjecucion(serverName);
+    // }
+    // }
+
     @RequestMapping(value = "/getHistorialEjecuciones/{serverName}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<String> getHistorialEjecuciones(@PathVariable String serverName) {
-        String data = "";
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Allow-Origin","*");
-        ObjectMapper mapper = new ObjectMapper();
-        
+
         try {
-            if (StringUtils.isEmpty(serverName)){
+
+            String data = "";
+            ObjectMapper mapper = new ObjectMapper();
+
+            if (StringUtils.isEmpty(serverName)) {
                 data = mapper.writeValueAsString(resultadoEjecucion.getAllResultadosEjecucion());
-                return (new ResponseEntity<String>(data, headers, HttpStatus.OK));
-            }else{
+                return (new ResponseEntity<String>(data, getHpptHeader(), HttpStatus.OK));
+            } else {
                 data = mapper.writeValueAsString(resultadoEjecucion.getAllResultadosEjecucion(serverName));
-                return (new ResponseEntity<String>(data, headers, HttpStatus.OK));
+                return (new ResponseEntity<String>(data, getHpptHeader(), HttpStatus.OK));
             }
+
         } catch (Exception e) {
+
             log.error(e.getMessage());
-            JSONObject errorMessage = new JSONObject();
-            errorMessage.put("type", "error");
-            errorMessage.put("message", e.getMessage());
-            return (new ResponseEntity<String>(errorMessage.toJSONString(), headers, HttpStatus.BAD_REQUEST));
+
+            return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
+                    HttpStatus.BAD_REQUEST));
         }
+
     }
 
-    @SuppressWarnings("unchecked")
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseEntity<String> handleException(Exception exception){
-        JSONObject errorMessage = new JSONObject();
-        errorMessage.put("type", "error");
-        errorMessage.put("message", exception.getMessage());
-        return (new ResponseEntity<String>(errorMessage.toJSONString(), new HttpHeaders(), HttpStatus.BAD_REQUEST));
+    public ResponseEntity<String> handleException(Exception exception) {
+        log.error(exception.getMessage());
+
+        return (new ResponseEntity<String>(getErrorMessage("error", exception.getMessage()).toJSONString(),
+                getHpptHeader(), HttpStatus.BAD_REQUEST));
     }
-    
+
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleResourceNotFoundException() {
         return "error";
     }
+
 }

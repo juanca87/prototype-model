@@ -56,6 +56,10 @@ $(document).ready(function () {
       viewrecords: true,
   });
 
+//  $("#dataGrid").jqGrid("setGridParam", {datatype: "json"})
+//  .trigger("reloadGrid", [{current: true, page: 1}]);
+  $('#dataGrid').trigger('reloadGrid');
+
   var setTooltipsOnColumnHeader = function(grid, iColumn, text) {
     var thd = jQuery("thead:first", grid[0].grid.hDiv)[0];
     jQuery("tr.ui-jqgrid-labels th:eq(" + iColumn + ")", thd).attr("title", text);

@@ -17,6 +17,6 @@
 <base href="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/" />
 <link rel="stylesheet" href="resources/css/styles.css">
 </head>
-<body class="body-404">
+<body class="body-400">
 </body>
 </html>
