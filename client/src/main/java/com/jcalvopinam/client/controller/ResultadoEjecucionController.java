@@ -57,18 +57,6 @@ public class ResultadoEjecucionController {
     /**
      * Devuelve un json con el historial de ejecuciones filtrado por servidor
      */
-    // @RequestMapping(value = "/getHistorialEjecuciones/{serverName}", method =
-    // RequestMethod.GET)
-    // @ResponseBody
-    // public List<ResultadoEjecucion> getHistorialEjecuciones(@PathVariable
-    // String serverName) {
-    // if (StringUtils.isEmpty(serverName)){
-    // return resultadoEjecucion.getAllResultadosEjecucion();
-    // }else{
-    // return resultadoEjecucion.getAllResultadosEjecucion(serverName);
-    // }
-    // }
-
     @RequestMapping(value = "/getHistorialEjecuciones/{serverName}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<String> getHistorialEjecuciones(@PathVariable String serverName) {
@@ -88,7 +76,7 @@ public class ResultadoEjecucionController {
 
         } catch (Exception e) {
 
-            log.error(e.getMessage());
+            log.error("Se produjo un error al obtener el historial de ejecuciones: " + e.getMessage());
 
             return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
                     HttpStatus.BAD_REQUEST));
@@ -98,7 +86,7 @@ public class ResultadoEjecucionController {
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<String> handleException(Exception exception) {
-        log.error(exception.getMessage());
+        log.error("Faltan parametros en la solicitud enviada: " + exception.getMessage());
 
         return (new ResponseEntity<String>(getErrorMessage("error", exception.getMessage()).toJSONString(),
                 getHpptHeader(), HttpStatus.BAD_REQUEST));

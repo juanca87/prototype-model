@@ -78,7 +78,7 @@ public class ResultadoEjecucionController {
         if (instruccionesMinMeasure.length() > 5)
             instruccionesMinMeasure = instruccionesMinMeasure.substring(0, 5);
 
-        System.out.println("Instrucciones por minuto: " + instruccionesMinMeasure);
+        logResultadoEjecucion.info("Instrucciones por minuto: " + instruccionesMinMeasure);
 
         Valor instruccionesMinResult = new Valor(instruccionesMinMeasure, "");
 

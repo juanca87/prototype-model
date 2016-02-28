@@ -3,6 +3,9 @@ package com.jcalvopinam.api.measures;
 import java.lang.management.ManagementFactory;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.jcalvopinam.api.utils.Valor;
 
 /**
@@ -12,9 +15,7 @@ import com.jcalvopinam.api.utils.Valor;
 
 public class CPU {
 
-    public static void log(Object message) {
-        System.out.println(message);
-    }
+    Logger logCPU = LoggerFactory.getLogger(CPU.class);
 
     public static float calcCPU(long cpuStartTime, long elapsedStartTime, int cpuCount) {
         long end = System.nanoTime();
@@ -47,6 +48,7 @@ public class CPU {
         String errorMessage = "";
         float counter = 0, average = 0;
         int max = 30;
+
         for (int i = 1; i <= max; i++) {
             long start = System.nanoTime();
             // number of available processors;
@@ -78,10 +80,13 @@ public class CPU {
 //            log("CPU USAGE : " + cpuPercent + " % ");
 
         }
-        log("<CPU> Velocidad en nano: " + average);
+
+        logCPU.info("<CPU> Velocidad en nano: " + average);
         String result = String.valueOf(average);
+
         if (result.length() > 5)
             result = result.substring(0, 5);
+
         return new Valor(result, errorMessage);
     }
 

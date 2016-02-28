@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.jcalvopinam.api.utils.Valor;
 
 /**
@@ -15,6 +18,8 @@ import com.jcalvopinam.api.utils.Valor;
  */
 
 public class AnchoBanda {
+    
+    Logger logAnchoBanda = LoggerFactory.getLogger(AnchoBanda.class);
 
     public Valor getBandwith() {
 
@@ -22,9 +27,12 @@ public class AnchoBanda {
         String errorMessage = "";
         String urlString = "http://planwallpaper.com/static/images/2022725-wallpaper_625864_Iz6NK8G.jpg";
         String fileOutput = System.getProperty("user.dir") + File.separator + "imagen_Descargada.jpg";
+
         BufferedInputStream in = null;
         FileOutputStream fout = null;
+
         long startTime = System.nanoTime();
+
         try {
             URL url = new URL(urlString);
             URLConnection uc = url.openConnection();
@@ -42,17 +50,24 @@ public class AnchoBanda {
 
             long endTime = System.nanoTime();
             long totalTime = endTime - startTime;
-            System.out.println("Tiempo de descarga> " + totalTime);
+
+            logAnchoBanda.info("Tiempo de descarga> " + totalTime);
+
             result = String.valueOf(totalTime);
+
             if (result.length() > 5)
                 result = result.substring(0, 5);
+
         } catch (Exception e) {
+            logAnchoBanda.error("There has been an unexpected error: " + e.getMessage());
+            errorMessage = e.getMessage();
             e.printStackTrace();
         } finally {
             if (in != null) {
                 try {
                     in.close();
                 } catch (IOException e) {
+                    logAnchoBanda.error("Input Error: " + e.getMessage());
                     errorMessage = e.getMessage();
                 }
             }
@@ -60,6 +75,7 @@ public class AnchoBanda {
                 try {
                     fout.close();
                 } catch (IOException e) {
+                    logAnchoBanda.error("Output Error: " + e.getMessage());
                     errorMessage = e.getMessage();
                 }
             }

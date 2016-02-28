@@ -2,6 +2,9 @@ package com.jcalvopinam.api.measures;
 
 import java.lang.reflect.Field;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.jcalvopinam.api.utils.Valor;
 
 import sun.misc.Unsafe;
@@ -13,6 +16,8 @@ import sun.misc.Unsafe;
 
 @SuppressWarnings("restriction")
 public class Memoria {
+
+    Logger logMemoria = LoggerFactory.getLogger(Memoria.class);
 
     public Valor getTiempoEscrituraMemoria() {
         String result = "";
@@ -34,15 +39,19 @@ public class Memoria {
             // Output the value written and the memory address
 //            System.out.println("[Long] Writing " + value + " under the " + memoryAddress + " address.");
             long elapsedTime = System.nanoTime() - startTime;
-            System.out.println("<Memoria> Tiempo de escritura en nano: " + elapsedTime);
+
+            logMemoria.info("<Memoria> Tiempo de escritura en nano: " + elapsedTime);
 
             result = String.valueOf(elapsedTime);
 
         } catch (Exception e) {
+            logMemoria.error("There has been an unexpected error: " + e.getMessage());
             errorMessage = e.getMessage();
         }
+
         if (result.length() > 5)
             result = result.substring(0, 5);
+
         return new Valor(result, errorMessage);
     }
 
@@ -62,20 +71,23 @@ public class Memoria {
             long readValue = unsafe.getLong(memoryAddress);
 
             // Output the value from
-            System.out.println("[Long] Reading " + readValue + " from the " + memoryAddress + " address.");
+            logMemoria.info("[Long] Reading " + readValue + " from the " + memoryAddress + " address.");
 
             // C style! Release the Kraken... Memory!! :)
             unsafe.freeMemory(memoryAddress);
 
             long elapsedTime = System.nanoTime() - startTime;
-            System.out.println("<Memoria> Tiempo de lectura en nano: " + elapsedTime);
+            logMemoria.info("<Memoria> Tiempo de lectura en nano: " + elapsedTime);
             result = String.valueOf(elapsedTime);
 
         } catch (Exception e) {
+            logMemoria.error("There has been an unexpected error: " + e.getMessage());
             errorMessage = e.getMessage();
         }
+
         if (result.length() > 5)
             result = result.substring(0, 5);
+
         return new Valor(result, errorMessage);
     }
 
