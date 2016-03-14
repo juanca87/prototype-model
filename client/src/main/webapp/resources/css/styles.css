@@ -1,30 +1,35 @@
 .body-custom {
   padding: 70px;
 }
+
 .body-400 {
   margin-top: 500px;
   background-image: url("../img/errorsCode/400.jpg");
   background-repeat: no-repeat;
   background-position: center;
 }
+
 .body-404 {
   margin-top: 500px;
   background-image: url("../img/errorsCode/404.jpg");
   background-repeat: no-repeat;
   background-position: center;
 }
+
 .body-500 {
   margin-top: 500px;
   background-image: url("../img/errorsCode/500.jpg");
   background-repeat: no-repeat;
   background-position: center;
 }
+
 .body-error {
   margin-top: 500px;
   background-image: url("../img/errorsCode/error.jpg");
   background-repeat: no-repeat;
   background-position: center;
 }
+
 .error {
   padding: 15px;
   margin-bottom: 20px;
@@ -83,4 +88,58 @@
   background-image: url('../css/images/loading.gif');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.panel-green {
+  border-color: #5cb85c;
+}
+
+.panel-green .panel-heading {
+  border-color: #5cb85c;
+  color: #fff;
+  background-color: #5cb85c;
+}
+
+.panel-green a {
+  color: #5cb85c;
+}
+
+.panel-green a:hover {
+  color: #3d8b3d;
+}
+
+.panel-purple {
+  border-color: #544a9c;
+}
+
+.panel-purple .panel-heading {
+  border-color: #544a9c;
+  color: #fff;
+  background-color: #544a9c;
+}
+
+.panel-purple a {
+  color: #544a9c;
+}
+
+.panel-purple a:hover {
+  color: #b52b27;
+}
+
+.panel-yellow {
+  border-color: #f0ad4e;
+}
+
+.panel-yellow .panel-heading {
+  border-color: #f0ad4e;
+  color: #fff;
+  background-color: #f0ad4e;
+}
+
+.panel-yellow a {
+  color: #f0ad4e;
+}
+
+.panel-yellow a:hover {
+  color: #df8a13;
 }

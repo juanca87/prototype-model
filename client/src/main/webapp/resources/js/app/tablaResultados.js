@@ -7,8 +7,13 @@ var serverName = $("#serverName").val();
 //obtiene la ip del servidor cliente
 var hostAddress = $("#hostAddress").val();
 
+//setea el puerto
+var portNumber = 80;
+if (hostAddress == "localhost")
+  portNumber = 8080;
+
 // url para obtener el historial de ejecuciones se envia como parametro el nombre del servidor
-var jsonUrl = "http://" + hostAddress + ":8080" + contextPathUrl + "/getHistorialEjecuciones/" + serverName;
+var jsonUrl = "http://" + hostAddress + ":" + portNumber + contextPathUrl + "/getHistorialEjecuciones/" + serverName;
 
 $(document).ready(function () {
 
@@ -45,14 +50,14 @@ $(document).ready(function () {
                         $.extend({}, $.jgrid.formatter.date, opts),
                         rowObject, action);
                 }},
-                {name:'servidor',index:'servidor', width:290},
+                {name:'servidor',index:'servidor', width:290, hidden:true},
           ],
       rowNum:10,
       rowList:[10,20,30,40,50],
       //sortname: 'id',
       //sortorder: "asc",
       pager: '#navGrid',
-      height: 230,
+      height: 275,
       viewrecords: true,
   });
 

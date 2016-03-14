@@ -21,6 +21,10 @@ public class Commons {
     /**
      * Crea un mensaje personalizado de error en formato json
      * 
+     * @param type
+     *            tipo de error
+     * @param message
+     *            descripcion del error
      * @return JSONObject object
      */
     @SuppressWarnings("unchecked")
@@ -30,4 +34,5 @@ public class Commons {
         errorMessage.put("message", message);
         return errorMessage;
     }
+
 }

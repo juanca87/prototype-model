@@ -69,13 +69,79 @@
     <div class="row">
         <div class="col-md-12">
             <h3 class="page-head-line">Historial de Ejecuciones</h3>
-            <div id="accordion">
-              <h3>Mediciones anteriores</h3>
-              <div>
-                <table id="dataGrid" style="width: 100%"></table>
-                <div id="navGrid"></div>
-              </div>
-            </div>
+                <div id="accordion" class="panel panel-default">
+                    <div class="panel-heading">
+                        Mediciones anteriores
+                    </div>
+                    <div class="panel-body" style="border-style:solid; color: #F5F5F5; border-width: 1px;">
+                        <table>
+                            <tr>
+                                <td>
+                                    <table id="dataGrid" style="font-family: 'Open Sans', sans-serif;"></table>
+                                    <div id="navGrid"></div>
+                                </td>
+                                <td style="width: 2.5%;">
+                                    <br/>
+                                </td>
+                                <td>
+                                    <div class="table-bordered">
+                                        <table class="table" style="font-size: small;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Abreviación</th>
+                                                    <th>Descripcion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>CPU</td>
+                                                    <td>CPU</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>LM</td>
+                                                    <td>Lectura en Memoria</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>EM</td>
+                                                    <td>Escritura en Memoria</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>LD</td>
+                                                    <td>Lesctura en Disco</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>ED</td>
+                                                    <td>Escritura en Disco</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td>AB</td>
+                                                    <td>Ancho de Banda</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>7</td>
+                                                    <td>L</td>
+                                                    <td>Latencia</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>8</td>
+                                                    <td>IM</td>
+                                                    <td>Instrucciones por Minuto</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             <h3 class="page-subhead-line"></h3>
         </div>
     </div>
@@ -111,6 +177,7 @@
     </div>
 
     <div id="dash"></div>
+
     <div style="display:none;">
         <input id="serverName" type="text" value="${serverName}">
         <input id="hostAddress" type="text" value="${hostAddress}">

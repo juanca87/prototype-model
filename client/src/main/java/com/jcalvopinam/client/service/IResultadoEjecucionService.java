@@ -2,8 +2,13 @@ package com.jcalvopinam.client.service;
 
 import java.util.List;
 
+import com.jcalvopinam.client.dto.Comparacion;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 
+/**
+ * @author Juan Calvopina Morillo <juan.calvopina@gmail.com>
+ *
+ */
 public interface IResultadoEjecucionService {
 
     public void add(ResultadoEjecucion resultado);
@@ -17,5 +22,7 @@ public interface IResultadoEjecucionService {
     public List<ResultadoEjecucion> getAllResultadosEjecucion();
 
     public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName);
+
+    public List<Comparacion> getComparacion();
 
 }

@@ -1,10 +1,8 @@
-/**
- * 
- */
 package com.jcalvopinam.client.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +17,11 @@ import com.jcalvopinam.client.utils.Localizacion;
 @Controller
 public class CloudController {
 
-    Logger logCloud = LoggerFactory.getLogger(CloudController.class);
+    private static final Logger logCloud = LoggerFactory.getLogger(CloudController.class);
+    private static final String SERVIDOR_LOCAL = "LOCAL";
+
+    @Value("${host.address}")
+    private String currentHost = "";
 
     @RequestMapping(value = "/amazon", method = RequestMethod.GET)
     public ModelAndView amazonHome() {
@@ -28,7 +30,7 @@ public class CloudController {
         ModelAndView model = new ModelAndView();
         model.addObject("servidor", "Amazon EC2");
         model.addObject("serverName", "amazon");
-        model.addObject("hostAddress", Localizacion.getInfoServidor());
+        model.addObject("hostAddress", getServidor());
         model.addObject("mensaje", "Para iniciar el test presione clic en boton <Iniciar>");
         model.setViewName("amazon");
 
@@ -38,11 +40,11 @@ public class CloudController {
     @RequestMapping(value = "/google", method = RequestMethod.GET)
     public ModelAndView googleHome() {
         logCloud.info("Obteniendo datos de Google");
-        
+
         ModelAndView model = new ModelAndView();
         model.addObject("servidor", "Google App Engine");
         model.addObject("serverName", "google");
-        model.addObject("hostAddress", Localizacion.getInfoServidor());
+        model.addObject("hostAddress", getServidor());
         model.addObject("message", "Para iniciar el test presione clic en boton <Iniciar>");
         model.setViewName("google");
 
@@ -56,11 +58,18 @@ public class CloudController {
         ModelAndView model = new ModelAndView();
         model.addObject("servidor", "Heroku");
         model.addObject("serverName", "heroku");
-        model.addObject("hostAddress", Localizacion.getInfoServidor());
+        model.addObject("hostAddress", getServidor());
         model.addObject("message", "Para iniciar el test presione clic en boton <Iniciar>");
         model.setViewName("heroku");
 
         return model;
+    }
+
+    private String getServidor() {
+        if (currentHost.equals(SERVIDOR_LOCAL))
+            return Localizacion.getInfoServidorLocal();
+        else
+            return Localizacion.getInfoServidorRemoto();
     }
 
 }

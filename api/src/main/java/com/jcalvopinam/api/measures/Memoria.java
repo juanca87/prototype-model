@@ -17,7 +17,7 @@ import sun.misc.Unsafe;
 @SuppressWarnings("restriction")
 public class Memoria {
 
-    Logger logMemoria = LoggerFactory.getLogger(Memoria.class);
+    private static final Logger logMemoria = LoggerFactory.getLogger(Memoria.class);
 
     public Valor getTiempoEscrituraMemoria() {
         String result = "";

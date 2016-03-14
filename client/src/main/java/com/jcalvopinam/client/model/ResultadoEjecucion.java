@@ -7,7 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+/**
+ * @author Juan Calvopina Morillo <juan.calvopina@gmail.com>
+ *
+ */
 @Entity
 public class ResultadoEjecucion {
     @Id
@@ -39,6 +45,7 @@ public class ResultadoEjecucion {
     @Column
     private String instruccionesMinuto;
 
+    @Temporal(TemporalType.DATE)
     @Column
     private Date fecha;
 

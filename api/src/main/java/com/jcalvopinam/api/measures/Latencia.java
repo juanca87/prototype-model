@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class Latencia {
 
-    Logger logLatencia = LoggerFactory.getLogger(Latencia.class);
+    private static final Logger logLatencia = LoggerFactory.getLogger(Latencia.class);
 
     public Valor getLatency() {
         String result = "";

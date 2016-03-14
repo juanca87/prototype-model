@@ -15,7 +15,7 @@ function pieChart() {
   var pullOutLabelPadding = 65;                     // Padding between pulled-out slice and its label  
   var pullOutLabelFont = "bold 16px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice label font
   var pullOutValueFont = "bold 12px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice value font
-  var pullOutValuePrefix = "$";                     // Pull-out slice value prefix
+  var pullOutValueSufix = " seg.";                     // Pull-out slice value prefix
   var pullOutShadowColour = "rgba( 0, 0, 0, .5 )";  // Colour to use for the pull-out slice shadow
   var pullOutShadowOffsetX = 5;                     // X-offset (in pixels) of the pull-out slice shadow
   var pullOutShadowOffsetY = 5;                     // Y-offset (in pixels) of the pull-out slice shadow
@@ -305,7 +305,7 @@ function pieChart() {
       context.font = pullOutLabelFont;
       context.fillText( chartData[slice]['label'], centreX + Math.cos(midAngle) * ( chartRadius + maxPullOutDistance + pullOutLabelPadding ), centreY + Math.sin(midAngle) * ( chartRadius + maxPullOutDistance + pullOutLabelPadding ) );
       context.font = pullOutValueFont;
-      context.fillText( pullOutValuePrefix + chartData[slice]['value'] + " (" + ( parseInt( chartData[slice]['value'] / totalValue * 100 + .5 ) ) +  "%)", centreX + Math.cos(midAngle) * ( chartRadius + maxPullOutDistance + pullOutLabelPadding ), centreY + Math.sin(midAngle) * ( chartRadius + maxPullOutDistance + pullOutLabelPadding ) + 20 );
+      context.fillText( chartData[slice]['value'] + pullOutValueSufix + " (" + ( parseInt( chartData[slice]['value'] / totalValue * 100 + .5 ) ) +  "%)", centreX + Math.cos(midAngle) * ( chartRadius + maxPullOutDistance + pullOutLabelPadding ), centreY + Math.sin(midAngle) * ( chartRadius + maxPullOutDistance + pullOutLabelPadding ) + 20 );
       context.shadowOffsetX = pullOutShadowOffsetX;
       context.shadowOffsetY = pullOutShadowOffsetY;
       context.shadowBlur = pullOutShadowBlur;

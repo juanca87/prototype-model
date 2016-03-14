@@ -38,7 +38,7 @@ import com.jcalvopinam.api.utils.Valor;
 @Controller
 public class ResultadoEjecucionController {
 
-    Logger logResultadoEjecucion = LoggerFactory.getLogger(ResultadoEjecucionController.class);
+    private static final Logger logResultadoEjecucion = LoggerFactory.getLogger(ResultadoEjecucionController.class);
 
     /**
      * @deprecated

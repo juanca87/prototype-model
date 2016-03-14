@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="resources/css/basic.css"/>
     <link rel="stylesheet" href="resources/css/custom.css"/>
     <link rel="stylesheet" href="resources/css/styles.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans"/>
 </head>
 
@@ -43,7 +45,11 @@
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a id="logout" href="${logoutUrl}">Logout</a></li>
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="${logoutUrl}">
+                                    <i class="fa fa-user fa-1.5x"></i>Logout
+                                </a>
+                            </li>
                         </ul>
                     </sec:authorize>
                 </div>
@@ -66,6 +72,108 @@
 </div>
 
 <div>
+
+<!-- /. CLOUDS  -->
+    <div class="row">
+        <!-- AMAZON -->
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <!-- <i class="fa fa-shopping-cart fa-5x"></i> -->
+                            <img src="resources/img/cloudsLogos/amazonEC2_bn.png" alt="Amazon EC2"
+                                style="width: 70 px; height: 70;" class="img-u image-responsive" />
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">Nube:</div>
+                            <div>Amazon EC2</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="${contextUrl}amazon">
+                    <div class="panel-footer">
+                        <span class="pull-left">Ver Detalles</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- GOOGLE -->
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <!-- <i class="fa fa-comments fa-5x"></i> -->
+                            <img src="resources/img/cloudsLogos/googleAppEngine_bn.png" alt="Google App Engine"
+                                style="width: 70 px; height: 70;" class="img-u image-responsive" />
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">Nube:</div>
+                            <div>Google App Engine</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="${contextUrl}google">
+                    <div class="panel-footer">
+                        <span class="pull-left">Ver Detalles</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- HEROKU -->
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-purple">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <!-- <i class="fa fa-support fa-5x"></i> -->
+                            <img src="resources/img/cloudsLogos/heroku_bn.png" alt="Heroku"
+                                style="width: 70 px; height: 70;" class="img-u image-responsive" />
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">Nube:</div>
+                            <div>Heroku</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="${contextUrl}heroku">
+                    <div class="panel-footer">
+                        <span class="pull-left">Ver Detalles</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- COMPARACION -->
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">Nube:</div>
+                            <div>Comparaciones</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">Ver Detalles</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-12">
@@ -122,34 +230,64 @@
 
     <br/>
 
-    <!-- /. CLOUDS  -->
-    <div class="row">
-        <div class="col-md-4">
-            <div class="main-box mb-amazonEC2">
-                <a href="${contextUrl}amazon">
-                    <img src="resources/img/cloudsLogos/amazonEC2.png" alt="Amazon EC2"
-                        style="width: 50 px; height: 50;" class="img-u image-responsive" />
-                <h5 style="color: orange;">Amazon EC2</h5>
-                </a>
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bell fa-fw"></i> Panel de Notificaciones
             </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-tasks fa-fw"></i> Última ejecución Amazon:  
+                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-tasks fa-fw"></i> Última ejecución Google:  
+                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-tasks fa-fw"></i> Última ejecución Heroku:  
+                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <!-- /.panel-body -->
         </div>
-        <div class="col-md-4">
-            <div class="main-box mb-googleAppEngine">
-                <a href="${contextUrl}google">
-                    <img src="resources/img/cloudsLogos/googleAppEngine.png" alt="Google App Engine"
-                        style="width: 50 px; height: 50;" class="img-u image-responsive" />
-                <h5 style="color: #0080ff;">Google App Engine</h5>
-                </a>
+    </div>
+    
+    <!-- AREA CHART -->
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            Actions
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li><a href="#">Action</a>
+                            </li>
+                            <li><a href="#">Another action</a>
+                            </li>
+                            <li><a href="#">Something else here</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="main-box mb-heroku">
-                <a href="${contextUrl}heroku">
-                    <img src="resources/img/cloudsLogos/heroku.png" alt="Heroku"
-                        style="width: 50 px; height: 50;" class="img-u image-responsive" />
-                <h5 style="color: #8000ff;">Heroku</h5>
-                </a>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="morris-area-chart"></div>
             </div>
+            <!-- /.panel-body -->
         </div>
     </div>
 
@@ -157,7 +295,12 @@
 
 </body>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
 <script src="<c:url value="/resources/js/jquery.min.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/resources/js/app/morris-data.js"/>" type="text/javascript"></script>
 
 </html>

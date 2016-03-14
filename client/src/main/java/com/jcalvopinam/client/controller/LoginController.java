@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * @author Juan Calvopina Morillo <juan.calvopina@gmail.com>
+ *
+ */
 @Controller
 public class LoginController {
     @RequestMapping("/login")

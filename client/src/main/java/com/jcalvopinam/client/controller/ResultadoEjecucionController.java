@@ -25,10 +25,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 import com.jcalvopinam.client.service.IResultadoEjecucionService;
 
+/**
+ * @author Juan Calvopina Morillo <juan.calvopina@gmail.com>
+ *
+ */
 @Controller
 public class ResultadoEjecucionController {
 
-    Logger log = LoggerFactory.getLogger(ResultadoEjecucionController.class);
+    private static final Logger log = LoggerFactory.getLogger(ResultadoEjecucionController.class);
+
+    String data = null;
+    ObjectMapper mapper = null;
 
     @Autowired
     private IResultadoEjecucionService resultadoEjecucion;
@@ -63,8 +70,8 @@ public class ResultadoEjecucionController {
 
         try {
 
-            String data = "";
-            ObjectMapper mapper = new ObjectMapper();
+            data = "";
+            mapper = new ObjectMapper();
 
             if (StringUtils.isEmpty(serverName)) {
                 data = mapper.writeValueAsString(resultadoEjecucion.getAllResultadosEjecucion());
@@ -77,6 +84,27 @@ public class ResultadoEjecucionController {
         } catch (Exception e) {
 
             log.error("Se produjo un error al obtener el historial de ejecuciones: " + e.getMessage());
+
+            return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
+                    HttpStatus.BAD_REQUEST));
+        }
+
+    }
+
+    /**
+     * TODO comment
+     */
+    @RequestMapping(value = "/getComparacion")
+    @ResponseBody
+    public ResponseEntity<String> getComparacion() {
+
+        try {
+            data = "";
+            mapper = new ObjectMapper();
+            data = mapper.writeValueAsString(resultadoEjecucion.getComparacion());
+            return (new ResponseEntity<String>(data, getHpptHeader(), HttpStatus.OK));
+        } catch (Exception e) {
+            log.error("Se produjo un error al obtener los resultados de la comparación: " + e.getMessage());
 
             return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
                     HttpStatus.BAD_REQUEST));

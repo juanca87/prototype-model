@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * @author Juan Calvopina Morillo <juan.calvopina@gmail.com>
+ *
+ */
 @Controller
 public class HomeController {
 
-    Logger logHome = LoggerFactory.getLogger(HomeController.class);
+    private static final Logger logHome = LoggerFactory.getLogger(HomeController.class);
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView home() {
@@ -39,7 +43,7 @@ public class HomeController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView adminPage() {
 
-        logHome.info("Obteniendo detos de home");
+        logHome.info("Obteniendo datos de home");
 
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Modelo para Evaluar a Proveedores de Servicio en la Nube.");

@@ -11,7 +11,7 @@
     </appender>
 
     <!-- Application Loggers -->
-    <logger name="com.jcalvopinam.client.*">
+    <logger name="com.jcalvopinam">
         <level value="info" />
     </logger>
 

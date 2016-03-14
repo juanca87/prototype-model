@@ -18,6 +18,108 @@
     <dependencies>
     </dependencies>
 
+    <profiles>
+        <!-- LOCAL PROFILE -->
+        <profile>
+            <id>local</id>
+            <build>
+                <finalName>prototype-model-client</finalName>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <!-- Application.properties -->
+                                        <delete file="${project.build.outputDirectory}/application.properties" />
+                                        <delete file="${project.build.outputDirectory}/application-prod.properties" />
+                                        <copy file="src/main/resources/application-local.properties" tofile="${project.build.outputDirectory}/application.properties" />
+                                        <delete file="${project.build.outputDirectory}/application-local.properties" />
+                                    </tasks>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>war</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- <classifier>local</classifier> -->
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- PRODUCTION PROFILE -->
+        <profile>
+            <id>prod</id>
+            <build>
+                <finalName>prototype-model-client</finalName>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <!-- External Services -->
+                                        <delete file="${project.build.outputDirectory}/application.properties" />
+                                        <delete file="${project.build.outputDirectory}/application-local.properties" />
+                                        <copy file="src/main/resources/application-prod.properties" tofile="${project.build.outputDirectory}/application.properties" />
+                                        <delete file="${project.build.outputDirectory}/application-prod.properties" />
+                                    </tasks>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>war</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- <classifier>prod</classifier> -->
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>prototype-model-client</finalName>
         <plugins>

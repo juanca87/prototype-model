@@ -15,7 +15,7 @@ import com.jcalvopinam.api.utils.Valor;
 
 public class CPU {
 
-    Logger logCPU = LoggerFactory.getLogger(CPU.class);
+    private static final Logger logCPU = LoggerFactory.getLogger(CPU.class);
 
     public static float calcCPU(long cpuStartTime, long elapsedStartTime, int cpuCount) {
         long end = System.nanoTime();

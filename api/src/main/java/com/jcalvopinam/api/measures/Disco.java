@@ -19,7 +19,7 @@ import com.jcalvopinam.api.utils.Valor;
 
 public class Disco {
 
-    Logger logDisco = LoggerFactory.getLogger(Disco.class);
+    private static final Logger logDisco = LoggerFactory.getLogger(Disco.class);
 
     private String filePath = System.getProperty("user.dir") + File.separator;
     private String fileName = "testSavefileInHDD.txt";
@@ -34,19 +34,17 @@ public class Disco {
         try {
             File logFile = new File(filePath, fileName);
             writer = new BufferedWriter(new FileWriter(logFile));
+
+            logDisco.info("Directorio del archivo generado: " + logFile.getCanonicalPath());
+
             StringBuilder text = new StringBuilder();
             int n = 10000;
 
             for (Integer i = 0; i < n; i++) {
                 text.append("La vida es bella. ");
             }
-//            for (Integer i = 0; i < n; i++) {
-//                text.append("La vida es cara. ");
-//            }
 
             writer.write(text.toString());
-
-            logDisco.info("Directorio del archivo generado: " + logFile.getCanonicalPath());
 
         } catch (Exception e) {
             logDisco.error("There has been an unexpected error: " + e.getMessage());

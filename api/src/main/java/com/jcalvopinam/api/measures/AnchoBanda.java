@@ -19,7 +19,7 @@ import com.jcalvopinam.api.utils.Valor;
 
 public class AnchoBanda {
     
-    Logger logAnchoBanda = LoggerFactory.getLogger(AnchoBanda.class);
+    private static final Logger logAnchoBanda = LoggerFactory.getLogger(AnchoBanda.class);
 
     public Valor getBandwith() {
 

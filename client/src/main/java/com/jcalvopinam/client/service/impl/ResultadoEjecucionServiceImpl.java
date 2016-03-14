@@ -7,9 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jcalvopinam.client.dao.IResultadoEjecucionDao;
+import com.jcalvopinam.client.dto.Comparacion;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 import com.jcalvopinam.client.service.IResultadoEjecucionService;
 
+/**
+ * @author Juan Calvopina Morillo <juan.calvopina@gmail.com>
+ *
+ */
 @Service
 public class ResultadoEjecucionServiceImpl implements IResultadoEjecucionService {
 
@@ -44,6 +49,11 @@ public class ResultadoEjecucionServiceImpl implements IResultadoEjecucionService
     @Transactional
     public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName) {
         return resultadoEjecucionDao.getAllResultadosEjecucion(serverName);
+    }
+
+    @Transactional
+    public List<Comparacion> getComparacion() {
+        return resultadoEjecucionDao.getComparacion();
     }
 
 }
