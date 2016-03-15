@@ -3,6 +3,7 @@ package com.jcalvopinam.client.service;
 import java.util.List;
 
 import com.jcalvopinam.client.dto.Comparacion;
+import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 
 /**
@@ -24,5 +25,7 @@ public interface IResultadoEjecucionService {
     public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName);
 
     public List<Comparacion> getComparacion();
+
+    public UltimaFechaEjecucion getUltimaFechaEjecucion();
 
 }

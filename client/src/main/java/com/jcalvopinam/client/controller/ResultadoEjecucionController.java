@@ -34,7 +34,7 @@ public class ResultadoEjecucionController {
 
     private static final Logger log = LoggerFactory.getLogger(ResultadoEjecucionController.class);
 
-    String data = null;
+    String json = null;
     ObjectMapper mapper = null;
 
     @Autowired
@@ -70,15 +70,15 @@ public class ResultadoEjecucionController {
 
         try {
 
-            data = "";
+            json = "";
             mapper = new ObjectMapper();
 
             if (StringUtils.isEmpty(serverName)) {
-                data = mapper.writeValueAsString(resultadoEjecucion.getAllResultadosEjecucion());
-                return (new ResponseEntity<String>(data, getHpptHeader(), HttpStatus.OK));
+                json = mapper.writeValueAsString(resultadoEjecucion.getAllResultadosEjecucion());
+                return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));
             } else {
-                data = mapper.writeValueAsString(resultadoEjecucion.getAllResultadosEjecucion(serverName));
-                return (new ResponseEntity<String>(data, getHpptHeader(), HttpStatus.OK));
+                json = mapper.writeValueAsString(resultadoEjecucion.getAllResultadosEjecucion(serverName));
+                return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));
             }
 
         } catch (Exception e) {
@@ -92,17 +92,19 @@ public class ResultadoEjecucionController {
     }
 
     /**
-     * TODO comment
+     * Devuelve un json con los resultados de la ultima ejecucion de los 3 proveedores
      */
     @RequestMapping(value = "/getComparacion")
     @ResponseBody
     public ResponseEntity<String> getComparacion() {
 
         try {
-            data = "";
+            json = "";
             mapper = new ObjectMapper();
-            data = mapper.writeValueAsString(resultadoEjecucion.getComparacion());
-            return (new ResponseEntity<String>(data, getHpptHeader(), HttpStatus.OK));
+            // mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
+            json = mapper.writeValueAsString(resultadoEjecucion.getComparacion());
+
+            return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));
         } catch (Exception e) {
             log.error("Se produjo un error al obtener los resultados de la comparación: " + e.getMessage());
 

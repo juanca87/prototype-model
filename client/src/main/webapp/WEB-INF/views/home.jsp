@@ -239,17 +239,17 @@
                 <div class="list-group">
                     <a href="#" class="list-group-item">
                         <i class="fa fa-tasks fa-fw"></i> Última ejecución Amazon:  
-                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
+                        <span class="pull-right text-muted small"><em>${fechaAmazon}</em>
                         </span>
                     </a>
                     <a href="#" class="list-group-item">
                         <i class="fa fa-tasks fa-fw"></i> Última ejecución Google:  
-                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
+                        <span class="pull-right text-muted small"><em>${fechaGoogle}</em>
                         </span>
                     </a>
                     <a href="#" class="list-group-item">
                         <i class="fa fa-tasks fa-fw"></i> Última ejecución Heroku:  
-                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
+                        <span class="pull-right text-muted small"><em>${fechaHeroku}</em>
                         </span>
                     </a>
                 </div>
@@ -289,6 +289,10 @@
             </div>
             <!-- /.panel-body -->
         </div>
+    </div>
+
+    <div style="display:none;">
+        <input id="hostAddress" type="text" value="${hostAddress}">
     </div>
 
 </div>

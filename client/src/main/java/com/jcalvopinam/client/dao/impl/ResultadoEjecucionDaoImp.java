@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jcalvopinam.client.dao.IResultadoEjecucionDao;
 import com.jcalvopinam.client.dto.Comparacion;
+import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 
 /**
@@ -65,15 +66,17 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
     @Override
     public List<Comparacion> getComparacion() {
 
-        Date fechaActual = (Date) session.getCurrentSession()
-                .createQuery("Select fecha from ResultadoEjecucion order by fecha desc").setMaxResults(1)
-                .uniqueResult();
+        UltimaFechaEjecucion fechaUltimaEjecucion = this.getFechaUltimaEjecucion();
+
+        Date fechaAmazon = fechaUltimaEjecucion.getFechaAmazon();
+        Date fechaGoogle = fechaUltimaEjecucion.getFechaGoogle();
+        Date fechaHeroku = fechaUltimaEjecucion.getFechaHeroku();
 
         comparaciones = new ArrayList<Comparacion>();
 
-        List<ResultadoEjecucion> amazon = getResultadoByServidor(fechaActual, AMAZON);
-        List<ResultadoEjecucion> google = getResultadoByServidor(fechaActual, GOOGLE);
-        List<ResultadoEjecucion> heroku = getResultadoByServidor(fechaActual, HEROKU);
+        List<ResultadoEjecucion> amazon = getResultadoByServidor(fechaAmazon, AMAZON);
+        List<ResultadoEjecucion> google = getResultadoByServidor(fechaGoogle, GOOGLE);
+        List<ResultadoEjecucion> heroku = getResultadoByServidor(fechaHeroku, HEROKU);
 
         List<ResultadoEjecucion> listaResultados = new ArrayList<ResultadoEjecucion>();
         listaResultados.addAll(amazon);
@@ -184,4 +187,25 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
         return comparaciones;
     }
 
+    public UltimaFechaEjecucion getFechaUltimaEjecucion() {
+        UltimaFechaEjecucion ultimaEjecucion = new UltimaFechaEjecucion();
+        Date fechaAmazon = this.getUltimaFechaEjecucionByServidor(AMAZON);
+        Date fechaGoogle = this.getUltimaFechaEjecucionByServidor(GOOGLE);
+        Date fechaHeroku = this.getUltimaFechaEjecucionByServidor(HEROKU);
+
+        ultimaEjecucion.setFechaAmazon(fechaAmazon);
+        ultimaEjecucion.setFechaGoogle(fechaGoogle);
+        ultimaEjecucion.setFechaHeroku(fechaHeroku);
+
+        return ultimaEjecucion;
+    }
+
+    private Date getUltimaFechaEjecucionByServidor(String servidor) {
+        Date fechaActual = (Date) session.getCurrentSession()
+                .createQuery("Select fecha from ResultadoEjecucion order by fecha desc").setMaxResults(1)
+                .uniqueResult();
+
+        return fechaActual;
+
+    }
 }
