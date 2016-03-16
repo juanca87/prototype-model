@@ -41,15 +41,12 @@
                             <li id="amazonEC2"><a href="${contextUrl}amazon">Amazon EC2</a></li>
                             <li id="googleAppEngine"><a href="${contextUrl}google">Google App Engine</a></li>
                             <li id="heroku"><a href="${contextUrl}heroku">Heroku</a></li>
+                            <li id="comparacion"><a href="${contextUrl}comparacion">Comparación</a></li>
                         </ul>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="${logoutUrl}">
-                                    <i class="fa fa-user fa-1.5x"></i>Logout
-                                </a>
-                            </li>
+                            <li><a class="dropdown-toggle" href="${logoutUrl}"><i class="fa fa-user fa-1.5x"></i>Logout</a></li>
                         </ul>
                     </sec:authorize>
                 </div>
@@ -164,7 +161,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="${contextUrl}comparacion">
                     <div class="panel-footer">
                         <span class="pull-left">Ver Detalles</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -257,7 +254,7 @@
             <!-- /.panel-body -->
         </div>
     </div>
-    
+
     <!-- AREA CHART -->
     <div class="col-lg-8">
         <div class="panel panel-default">

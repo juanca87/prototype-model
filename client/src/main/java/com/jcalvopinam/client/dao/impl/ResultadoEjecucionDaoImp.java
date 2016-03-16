@@ -202,8 +202,9 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
     private Date getUltimaFechaEjecucionByServidor(String servidor) {
         Date fechaActual = (Date) session.getCurrentSession()
-                .createQuery("Select fecha from ResultadoEjecucion order by fecha desc").setMaxResults(1)
-                .uniqueResult();
+                .createQuery("Select fecha from ResultadoEjecucion where servidor = :nombreServidor "
+                        + "order by fecha desc")
+                .setParameter("nombreServidor", servidor).setMaxResults(1).uniqueResult();
 
         return fechaActual;
 

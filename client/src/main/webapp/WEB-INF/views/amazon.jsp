@@ -44,11 +44,12 @@
                             <li id="amazonEC2" class="active"><a href="${contextUrl}amazon">Amazon EC2</a></li>
                             <li id="googleAppEngine"><a href="${contextUrl}google">Google App Engine</a></li>
                             <li id="heroku"><a href="${contextUrl}heroku">Heroku</a></li>
+                            <li id="comparacion"><a href="${contextUrl}comparacion">Comparación</a></li>
                         </ul>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a id="logout" href="${logoutUrl}">Logout</a></li>
+                            <li><a class="dropdown-toggle" href="${logoutUrl}"><i class="fa fa-user fa-1.5x"></i>Logout</a></li>
                         </ul>
                     </sec:authorize>
                 </div>

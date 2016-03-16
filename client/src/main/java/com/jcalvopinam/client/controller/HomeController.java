@@ -67,7 +67,6 @@ public class HomeController {
         model.addObject("message", "Prototipo que permite evaluar algunos de los atributos claves.");
         model.addObject("hostAddress", getServidor());
         model.setViewName("home");
-        
 
         try {
             UltimaFechaEjecucion ultima = resultadoEjecucion.getUltimaFechaEjecucion();
@@ -78,22 +77,12 @@ public class HomeController {
             return model;
 
         } catch (Exception e) {
-
             logHome.error("Se produjo un error al obtener el historial de ejecuciones: " + e.getMessage());
 
             return new ModelAndView();
         }
 
     }
-
-//    @RequestMapping(value = "/getUltimaFechaEjecucion", method = RequestMethod.GET)
-//    public ModelAndView getUltimaFechaEjecucion() {
-//
-//        logHome.info("Obteniendo datos de home");
-//
-//        
-//
-//    }
 
     private String getServidor() {
         if (currentHost.equals(SERVIDOR_LOCAL))

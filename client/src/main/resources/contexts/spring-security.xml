@@ -19,6 +19,7 @@
         <security:intercept-url pattern="/amazon" access="isAuthenticated()"/>
         <security:intercept-url pattern="/google" access="isAuthenticated()"/>
         <security:intercept-url pattern="/heroku" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/getComparacion**" access="isAuthenticated()"/>
 <!--         <security:intercept-url pattern="/protected/**" access="isAuthenticated()"/> -->
 <!--         <security:intercept-url pattern="/unprotected/**" access="isAuthenticated()"/> -->
         <security:form-login

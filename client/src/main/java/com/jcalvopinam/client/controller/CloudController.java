@@ -65,6 +65,15 @@ public class CloudController {
         return model;
     }
 
+    @RequestMapping(value = "/comparacion", method = RequestMethod.GET)
+    public ModelAndView comparacion() {
+        ModelAndView model = new ModelAndView();
+        model.addObject("pagina", "Comparaci\u00f3n");
+        model.addObject("hostAddress", getServidor());
+
+        return model;
+    }
+
     private String getServidor() {
         if (currentHost.equals(SERVIDOR_LOCAL))
             return Localizacion.getInfoServidorLocal();
