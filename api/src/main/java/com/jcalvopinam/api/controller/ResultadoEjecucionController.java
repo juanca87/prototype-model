@@ -19,15 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.jcalvopinam.api.measures.AnchoBanda;
 import com.jcalvopinam.api.measures.CPU;
+import com.jcalvopinam.api.measures.InfoServidor;
 import com.jcalvopinam.api.measures.Disco;
 import com.jcalvopinam.api.measures.Latencia;
 import com.jcalvopinam.api.measures.Memoria;
 import com.jcalvopinam.api.model.ResultadoEjecucion;
-import com.jcalvopinam.api.utils.Localizacion;
 import com.jcalvopinam.api.utils.Valor;
 
 /**
@@ -40,74 +39,8 @@ public class ResultadoEjecucionController {
 
     private static final Logger logResultadoEjecucion = LoggerFactory.getLogger(ResultadoEjecucionController.class);
 
-    /**
-     * @deprecated
-     */
-    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public ModelAndView loadDashboardValues() {
-
-        logResultadoEjecucion.info("Entra en el metodo loadDashboardValues");
-
-        long startTime = System.nanoTime();
-
-        Disco escrituraDiscoMeasure = new Disco();
-        Valor escrituraDiscoResult = escrituraDiscoMeasure.getTiempoEscrituraDisco();
-
-        Disco lecturaDiscoMeasure = new Disco();
-        Valor lecturaDiscoResult = lecturaDiscoMeasure.getTiempoLecturaDisco();
-
-        CPU cpuMeasure = new CPU();
-        Valor cpuResult = cpuMeasure.getCPUMeasure();
-
-        Memoria escrituraMemoriaMeasure = new Memoria();
-        Valor escrituraMemoriaResult = escrituraMemoriaMeasure.getTiempoEscrituraMemoria();
-
-        Memoria lecturaMemoriaMeasure = new Memoria();
-        Valor lecturaMemoriaResult = lecturaMemoriaMeasure.getTiempoLecturaMemoria();
-
-        AnchoBanda bandwithMeasure = new AnchoBanda();
-        Valor bandwithResult = bandwithMeasure.getBandwith();
-
-        Latencia latencyMeasure = new Latencia();
-        Valor latencyResult = latencyMeasure.getLatency();
-
-        long endTime = System.nanoTime();
-        long totalTime = endTime - startTime;
-        String instruccionesMinMeasure = String.valueOf(totalTime);
-
-        if (instruccionesMinMeasure.length() > 5)
-            instruccionesMinMeasure = instruccionesMinMeasure.substring(0, 5);
-
-        logResultadoEjecucion.info("Instrucciones por minuto: " + instruccionesMinMeasure);
-
-        Valor instruccionesMinResult = new Valor(instruccionesMinMeasure, "");
-
-        ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion();
-        resultadoEjecucion.setAnchoBanda(bandwithResult.getResult());
-        resultadoEjecucion.setCpu(cpuResult.getResult());
-        resultadoEjecucion.setEscrituraDisco(escrituraDiscoResult.getResult());
-        resultadoEjecucion.setEscrituraMemoria(escrituraMemoriaResult.getResult());
-        resultadoEjecucion.setInstruccionesMinuto(instruccionesMinResult.getResult());
-        resultadoEjecucion.setLatencia(latencyResult.getResult());
-        resultadoEjecucion.setLecturaDisco(lecturaDiscoResult.getResult());
-        resultadoEjecucion.setLecturaMemoria(lecturaMemoriaResult.getResult());
-        resultadoEjecucion.setFecha(new Date());
-        resultadoEjecucion.setServidor(Localizacion.getInfoServidor());
-
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Loading values...");
-        model.addObject("cpuResult", resultadoEjecucion.getCpu());
-        model.addObject("escrituraDiscoResult", resultadoEjecucion.getEscrituraDisco());
-        model.addObject("lecturaDiscoResult", resultadoEjecucion.getLecturaDisco());
-        model.addObject("escrituraMemoriaResult", resultadoEjecucion.getEscrituraMemoria());
-        model.addObject("lecturaMemoriaResult", resultadoEjecucion.getLecturaMemoria());
-        model.addObject("bandwithResult", resultadoEjecucion.getAnchoBanda());
-        model.addObject("latencyResult", resultadoEjecucion.getLatencia());
-        model.addObject("instruccionesMinResult", resultadoEjecucion.getInstruccionesMinuto());
-
-        return model;
-
-    }
+    ObjectMapper mapper;
+    String json = "";
 
     /**
      * Mockup Obtiene el resultado de evaluar los atributos
@@ -132,10 +65,10 @@ public class ResultadoEjecucionController {
             resultadoEjecucion.setFecha(new Date());
             resultadoEjecucion.setServidor(serverName);
 
-            ObjectMapper mapper = new ObjectMapper();
-            String data = mapper.writeValueAsString(resultadoEjecucion);
+            mapper = new ObjectMapper();
+            json = mapper.writeValueAsString(resultadoEjecucion);
 
-            return (new ResponseEntity<String>(data, getHpptHeader(), HttpStatus.OK));
+            return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));
 
         } catch (Exception e) {
 
@@ -232,13 +165,32 @@ public class ResultadoEjecucionController {
             resultadoEjecucion.setFecha(new Date());
             resultadoEjecucion.setServidor(serverName);
 
-            ObjectMapper mapper = new ObjectMapper();
-            String data = mapper.writeValueAsString(resultadoEjecucion);
-            return (new ResponseEntity<String>(data, getHpptHeader(), HttpStatus.OK));
+            json = mapper.writeValueAsString(resultadoEjecucion);
+            return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));
 
         } catch (Exception e) {
 
-            logResultadoEjecucion.error(e.getMessage());
+            logResultadoEjecucion.error("Error al calcular los atributos: " + e.getMessage());
+
+            return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
+                    HttpStatus.BAD_REQUEST));
+        }
+    }
+
+    @RequestMapping(value = "/getInfoServidor", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> getInfoServidor() {
+
+        try {
+
+            InfoServidor info = new InfoServidor();
+            mapper = new ObjectMapper();
+            json = mapper.writeValueAsString(info);
+            return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));
+
+        } catch (Exception e) {
+
+            logResultadoEjecucion.error("Error al recuperar las caracteristicas del servidor: " + e.getMessage());
 
             return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
                     HttpStatus.BAD_REQUEST));
@@ -258,4 +210,5 @@ public class ResultadoEjecucionController {
     public String handleResourceNotFoundException() {
         return "error";
     }
+
 }

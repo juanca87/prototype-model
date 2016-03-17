@@ -17,32 +17,6 @@ public class CPU {
 
     private static final Logger logCPU = LoggerFactory.getLogger(CPU.class);
 
-    public static float calcCPU(long cpuStartTime, long elapsedStartTime, int cpuCount) {
-        long end = System.nanoTime();
-        long totalAvailCPUTime = cpuCount * (end - elapsedStartTime);
-        long totalUsedCPUTime = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - cpuStartTime;
-        float per = ((float) totalUsedCPUTime) / (float) totalAvailCPUTime;
-        return per;
-    }
-
-    static boolean isPrime(int n) {
-        // 2 is the smallest prime
-        if (n <= 2) {
-            return n == 2;
-        }
-        // even numbers other than 2 are not prime
-        if (n % 2 == 0) {
-            return false;
-        }
-        // check odd divisors from 3 to the square root of n
-        for (int i = 3, end = (int) Math.sqrt(n); i <= end; i += 2) {
-            if (n % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public Valor getCPUMeasure() {
 
         String errorMessage = "";
@@ -56,8 +30,8 @@ public class CPU {
             Random random = new Random(start);
             int seed = Math.abs(random.nextInt());
 
-//            log("\n \n CPU USAGE DETAILS \n\n");
-//            log("Starting Test with " + cpuCount + " CPUs and random number:" + seed);
+            // log("\n \n CPU USAGE DETAILS \n\n");
+            // log("Starting Test with " + cpuCount + " CPUs and random number:" + seed);
 
             int primes = 10000;
             long startCPUTime = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime();
@@ -77,7 +51,7 @@ public class CPU {
             if (i == max) {
                 average = counter / max;
             }
-//            log("CPU USAGE : " + cpuPercent + " % ");
+            // log("CPU USAGE : " + cpuPercent + " % ");
 
         }
 
@@ -90,4 +64,29 @@ public class CPU {
         return new Valor(result, errorMessage);
     }
 
+    private static float calcCPU(long cpuStartTime, long elapsedStartTime, int cpuCount) {
+        long end = System.nanoTime();
+        long totalAvailCPUTime = cpuCount * (end - elapsedStartTime);
+        long totalUsedCPUTime = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - cpuStartTime;
+        float per = ((float) totalUsedCPUTime) / (float) totalAvailCPUTime;
+        return per;
+    }
+
+    private static boolean isPrime(int n) {
+        // 2 is the smallest prime
+        if (n <= 2) {
+            return n == 2;
+        }
+        // even numbers other than 2 are not prime
+        if (n % 2 == 0) {
+            return false;
+        }
+        // check odd divisors from 3 to the square root of n
+        for (int i = 3, end = (int) Math.sqrt(n); i <= end; i += 2) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
