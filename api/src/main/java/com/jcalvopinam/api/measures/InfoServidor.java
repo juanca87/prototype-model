@@ -86,9 +86,8 @@ public class InfoServidor {
         this.totalRAM = FileUtils.byteCountToDisplaySize(capacidadRAM);
         log.info("Capacidad de Memoria RAM: " + capacidadRAM);
 
-        long cantidadCPU = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
-        this.cpu = FileUtils.byteCountToDisplaySize(cantidadCPU);
-        log.info("Cantidad de CPU: " + cantidadCPU);
+        this.cpu = String.valueOf(ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors());
+        log.info("Cantidad de CPU: " + cpu);
 
         this.sistemaOperativo = System.getProperty("os.name");
         log.info("Sistema Operativo: " + this.sistemaOperativo);

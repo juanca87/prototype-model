@@ -151,6 +151,102 @@
 
     <div class="row">
         <div class="col-md-12">
+            <h3 class="page-head-line">Características del Servidor</h3>
+                <div class="form-group">
+                    <table style="width:100%">
+                      <tr>
+                        <td style="width:10%; padding-left: 40px">
+                            <label for="url">URL:</label>
+                        </td>
+                        <td style="width:90%; padding-right: 10px">
+                            <input type="text" class="form-control" id="urlCaracteristicas"
+                                placeholder="Ingrese la url del servidor" autocomplete="on">
+                        </td>
+                        <td style="width:90%; padding-right: 20px">
+                            <input type="submit" value="Recuperar" class="btn btn-primary"
+                                onclick="javascript:recuperarCaracteristicas()"/>
+                        </td>
+                      </tr>
+                    </table>
+                </div>
+                <div id="caracteristica" class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Info
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Acciones
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="javascript:mostrarInfo();">Mostrar</a></li>
+                                    <li><a href="javascript:ocultarInfo();">Ocultar</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="valCaracteristica" class="panel-body" style="border-style:solid; color: #F5F5F5; border-width: 1px;">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="table-bordered">
+                                        <table class="table" style="font-size: small;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Atributo</th>
+                                                    <th>Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Sistema Operativo</td>
+                                                    <td><span id="soVal"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Arquitectura</td>
+                                                    <td><span id="aVal"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Version</td>
+                                                    <td><span id="vVal"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>CPU</td>
+                                                    <td><span id="cpuVal"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>Capacidad en Disco</td>
+                                                    <td><span id="tdVal"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td>Capacidad en RAM</td>
+                                                    <td><span id="trVal"></span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            <h3 class="page-subhead-line"></h3>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col-md-12">
             <h3 class="page-head-line">Nuevas Mediciones</h3>
             <div class="form-group">
                 <table style="width:100%">
@@ -163,7 +259,7 @@
                             placeholder="Ingrese la url del servidor" autocomplete="on">
                     </td>
                     <td style="width:90%; padding-right: 20px">
-                        <input type="submit" value="Ejecutar Test" class="btn btn-primary"
+                        <input type="submit" value="Ejecutar" class="btn btn-primary"
                             onclick="javascript:saveResultadoEjecucion()"/>
                     </td>
                   </tr>
@@ -199,5 +295,6 @@
 <script src="<c:url value="/resources/js/js-prototype-app.js"/>"></script>
 <script src="<c:url value="/resources/js/app/tablaResultados.js"/>"></script> 
 <script src="<c:url value="/resources/js/app/resultadoEjecucion.js"/>"></script>
+<script src="<c:url value="/resources/js/app/recuperarCaracteristicas.js"/>"></script>
 
 </html>

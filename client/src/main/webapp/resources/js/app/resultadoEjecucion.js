@@ -2,20 +2,22 @@
 function saveResultadoEjecucion() {
   $("#waiting").show();
 
-  //obtiene el header y el token para spring security
+  // obtiene el header y el token para spring security
   var csrf_token = $("meta[name='_csrf']").attr("content");
   var header = $("meta[name='_csrf_header']").attr("content");
 
-  //obtiene la url
+  // obtiene la url
   var contents = $("#url").val();
-  //var contents = "http://localhost:8080/prototype-model-api/getResultadoEjecucionMockup.json";
+  // var contents =
+  // "http://localhost:8080/prototype-model-api/getResultadoEjecucionMockup.json";
 
-  //obtiene el nombre del servidor
+  // obtiene el nombre del servidor
   var serverName = $("#serverName").val();
 
-  //agrega el nombre del servidor a la url para el request
+  // agrega el nombre del servidor a la url para el request
   var url = contents + "/" + serverName
-  //limia en nodo dash
+
+  // limia en nodo dash
   var myNode = document.getElementById("dash");
   myNode.innerHTML = '';
 
@@ -24,8 +26,8 @@ function saveResultadoEjecucion() {
   }
 
   // obtiene el json de la url
-  $.getJSON(url, function(json) {
-    //hace el submit
+  var parseJson = $.getJSON(url, function(json) {
+    // hace el submit
     $.ajax({
       headers : {
         'Accept' : 'application/json',
@@ -39,13 +41,13 @@ function saveResultadoEjecucion() {
       processData : false,
       beforeSend : function(xhr) {
         xhr.setRequestHeader('X-CSRF-Token', csrf_token);
-        //muestra barra de progreso
+        // muestra barra de progreso
         $("#waiting").show();
       },
       success : function(data) {
-        //agrega el resultado en el id="dash"
+        // agrega el resultado en el id="dash"
         $("#dash").append(data);
-        //oculta barra de progreso
+        // oculta barra de progreso
         $("#waiting").hide();
       },
       error : function(data, status, er) {
@@ -53,10 +55,21 @@ function saveResultadoEjecucion() {
         $("#waiting").hide();
       }
     });
+  }).done(function() {
+    $("#waiting").hide();
+  }).fail(function() {
+    $("#waiting").hide();
+    alert("No se pudo recuperar datos de la URL ingresada");
   });
 
-//  $('#dataGrid').trigger('reloadGrid');
+  parseJson.complete(function() {
+    console.log("Procesado con exito");
+  });
 
-  $("#dataGrid").jqGrid("setGridParam", {datatype: "json"})
-  .trigger("reloadGrid", [{current: true, page: 1}]);
+  $("#dataGrid").jqGrid("setGridParam", {
+    datatype : "json"
+  }).trigger("reloadGrid", [ {
+    current : true,
+    page : 1
+  } ]);
 }

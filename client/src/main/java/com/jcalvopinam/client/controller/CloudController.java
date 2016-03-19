@@ -1,19 +1,13 @@
 package com.jcalvopinam.client.controller;
 
-import java.io.IOException;
-
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jcalvopinam.client.dto.InfoServidor;
-import com.jcalvopinam.client.utils.Commons;
 import com.jcalvopinam.client.utils.Localizacion;
 
 /**
@@ -80,34 +74,11 @@ public class CloudController {
         return model;
     }
 
-    @RequestMapping(value = "getInfoServidor/{url}", method = RequestMethod.GET)
-    public ModelAndView getInfoServidor(@PathVariable String url) {
-        try {
-            InfoServidor info = this.getInfoServidorJson(url);
-            ModelAndView model = new ModelAndView();
-            model.addObject("arquitectura", info.getArquitectura());
-            // TODO completar
-            return model;
-        } catch (Exception e) {
-            logCloud.error("Se produjo un error al recuperar la informaci\u00f3n del servidor: " + e.getMessage());
-            return new ModelAndView();
-        }
-
-    }
-
     private String getServidor() {
         if (currentHost.equals(SERVIDOR_LOCAL))
             return Localizacion.getInfoServidorLocal();
         else
             return Localizacion.getInfoServidorRemoto();
-    }
-
-    private InfoServidor getInfoServidorJson(String url) throws IOException {
-        Commons common = new Commons();
-        String json = common.leerUrl(url);
-        ObjectMapper mapper = new ObjectMapper();
-        InfoServidor info = mapper.readValue(json, InfoServidor.class);
-        return info;
     }
 
 }
