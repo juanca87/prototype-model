@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.jcalvopinam.api.utils.Commons;
 import com.jcalvopinam.api.utils.Valor;
 
 import java.net.SocketAddress;
@@ -23,10 +24,11 @@ public class Latencia {
 
     private static final Logger logLatencia = LoggerFactory.getLogger(Latencia.class);
 
-    public Valor getLatency() {
+    Commons common = new Commons();
+
+    public Valor getLatency(String ip) {
         String result = "";
         String errorMessage = "";
-        String ip = "www.google.com";
         int port = 80;
         int times = 5;
         String hostaddr = "";
@@ -34,7 +36,7 @@ public class Latencia {
         try {
             hostaddr = InetAddress.getByName(ip).getHostAddress();
         } catch (UnknownHostException e) {
-            logLatencia.error("Unknown Host: " + e.getMessage());
+            logLatencia.error("Host desconocido: " + e.getMessage());
             errorMessage = e.getMessage();
         }
 
@@ -42,6 +44,7 @@ public class Latencia {
 
         int total = 0;
         long totalping = 0;
+        long avg = 0;
         Socket s = null;
 
         while (total < times) {
@@ -67,19 +70,15 @@ public class Latencia {
             long end = System.nanoTime();
             totalping += (end - start);
             long totaltime = (end - start);
-            long avg = (totalping / total);
+            avg = (totalping / total);
 
             logLatencia.info("Socket Request[" + total + "]: Time(In nano): " + totaltime + " Average: " + avg);
 
-            result = String.valueOf(avg);
         }
-
-        long avg = (long) (totalping / total);
 
         logLatencia.info("\nFinal Result: Average request - " + avg);
 
-        if (result.length() > 5)
-            result = result.substring(0, 5);
+        result = common.formatearResultado(avg);
 
         return new Valor(result, errorMessage);
     }

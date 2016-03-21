@@ -10,6 +10,7 @@ import java.net.URLConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.jcalvopinam.api.utils.Commons;
 import com.jcalvopinam.api.utils.Valor;
 
 /**
@@ -18,14 +19,15 @@ import com.jcalvopinam.api.utils.Valor;
  */
 
 public class AnchoBanda {
-    
+
     private static final Logger logAnchoBanda = LoggerFactory.getLogger(AnchoBanda.class);
 
-    public Valor getBandwith() {
+    Commons common = new Commons();
+
+    public Valor getBandwith(String urlString) {
 
         String result = "";
         String errorMessage = "";
-        String urlString = "http://planwallpaper.com/static/images/2022725-wallpaper_625864_Iz6NK8G.jpg";
         String fileOutput = System.getProperty("user.dir") + File.separator + "imagen_Descargada.jpg";
 
         BufferedInputStream in = null;
@@ -53,12 +55,10 @@ public class AnchoBanda {
 
             logAnchoBanda.info("Tiempo de descarga> " + totalTime);
 
-            result = String.valueOf(totalTime);
-
-            if (result.length() > 5)
-                result = result.substring(0, 5);
+            result = common.formatearResultado(totalTime);
 
         } catch (Exception e) {
+            result = "0";
             logAnchoBanda.error("There has been an unexpected error: " + e.getMessage());
             errorMessage = e.getMessage();
             e.printStackTrace();

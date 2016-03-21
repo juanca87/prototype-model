@@ -17,8 +17,8 @@ function saveResultadoEjecucion() {
   // agrega el nombre del servidor a la url para el request
   var url = contents + "/" + serverName
 
-  // limia en nodo dash
-  var myNode = document.getElementById("dash");
+  // limia en nodo "pieChart"
+  var myNode = document.getElementById("pieChart");
   myNode.innerHTML = '';
 
   while (myNode.firstChild) {
@@ -45,8 +45,8 @@ function saveResultadoEjecucion() {
         $("#waiting").show();
       },
       success : function(data) {
-        // agrega el resultado en el id="dash"
-        $("#dash").append(data);
+        // agrega el resultado en el id="pieChart"
+        $("#pieChart").append(data);
         // oculta barra de progreso
         $("#waiting").hide();
       },
@@ -63,7 +63,7 @@ function saveResultadoEjecucion() {
   });
 
   parseJson.complete(function() {
-    console.log("Procesado con exito");
+    console.log("Procesado con éxito resultadoEjecucion");
   });
 
   $("#dataGrid").jqGrid("setGridParam", {

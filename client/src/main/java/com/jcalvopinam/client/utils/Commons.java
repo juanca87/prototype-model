@@ -1,12 +1,5 @@
 package com.jcalvopinam.client.utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.Charset;
-
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpHeaders;
 

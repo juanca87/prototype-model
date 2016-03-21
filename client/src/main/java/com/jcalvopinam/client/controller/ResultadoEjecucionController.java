@@ -56,9 +56,9 @@ public class ResultadoEjecucionController {
         model.addAttribute("latencyResult", resultadoJson.getLatencia());
         model.addAttribute("instruccionesMinResult", resultadoJson.getInstruccionesMinuto());
 
-        resultadoEjecucion.add(resultadoJson);
+        resultadoEjecucion.save(resultadoJson);
 
-        return "dashboard";
+        return "chart";
     }
 
     /**
@@ -94,6 +94,31 @@ public class ResultadoEjecucionController {
     /**
      * Devuelve un json con los resultados de la ultima ejecucion de los 3 proveedores
      */
+    @RequestMapping(value = "/getUltimaEjecucion")
+    @ResponseBody
+    public ResponseEntity<String> getUltimaEjecucion() {
+
+        try {
+            json = "";
+            mapper = new ObjectMapper();
+            // mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
+            json = mapper.writeValueAsString(resultadoEjecucion.getUltimaEjecucion());
+
+            return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));
+        } catch (Exception e) {
+            log.error("Se produjo un error al obtener los resultados de la comparación: " + e.getMessage());
+
+            return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
+                    HttpStatus.BAD_REQUEST));
+        }
+
+    }
+
+    /**
+     * Devuelve un json con los resultados de la ultima ejecucion de los 3 proveedores
+     * TODO poner este resultado en una tabla en la pagina de comparacion
+     * TODO ver el bosquejo en el cuaderno
+     */
     @RequestMapping(value = "/getComparacion")
     @ResponseBody
     public ResponseEntity<String> getComparacion() {
@@ -101,7 +126,6 @@ public class ResultadoEjecucionController {
         try {
             json = "";
             mapper = new ObjectMapper();
-            // mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
             json = mapper.writeValueAsString(resultadoEjecucion.getComparacion());
 
             return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));

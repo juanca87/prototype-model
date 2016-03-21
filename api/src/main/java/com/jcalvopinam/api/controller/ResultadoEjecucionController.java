@@ -8,6 +8,7 @@ import java.util.Date;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.acls.model.NotFoundException;
@@ -27,6 +28,7 @@ import com.jcalvopinam.api.measures.Disco;
 import com.jcalvopinam.api.measures.Latencia;
 import com.jcalvopinam.api.measures.Memoria;
 import com.jcalvopinam.api.model.ResultadoEjecucion;
+import com.jcalvopinam.api.utils.Commons;
 import com.jcalvopinam.api.utils.Valor;
 
 /**
@@ -39,7 +41,14 @@ public class ResultadoEjecucionController {
 
     private static final Logger logResultadoEjecucion = LoggerFactory.getLogger(ResultadoEjecucionController.class);
 
-    ObjectMapper mapper;
+    @Value("${url.descarga}")
+    private String urlString;
+
+    @Value("${url.ping}")
+    private String ip;
+
+    Commons common = new Commons();
+    ObjectMapper mapper = null;
     String json = "";
 
     /**
@@ -52,16 +61,15 @@ public class ResultadoEjecucionController {
         logResultadoEjecucion.info("Entra en el metodo getResultadoEjecucionMockup");
 
         try {
-
             ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion();
-            resultadoEjecucion.setAnchoBanda("123");
-            resultadoEjecucion.setCpu("231");
-            resultadoEjecucion.setEscrituraDisco("345");
-            resultadoEjecucion.setEscrituraMemoria("325");
-            resultadoEjecucion.setInstruccionesMinuto("623");
-            resultadoEjecucion.setLatencia("923");
-            resultadoEjecucion.setLecturaDisco("234");
-            resultadoEjecucion.setLecturaMemoria("521");
+            resultadoEjecucion.setAnchoBanda("9.242");
+            resultadoEjecucion.setCpu("12000");
+            resultadoEjecucion.setEscrituraDisco("24100");
+            resultadoEjecucion.setEscrituraMemoria("23115");
+            resultadoEjecucion.setInstruccionesMinuto("14127");
+            resultadoEjecucion.setLatencia("10123");
+            resultadoEjecucion.setLecturaDisco("20345");
+            resultadoEjecucion.setLecturaMemoria("38488");
             resultadoEjecucion.setFecha(new Date());
             resultadoEjecucion.setServidor(serverName);
 
@@ -129,14 +137,14 @@ public class ResultadoEjecucionController {
             }
 
             AnchoBanda bandwithMeasure = new AnchoBanda();
-            Valor bandwithResult = bandwithMeasure.getBandwith();
+            Valor bandwithResult = bandwithMeasure.getBandwith(urlString);
             String resultadoBA = "0";
             if (bandwithResult.getErrorMessage().isEmpty()) {
                 resultadoBA = bandwithResult.getResult();
             }
 
             Latencia latencyMeasure = new Latencia();
-            Valor latencyResult = latencyMeasure.getLatency();
+            Valor latencyResult = latencyMeasure.getLatency(ip);
             String resultadoL = "0";
             if (latencyResult.getErrorMessage().isEmpty()) {
                 resultadoL = latencyResult.getResult();
@@ -144,27 +152,26 @@ public class ResultadoEjecucionController {
 
             long endTime = System.nanoTime();
             long totalTime = endTime - startTime;
-            String instruccionesMinMeasure = String.valueOf(totalTime);
-
-            if (instruccionesMinMeasure.length() > 5)
-                instruccionesMinMeasure = instruccionesMinMeasure.substring(0, 5);
+            String instruccionesMinMeasure = common.formatearResultado(totalTime);
 
             logResultadoEjecucion.info("Instrucciones por minuto: " + instruccionesMinMeasure);
 
             Valor instruccionesMinResult = new Valor(instruccionesMinMeasure, "");
+            String resultadoIM = instruccionesMinResult.getResult();
 
             ResultadoEjecucion resultadoEjecucion = new ResultadoEjecucion();
             resultadoEjecucion.setAnchoBanda(resultadoBA);
             resultadoEjecucion.setCpu(resultadoCPU);
             resultadoEjecucion.setEscrituraDisco(resultadoED);
             resultadoEjecucion.setEscrituraMemoria(resultadoEM);
-            resultadoEjecucion.setInstruccionesMinuto(instruccionesMinResult.getResult());
+            resultadoEjecucion.setInstruccionesMinuto(resultadoIM);
             resultadoEjecucion.setLatencia(resultadoL);
             resultadoEjecucion.setLecturaDisco(resultadoLD);
             resultadoEjecucion.setLecturaMemoria(resultadoLM);
             resultadoEjecucion.setFecha(new Date());
             resultadoEjecucion.setServidor(serverName);
 
+            mapper = new ObjectMapper();
             json = mapper.writeValueAsString(resultadoEjecucion);
             return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));
 
@@ -177,6 +184,9 @@ public class ResultadoEjecucionController {
         }
     }
 
+    /**
+     * Obtiene las caracteristicas del servidor
+     */
     @RequestMapping(value = "/getInfoServidor", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<String> getInfoServidor() {
@@ -197,6 +207,11 @@ public class ResultadoEjecucionController {
         }
     }
 
+    /**
+     * Manejo de excepciones
+     * 
+     * @param exception
+     */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<String> handleException(Exception exception) {
         logResultadoEjecucion.error(exception.getMessage());
@@ -205,6 +220,9 @@ public class ResultadoEjecucionController {
                 getHpptHeader(), HttpStatus.BAD_REQUEST));
     }
 
+    /**
+     * Manejo de paginas no encontradas
+     */
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleResourceNotFoundException() {

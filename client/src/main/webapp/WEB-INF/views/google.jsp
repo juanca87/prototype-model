@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="resources/css/custom.css"/>
     <link rel="stylesheet" href="resources/css/styles.css">
     <link rel="stylesheet" href="resources/css/style-snazzy-chart-pie.css">
+    <link rel="stylesheet" href="resources/css/timeline.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans"/>
 
     <link rel="stylesheet" media="screen" href="resources/css/ui.jqgrid-bootstarp.css"/>
@@ -247,7 +248,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h3 class="page-head-line">Nuevas Mediciones</h3>
+            <h3 class="page-head-line">Obtener Nueva Medición</h3>
             <div class="form-group">
                 <table style="width:100%">
                   <tr>
@@ -269,15 +270,17 @@
         </div>
     </div>
 
-    <div id="waiting" class="centered" style="display: none">
-        <p>Please wait...</p>
-    </div>
-
-    <div id="dash"></div>
     <div style="display:none;">
         <input id="serverName" type="text" value="${serverName}">
         <input id="hostAddress" type="text" value="${hostAddress}">
     </div>
+
+    <div id="waiting" class="centered" style="display: none">
+        <p>Please wait...</p>
+    </div>
+
+    <div id="pieChart"></div>
+
 </div>
 
 </body>

@@ -8,7 +8,7 @@
 <html>
 
 <head>
-    <title>Home</title>
+    <title>Comparación</title>
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
@@ -62,8 +62,6 @@
     <li class="active">${pagina}</li>
 </ol>
 
-<div>
-
     <div class="row">
         <div class="col-md-12">
             <h3 class="page-head-line">Historial de Ejecuciones</h3>
@@ -76,72 +74,77 @@
         </div>
     </div>
 
-    <div class="col-lg-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bell fa-fw"></i> Panel de Notificaciones
-            </div>
-            <div class="panel-body">
-                <div class="list-group">
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-tasks fa-fw"></i> Última ejecución Amazon:  
-                        <span class="pull-right text-muted small"><em>${fechaAmazon}</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-tasks fa-fw"></i> Última ejecución Google:  
-                        <span class="pull-right text-muted small"><em>${fechaGoogle}</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-tasks fa-fw"></i> Última ejecución Heroku:  
-                        <span class="pull-right text-muted small"><em>${fechaHeroku}</em>
-                        </span>
-                    </a>
+    <div>
+        <!-- NOTIFICATIONS -->
+        <div class="col-lg-4">
+            <div class="panel panel-default" style="margin-left: -15px; margin-bottom: -16px; border-bottom-right-radius: 0px;">
+                <div class="panel-heading" style="border-top-right-radius: 0px;">
+                    <i class="fa fa-bell fa-fw"></i> Panel de Notificaciones
                 </div>
-            </div>
-            <!-- /.panel-body -->
-        </div>
-    </div>
-
-    <!-- AREA CHART -->
-    <div class="col-lg-8">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            Actions
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li><a href="#">Action</a>
-                            </li>
-                            <li><a href="#">Another action</a>
-                            </li>
-                            <li><a href="#">Something else here</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a>
-                            </li>
-                        </ul>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-tasks fa-fw"></i> Última ejecución Amazon:  
+                            <span class="pull-right text-muted small"><em>${fechaAmazon}</em>
+                            </span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-tasks fa-fw"></i> Última ejecución Google:  
+                            <span class="pull-right text-muted small"><em>${fechaGoogle}</em>
+                            </span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-tasks fa-fw"></i> Última ejecución Heroku:  
+                            <span class="pull-right text-muted small"><em>${fechaHeroku}</em>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <!-- LEYENDA -->
+                <div class="panel-heading" style="border-top-right-radius: 0px;">
+                    <i class="fa th-large fa-fw"></i> Leyenda
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div id="leyenda-amazon">
+                                <span style="margin-left: 30px">Amazon EC2</span>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div id="leyenda-google">
+                                <span style="margin-left: 30px">Google App Engine</span>
+                            </div>
+                        </div>
+                        <div class="list-group-item">
+                            <div id="leyenda-heroku">
+                                <span style="margin-left: 30px">Heroku</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <div id="morris-area-chart"></div>
+        </div>
+
+        <!-- BAR CHART -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Gráfico de Atributos vs Tiempo (seg).
             </div>
-            <!-- /.panel-body -->
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <br/>
+                        <div id="morris-bar-chart"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div style="display:none;">
         <input id="hostAddress" type="text" value="${hostAddress}">
     </div>
-
-</div>
 
 </body>
 
@@ -151,6 +154,6 @@
 
 <script src="<c:url value="/resources/js/jquery.min.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
-<script src="<c:url value="/resources/js/app/morris-data.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/resources/js/app/morris-bar-data.js"/>" type="text/javascript"></script>
 
 </html>

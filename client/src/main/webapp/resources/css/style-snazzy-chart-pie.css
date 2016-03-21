@@ -6,6 +6,9 @@
   background: #ebedf2;
   border: 1px solid #333;
   line-height: 80%;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
 }
 
 #container {
@@ -14,53 +17,61 @@
 }
 
 #chart {
-  display: block;
-  margin: 0 0 50px 0;
+  margin: 0 -10px 0 0;
   float: left;
   cursor: pointer;
 }
 
-#chart, #chartData {
+#chart, #chartData, #chartDesc {
   border: 1px solid #ddd;
+  margin-top: -25px;
+  margin-left: -75px;
   background: #ebedf2 url("../css/images/gradient.png") repeat-x 0 0;
+  font-size: small;
 }
 
 #chartData {
-  width: 200px;
-  margin: 0 40px 0 0;
+  width: 265px;
+  margin: -25px 60px 0 0;
   float: right;
   border-collapse: collapse;
-  box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
   background-position: 0 -100px;
-  width: 200px;
   border-color: #ddd;
   border: 1px solid #ddd;
 }
 
-#chartData th, #chartData td {
-  padding: 0.5em;
+#chartDesc {
+  width: 130px;
+  margin: -25px -394px 0 0;
+  float: right;
+  border-collapse: collapse;
+  background-position: 0 -100px;
+  border-color: #ddd;
+  border: 1px solid #ddd;
+}
+
+#chartData th, #chartData td, #chartDescth, #chartDesc td {
   text-align: left;
 }
 
 /* Cabecera de la tabla*/
-#chartData th {
+#chartData th, #chartDesc th {
   padding: 10px 15px;
   border-bottom: 1px solid transparent;
   border-color: #ddd;
   border: 1px solid #ddd;
   background: #f2f2f2;
 }
-/* Filas de la tabla */
-#chartData td { 
-  cursor: pointer;
- }
 
-#chartData td.highlight {
+/* Filas de la tabla */
+#chartData td {
+  cursor: pointer;
+}
+
+#chartData td.highlight, #chartDesc td.highlight {
   background: #cccccc;
 }
 
-#chartData tr:hover td {
+#chartData tr:hover td, #chartDesc tr:hover td {
   background: #f0f0f0;
 }

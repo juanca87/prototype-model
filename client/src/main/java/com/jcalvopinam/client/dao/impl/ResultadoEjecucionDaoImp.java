@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jcalvopinam.client.dao.IResultadoEjecucionDao;
-import com.jcalvopinam.client.dto.Comparacion;
+import com.jcalvopinam.client.dto.Atributo;
 import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 
@@ -24,7 +24,7 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
     private static final String GOOGLE = "google";
     private static final String HEROKU = "heroku";
 
-    List<Comparacion> comparaciones = null;
+    List<Atributo> listaAtributosProveedor = null;
 
     @Autowired
     private SessionFactory session;
@@ -64,15 +64,23 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
     }
 
     @Override
-    public List<Comparacion> getComparacion() {
+    public List<Atributo> getUltimaEjecucion() {
+        listaAtributosProveedor = new ArrayList<Atributo>();
+        List<Atributo> ultimaEjecucion = setResultadoUltimaEjecucion(getListaUltimaEjecucion());
+        return ultimaEjecucion;
+    }
 
+    /**
+     * Recupera una lista con los resultados de la utilma fecha de ejecucion de cada proveedor
+     * 
+     * @return Lista de ResultadoEjecucion
+     */
+    public List<ResultadoEjecucion> getListaUltimaEjecucion() {
         UltimaFechaEjecucion fechaUltimaEjecucion = this.getFechaUltimaEjecucion();
 
         Date fechaAmazon = fechaUltimaEjecucion.getFechaAmazon();
         Date fechaGoogle = fechaUltimaEjecucion.getFechaGoogle();
         Date fechaHeroku = fechaUltimaEjecucion.getFechaHeroku();
-
-        comparaciones = new ArrayList<Comparacion>();
 
         List<ResultadoEjecucion> amazon = getResultadoByServidor(fechaAmazon, AMAZON);
         List<ResultadoEjecucion> google = getResultadoByServidor(fechaGoogle, GOOGLE);
@@ -83,11 +91,16 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
         listaResultados.addAll(google);
         listaResultados.addAll(heroku);
 
-        List<Comparacion> resultadoComparacion = setResultadoComparacion(listaResultados);
-
-        return resultadoComparacion;
+        return listaResultados;
     }
 
+    /**
+     * Obtiene los resultado de la ejecucion por proveedor
+     * 
+     * @param fecha
+     * @param servidor
+     * @return Lista de ResultadoEjecucion
+     */
     @SuppressWarnings("unchecked")
     private List<ResultadoEjecucion> getResultadoByServidor(Date fecha, String servidor) {
         List<ResultadoEjecucion> resultado = session.getCurrentSession()
@@ -96,16 +109,22 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
         return resultado;
     }
 
-    private List<Comparacion> setResultadoComparacion(List<ResultadoEjecucion> resultados) {
+    /**
+     * Setea los resultados de la ultima ejecucion en una lista de proveedores
+     * 
+     * @param resultados
+     * @return Lista de Proveedores
+     */
+    private List<Atributo> setResultadoUltimaEjecucion(List<ResultadoEjecucion> resultados) {
 
-        Comparacion anchoBanda = new Comparacion();
-        Comparacion cpu = new Comparacion();
-        Comparacion escrituraDisco = new Comparacion();
-        Comparacion escrituraMemoria = new Comparacion();
-        Comparacion instruccionesMinuto = new Comparacion();
-        Comparacion latencia = new Comparacion();
-        Comparacion lecturaDisco = new Comparacion();
-        Comparacion lecturaMemoria = new Comparacion();
+        Atributo anchoBanda = new Atributo();
+        Atributo cpu = new Atributo();
+        Atributo escrituraDisco = new Atributo();
+        Atributo escrituraMemoria = new Atributo();
+        Atributo instruccionesMinuto = new Atributo();
+        Atributo latencia = new Atributo();
+        Atributo lecturaDisco = new Atributo();
+        Atributo lecturaMemoria = new Atributo();
 
         for (ResultadoEjecucion resultado : resultados) {
 
@@ -175,18 +194,23 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
         }
 
-        comparaciones.add(anchoBanda);
-        comparaciones.add(cpu);
-        comparaciones.add(escrituraDisco);
-        comparaciones.add(escrituraMemoria);
-        comparaciones.add(instruccionesMinuto);
-        comparaciones.add(latencia);
-        comparaciones.add(lecturaDisco);
-        comparaciones.add(lecturaMemoria);
+        listaAtributosProveedor.add(anchoBanda);
+        listaAtributosProveedor.add(cpu);
+        listaAtributosProveedor.add(escrituraDisco);
+        listaAtributosProveedor.add(escrituraMemoria);
+        listaAtributosProveedor.add(instruccionesMinuto);
+        listaAtributosProveedor.add(latencia);
+        listaAtributosProveedor.add(lecturaDisco);
+        listaAtributosProveedor.add(lecturaMemoria);
 
-        return comparaciones;
+        return listaAtributosProveedor;
     }
 
+    /**
+     * Obtiene UltimaFechaEjecucion de todos los proveedor en un unico Objeto
+     * 
+     * @return Objeto UltimaFechaEjecucion
+     */
     public UltimaFechaEjecucion getFechaUltimaEjecucion() {
         UltimaFechaEjecucion ultimaEjecucion = new UltimaFechaEjecucion();
         Date fechaAmazon = this.getUltimaFechaEjecucionByServidor(AMAZON);
@@ -200,6 +224,12 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
         return ultimaEjecucion;
     }
 
+    /**
+     * Obtiene la fecha de la ultima ejecucion por cada proveedor
+     * 
+     * @param servidor
+     * @return Date
+     */
     private Date getUltimaFechaEjecucionByServidor(String servidor) {
         Date fechaActual = (Date) session.getCurrentSession()
                 .createQuery("Select fecha from ResultadoEjecucion where servidor = :nombreServidor "
@@ -208,5 +238,11 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
         return fechaActual;
 
+    }
+
+    @Override
+    public List<ResultadoEjecucion> getComparacion() {
+        List<ResultadoEjecucion> resultado = this.getListaUltimaEjecucion();
+        return resultado;
     }
 }

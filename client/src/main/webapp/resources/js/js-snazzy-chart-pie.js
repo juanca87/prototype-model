@@ -13,8 +13,8 @@ function pieChart() {
   var pullOutFrameStep = 4;                         // How many pixels to move a slice with each animation frame
   var pullOutFrameInterval = 40;                    // How long (in ms) between each animation frame
   var pullOutLabelPadding = 65;                     // Padding between pulled-out slice and its label  
-  var pullOutLabelFont = "bold 16px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice label font
-  var pullOutValueFont = "bold 12px 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice value font
+  var pullOutLabelFont = "bold 12px 'Open Sans', 'Trebuchet MS', Verdana, sans-serif";  // Pull-out slice label font
+  var pullOutValueFont = "italic 12px 'Open Sans','Trebuchet MS', Verdana, sans-serif";  // Pull-out slice value font
   var pullOutValueSufix = " seg.";                     // Pull-out slice value prefix
   var pullOutShadowColour = "rgba( 0, 0, 0, .5 )";  // Colour to use for the pull-out slice shadow
   var pullOutShadowOffsetX = 5;                     // X-offset (in pixels) of the pull-out slice shadow
@@ -91,7 +91,7 @@ function pieChart() {
       } else if ( hex = $(this).css('color').match(/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/) ) {
         chartColours[currentRow] = [ parseInt(hex[1],16) ,parseInt(hex[2],16), parseInt(hex[3], 16) ];
       } else {
-        alert( "Error: Colour could not be determined! Please specify table colours using the format '#xxxxxx'" );
+        alert( "Error: No se pudo encontrar el color! Por favor use los colores en el formato '#xxxxxx'" );
         return;
       }
 

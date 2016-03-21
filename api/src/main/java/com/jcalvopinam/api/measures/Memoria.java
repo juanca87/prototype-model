@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.jcalvopinam.api.utils.Commons;
 import com.jcalvopinam.api.utils.Valor;
 
 import sun.misc.Unsafe;
@@ -19,64 +20,60 @@ public class Memoria {
 
     private static final Logger logMemoria = LoggerFactory.getLogger(Memoria.class);
 
+    Commons common = new Commons();
+    String result = "";
+    String errorMessage = "";
+    long elapsedTime = 0;
+
     public Valor getTiempoEscrituraMemoria() {
-        String result = "";
-        String errorMessage = "";
+
+        result = "";
+        errorMessage = "";
 
         try {
             long startTime = System.nanoTime();
 
             Unsafe unsafe = getUnsafe();
 
-            // Writing to a memory - MAX VALUE of Long
             long value = Long.MAX_VALUE;
             long bytes = Long.SIZE;
-            // Allocate given memory size
             long memoryAddress = unsafe.allocateMemory(bytes);
-            // Write value to the allocated memory
+
             unsafe.putLong(memoryAddress, value);
 
-            // Output the value written and the memory address
-//            System.out.println("[Long] Writing " + value + " under the " + memoryAddress + " address.");
-            long elapsedTime = System.nanoTime() - startTime;
+            elapsedTime = System.nanoTime() - startTime;
 
             logMemoria.info("<Memoria> Tiempo de escritura en nano: " + elapsedTime);
-
-            result = String.valueOf(elapsedTime);
 
         } catch (Exception e) {
             logMemoria.error("There has been an unexpected error: " + e.getMessage());
             errorMessage = e.getMessage();
         }
 
-        if (result.length() > 5)
-            result = result.substring(0, 5);
+        result = common.formatearResultado(elapsedTime);
 
         return new Valor(result, errorMessage);
     }
 
     public Valor getTiempoLecturaMemoria() {
-        String result = "";
-        String errorMessage = "";
+        result = "";
+        errorMessage = "";
+        elapsedTime = 0;
 
         try {
             long startTime = System.nanoTime();
             Unsafe unsafe = getUnsafe();
 
             long bytes = Long.SIZE;
-            // Allocate given memory size
             long memoryAddress = unsafe.allocateMemory(bytes);
 
-            // Read the value from the memory
             long readValue = unsafe.getLong(memoryAddress);
 
-            // Output the value from
             logMemoria.info("[Long] Reading " + readValue + " from the " + memoryAddress + " address.");
 
-            // C style! Release the Kraken... Memory!! :)
             unsafe.freeMemory(memoryAddress);
 
-            long elapsedTime = System.nanoTime() - startTime;
+            elapsedTime = System.nanoTime() - startTime;
             logMemoria.info("<Memoria> Tiempo de lectura en nano: " + elapsedTime);
             result = String.valueOf(elapsedTime);
 
@@ -85,14 +82,12 @@ public class Memoria {
             errorMessage = e.getMessage();
         }
 
-        if (result.length() > 5)
-            result = result.substring(0, 5);
+        result = common.formatearResultado(elapsedTime);
 
         return new Valor(result, errorMessage);
     }
 
     private Unsafe getUnsafe() throws Exception {
-        // Get the Unsafe object instance
         Field field = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
         field.setAccessible(true);
         return (sun.misc.Unsafe) field.get(null);

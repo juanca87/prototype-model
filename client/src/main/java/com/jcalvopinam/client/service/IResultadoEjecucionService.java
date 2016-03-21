@@ -2,7 +2,7 @@ package com.jcalvopinam.client.service;
 
 import java.util.List;
 
-import com.jcalvopinam.client.dto.Comparacion;
+import com.jcalvopinam.client.dto.Atributo;
 import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 
@@ -12,7 +12,7 @@ import com.jcalvopinam.client.model.ResultadoEjecucion;
  */
 public interface IResultadoEjecucionService {
 
-    public void add(ResultadoEjecucion resultado);
+    public void save(ResultadoEjecucion resultado);
 
     public void update(ResultadoEjecucion resultado);
 
@@ -24,8 +24,10 @@ public interface IResultadoEjecucionService {
 
     public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName);
 
-    public List<Comparacion> getComparacion();
+    public List<Atributo> getUltimaEjecucion();
 
     public UltimaFechaEjecucion getUltimaFechaEjecucion();
+
+    public List<ResultadoEjecucion> getComparacion();
 
 }

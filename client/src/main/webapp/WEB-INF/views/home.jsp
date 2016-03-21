@@ -73,7 +73,7 @@
 <!-- /. CLOUDS  -->
     <div class="row">
         <!-- AMAZON -->
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="panel panel-yellow">
                 <div class="panel-heading">
                     <div class="row">
@@ -98,7 +98,7 @@
             </div>
         </div>
         <!-- GOOGLE -->
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">
@@ -123,7 +123,7 @@
             </div>
         </div>
         <!-- HEROKU -->
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="panel panel-purple">
                 <div class="panel-heading">
                     <div class="row">
@@ -147,9 +147,12 @@
                 </a>
             </div>
         </div>
+    </div>
+
+    <div class="row">
         <!-- COMPARACION -->
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-green">
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-green" style="height: 180px;">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -163,25 +166,19 @@
                 </div>
                 <a href="${contextUrl}comparacion">
                     <div class="panel-footer">
-                        <span class="pull-left">Ver Detalles</span>
+                        <span class="pull-left">Comparación de resultados entre los diferentes proveedores.
+                            Ver Detalles</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-
+        <div class="col-lg-8">
             <div id="reviews" class="carousel slide" data-ride="carousel">
-
                 <div class="carousel-inner">
                     <div class="item active">
-
                         <div class="col-md-10 col-md-offset-1">
-
                             <h4><i class="fa fa-quote-left"></i>Modelo de evaluacion con metricas de atributos de calidad. <i class="fa fa-quote-right"></i></h4>
                             <div class="user-img pull-right">
                                 <img src="resources/img/methodologyLogos/iso.png" alt="" class="img-u image-responsive" />
@@ -191,18 +188,15 @@
                     </div>
                     <div class="item">
                         <div class="col-md-10 col-md-offset-1">
-
                             <h4><i class="fa fa-quote-left"></i>Model de evaluacion en base atributos tomados de ITIL <i class="fa fa-quote-right"></i></h4>
                             <div class="user-img pull-right">
                                 <img src="resources/img/methodologyLogos/itil.png" alt="" class="img-u image-responsive" />
                             </div>
                             <h5 class="pull-right"><strong class="c-black">ITIL</strong></h5>
                         </div>
-
                     </div>
                     <div class="item">
                         <div class="col-md-10 col-md-offset-1">
-
                             <h4><i class="fa fa-quote-left"></i>Aplicacion del metodo IQMC para el desarrollo del modelo. <i class="fa fa-quote-right"></i></h4>
                             <div class="user-img pull-right">
                                 <img src="resources/img/methodologyLogos/iqmc.png" alt="" class="img-u image-responsive" />
@@ -217,74 +211,53 @@
                     <li data-target="#reviews" data-slide-to="1"></li>
                     <li data-target="#reviews" data-slide-to="2"></li>
                 </ol>
-                <!--PREVIUS-NEXT BUTTONS-->
-
             </div>
-
         </div>
-
     </div>
 
-    <br/>
-
-    <div class="col-lg-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bell fa-fw"></i> Panel de Notificaciones
-            </div>
-            <div class="panel-body">
-                <div class="list-group">
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-tasks fa-fw"></i> Última ejecución Amazon:  
-                        <span class="pull-right text-muted small"><em>${fechaAmazon}</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-tasks fa-fw"></i> Última ejecución Google:  
-                        <span class="pull-right text-muted small"><em>${fechaGoogle}</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-tasks fa-fw"></i> Última ejecución Heroku:  
-                        <span class="pull-right text-muted small"><em>${fechaHeroku}</em>
-                        </span>
-                    </a>
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> Panel de Notificaciones
                 </div>
-            </div>
-            <!-- /.panel-body -->
-        </div>
-    </div>
-
-    <!-- AREA CHART -->
-    <div class="col-lg-8">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            Actions
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li><a href="#">Action</a>
-                            </li>
-                            <li><a href="#">Another action</a>
-                            </li>
-                            <li><a href="#">Something else here</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a>
-                            </li>
-                        </ul>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <i class="fa fa-tasks fa-fw"></i> Última ejecución Amazon:  
+                            <span class="pull-right text-muted small"><em>${fechaAmazon}</em>
+                            </span>
+                        </div>
+                        <div class="list-group-item">
+                            <i class="fa fa-tasks fa-fw"></i> Última ejecución Google:  
+                            <span class="pull-right text-muted small"><em>${fechaGoogle}</em>
+                            </span>
+                        </div>
+                        <div class="list-group-item">
+                            <i class="fa fa-tasks fa-fw"></i> Última ejecución Heroku:  
+                            <span class="pull-right text-muted small"><em>${fechaHeroku}</em>
+                            </span>
+                        </div>
                     </div>
                 </div>
+                <!-- /.panel-body -->
             </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <div id="morris-area-chart"></div>
+        </div>
+
+        <div id="waiting" class="centered" style="display: none">
+            <p>Please wait...</p>
+        </div>
+
+        <!-- AREA CHART -->
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-area-chart-o fa-fw"></i> Gráfico de Atributos vs Tiempo (seg).
+                </div>
+                <div class="panel-body">
+                    <div id="morris-area-chart"></div>
+                </div>
             </div>
-            <!-- /.panel-body -->
         </div>
     </div>
 
@@ -302,6 +275,6 @@
 
 <script src="<c:url value="/resources/js/jquery.min.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
-<script src="<c:url value="/resources/js/app/morris-data.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/resources/js/app/morris-area-data.js"/>" type="text/javascript"></script>
 
 </html>

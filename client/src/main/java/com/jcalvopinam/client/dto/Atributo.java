@@ -4,7 +4,7 @@ package com.jcalvopinam.client.dto;
  * @author Juan Calvopina Morillo <juan.calvopina@gmail.com>
  *
  */
-public class Comparacion {
+public class Atributo {
 
     private String atributo;
     private String amazon;

@@ -67,6 +67,8 @@ public class CloudController {
 
     @RequestMapping(value = "/comparacion", method = RequestMethod.GET)
     public ModelAndView comparacion() {
+        logCloud.info("Obteniendo datos para Comparación");
+        
         ModelAndView model = new ModelAndView();
         model.addObject("pagina", "Comparaci\u00f3n");
         model.addObject("hostAddress", getServidor());

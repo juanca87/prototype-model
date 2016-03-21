@@ -9,17 +9,17 @@ var portNumber = 80;
 if (hostAddress == "localhost")
   portNumber = 8080;
 
-// url para obtener el historial de ejecuciones se envia como parametro el
-// nombre del servidor
-var jsonUrl = "http://" + hostAddress + ":" + portNumber + contextPathUrl + "/getComparacion.json";
+// url para los resultados de la comparacion
+var jsonUrl = "http://" + hostAddress + ":" + portNumber + contextPathUrl + "/getUltimaEjecucion.json";
 
-$.getJSON(jsonUrl, function(json) {
+var barJson = $.getJSON(jsonUrl, function(json) {
 
   $(function() {
-    Morris.Area({
-      element : 'morris-area-chart',
+    Morris.Bar({
+      element : 'morris-bar-chart',
       data : json,
       parseTime : false,
+      barColors:['#e8a02a','#3974c4','#413290'],
       ymax : 'auto',
       ymin : 'auto',
       xkey : 'atributo',
@@ -31,4 +31,13 @@ $.getJSON(jsonUrl, function(json) {
     });
 
   });
+}).done(function() {
+  $("#waiting").hide();
+}).fail(function() {
+  $("#waiting").hide();
+  alert("No se pudo recuperar datos de la URL ingresada");
+});
+
+barJson.complete(function() {
+  console.log("Procesado con exito bar chart");
 });

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jcalvopinam.client.dao.IResultadoEjecucionDao;
-import com.jcalvopinam.client.dto.Comparacion;
+import com.jcalvopinam.client.dto.Atributo;
 import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 import com.jcalvopinam.client.service.IResultadoEjecucionService;
@@ -23,7 +23,7 @@ public class ResultadoEjecucionServiceImpl implements IResultadoEjecucionService
     private IResultadoEjecucionDao resultadoEjecucionDao;
 
     @Transactional
-    public void add(ResultadoEjecucion resultado) {
+    public void save(ResultadoEjecucion resultado) {
         resultadoEjecucionDao.add(resultado);
     }
 
@@ -53,12 +53,17 @@ public class ResultadoEjecucionServiceImpl implements IResultadoEjecucionService
     }
 
     @Transactional
-    public List<Comparacion> getComparacion() {
-        return resultadoEjecucionDao.getComparacion();
+    public List<Atributo> getUltimaEjecucion() {
+        return resultadoEjecucionDao.getUltimaEjecucion();
     }
 
     @Transactional
     public UltimaFechaEjecucion getUltimaFechaEjecucion() {
         return resultadoEjecucionDao.getFechaUltimaEjecucion();
+    }
+
+    @Transactional
+    public List<ResultadoEjecucion> getComparacion() {
+        return resultadoEjecucionDao.getComparacion();
     }
 }

@@ -10,6 +10,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.jcalvopinam.api.utils.Commons;
 import com.jcalvopinam.api.utils.Valor;
 
 /**
@@ -25,6 +26,8 @@ public class Disco {
     private String fileName = "testSavefileInHDD.txt";
     private String result = "";
     private String errorMessage = "";
+
+    Commons common = new Commons();
 
     public Valor getTiempoEscrituraDisco() {
 
@@ -65,35 +68,29 @@ public class Disco {
 
         logDisco.info("<Disco> Tiempo de escritura en nano: " + elapsedTime);
 
-        // long seconds = (elapsedTime / 1000) % 60;
-        // long minutes = ((elapsedTime - seconds) / 1000) / 60;
-        result = String.valueOf(elapsedTime);
-
-        if (result.length() > 5)
-            result = result.substring(0, 5);
+        result = common.formatearResultado(elapsedTime);
 
         return new Valor(result, errorMessage);
     }
 
     public Valor getTiempoLecturaDisco() {
+
         BufferedReader br = null;
+
         long startTime = System.nanoTime();
+        long elapsedTime = 0;
 
         try {
             String sCurrentLine;
             br = new BufferedReader(new FileReader(filePath + fileName));
 
             while ((sCurrentLine = br.readLine()) != null) {
-                System.out.println(sCurrentLine);
+                logDisco.debug(sCurrentLine);
             }
 
-            long elapsedTime = System.nanoTime() - startTime;
-
+            elapsedTime = System.nanoTime() - startTime;
             logDisco.info("<Disco> Tiempo de lectura en nano: " + elapsedTime);
 
-            // long seconds = (elapsedTime / 1000) % 60;
-            // long minutes = ((elapsedTime - seconds) / 1000) / 60;
-            result = String.valueOf(elapsedTime);
         } catch (IOException e) {
             logDisco.error("There has been an unexpected error: " + e.getMessage());
             errorMessage = e.getMessage();
@@ -109,8 +106,7 @@ public class Disco {
             }
         }
 
-        if (result.length() > 5)
-            result = result.substring(0, 5);
+        result = common.formatearResultado(elapsedTime);
 
         return new Valor(result, errorMessage);
     }
