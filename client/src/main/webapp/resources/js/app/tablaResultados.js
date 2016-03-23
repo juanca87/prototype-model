@@ -39,7 +39,7 @@ $(document).ready(
                 return obj;
               }
             },
-            colNames : [ 'id', 'CPU', 'LM', 'EM', 'LD', 'ED', 'AB', 'L', 'IM', 'Fecha', 'Servidor' ],
+            colNames : [ 'id', 'CPU', 'LM', 'EM', 'LD', 'ED', 'AB', 'L', 'P', 'Fecha', 'Servidor' ],
             colModel : [
                 {
                   name : 'id',
@@ -108,11 +108,14 @@ $(document).ready(
                 }, ],
             rowNum : 10,
             rowList : [ 10, 20, 30, 40, 50 ],
-            //sortname: 'id',
-            //sortorder: "asc",
+            // sortname: 'id',
+            // sortorder: "asc",
             pager : '#navGrid',
             height : 275,
             viewrecords : true,
+            loadComplete : function() {
+              console.log("carga completa de resultados");
+            }
           });
 
       $('#dataGrid').trigger('reloadGrid');
@@ -130,7 +133,7 @@ $(document).ready(
       setTooltipsOnColumnHeader($("#dataGrid"), 5, "Escritura en Disco");
       setTooltipsOnColumnHeader($("#dataGrid"), 6, "Ancho de Banda");
       setTooltipsOnColumnHeader($("#dataGrid"), 7, "Latencia");
-      setTooltipsOnColumnHeader($("#dataGrid"), 8, "Instrucciones por Minuto");
+      setTooltipsOnColumnHeader($("#dataGrid"), 8, "Procesamiento");
       setTooltipsOnColumnHeader($("#dataGrid"), 9, "Fecha de captura");
       setTooltipsOnColumnHeader($("#dataGrid"), 10, "Servidor de captura");
     });

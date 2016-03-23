@@ -1,5 +1,8 @@
 package com.jcalvopinam.client.utils;
 
+import java.util.List;
+
+import org.apache.commons.lang3.ObjectUtils;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpHeaders;
 
@@ -35,4 +38,9 @@ public class Commons {
         return errorMessage;
     }
 
+    public static String getValorMinimo(List<Double> valores) {
+        Double minVal = ObjectUtils.min(valores.toArray(new Double[valores.size()]));
+        return String.valueOf(minVal);
+
+    }
 }

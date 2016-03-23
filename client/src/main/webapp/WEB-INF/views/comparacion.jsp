@@ -9,6 +9,7 @@
 
 <head>
     <title>Comparación</title>
+
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
@@ -20,6 +21,11 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans"/>
+
+    <link rel="stylesheet" media="screen" href="resources/css/ui.jqgrid-bootstarp.css"/>
+    <link rel="stylesheet" media="screen" href="resources/css/ui.jqgrid.css"/>
+    <link rel="stylesheet" media="screen" href="resources/css/jquery.ui.base.css"/>
+    <link rel="stylesheet" media="screen" href="resources/css/jquery-ui.css"/>
 </head>
 
 <body class="body-custom">
@@ -64,82 +70,93 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h3 class="page-head-line">Historial de Ejecuciones</h3>
-                <div id="accordion" class="panel panel-default">
-                    <div class="panel-heading">
-                        Mediciones anteriores
-                    </div>
+            <h3 class="page-head-line">Comparación de Resultados</h3>
+            <div id="accordion" class="panel panel-default">
+                <div class="panel-heading">
+                    Tabla Comparativa
                 </div>
-            <h3 class="page-subhead-line"></h3>
-        </div>
-    </div>
-
-    <div>
-        <!-- NOTIFICATIONS -->
-        <div class="col-lg-4">
-            <div class="panel panel-default" style="margin-left: -15px; margin-bottom: -16px; border-bottom-right-radius: 0px;">
-                <div class="panel-heading" style="border-top-right-radius: 0px;">
-                    <i class="fa fa-bell fa-fw"></i> Panel de Notificaciones
-                </div>
-                <div class="panel-body">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-tasks fa-fw"></i> Última ejecución Amazon:  
-                            <span class="pull-right text-muted small"><em>${fechaAmazon}</em>
-                            </span>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-tasks fa-fw"></i> Última ejecución Google:  
-                            <span class="pull-right text-muted small"><em>${fechaGoogle}</em>
-                            </span>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-tasks fa-fw"></i> Última ejecución Heroku:  
-                            <span class="pull-right text-muted small"><em>${fechaHeroku}</em>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <!-- LEYENDA -->
-                <div class="panel-heading" style="border-top-right-radius: 0px;">
-                    <i class="fa th-large fa-fw"></i> Leyenda
-                </div>
-                <div class="panel-body">
-                    <div class="list-group">
-                        <div class="list-group-item">
-                            <div id="leyenda-amazon">
-                                <span style="margin-left: 30px">Amazon EC2</span>
-                            </div>
-                        </div>
-                        <div class="list-group-item">
-                            <div id="leyenda-google">
-                                <span style="margin-left: 30px">Google App Engine</span>
-                            </div>
-                        </div>
-                        <div class="list-group-item">
-                            <div id="leyenda-heroku">
-                                <span style="margin-left: 30px">Heroku</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="panel-body" align="center" style="border-style:solid; color: #F5F5F5; border-width: 1px;">
+                    <table id="comparacionGrid" style="font-family: 'Open Sans', sans-serif;"></table>
                 </div>
             </div>
-        </div>
 
-        <!-- BAR CHART -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Gráfico de Atributos vs Tiempo (seg).
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-8">
+            <div>
+                <!-- DONUT CHART -->
+                <div class="col-lg-4">
+                    <div class="panel panel-default" style="margin-left: -15px; margin-bottom: -83px; height: 512px; border-bottom-right-radius: 0px;">
+                        <div class="panel-heading" style="border-top-right-radius: 0px;">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Gráfico por Atributo
+                        </div>
                         <br/>
-                        <div id="morris-bar-chart"></div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Atributos</label>
+                            <div class="col-xs-8 selectContainer">
+                                <select id="combobox" class="form-control">
+                                    <option value="0">Seleccione...</option>
+                                    <option value="1">CPU</option>
+                                    <option value="2">Lectura en Memoria</option>
+                                    <option value="3">Escritura en Memoria</option>
+                                    <option value="4">Lectura en Disco</option>
+                                    <option value="5">Escritura en Disco</option>
+                                    <option value="6">Ancho de banda</option>
+                                    <option value="7">Latencia</option>
+                                    <option value="8">Procesamiento</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/><br/>
+                        <div id="morris-donut-chart"></div>
                     </div>
                 </div>
             </div>
+        
+                <!-- BAR CHART -->
+            <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Gráfico de Atributos vs Tiempo (seg).
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <br/>
+                                <div id="morris-bar-chart"></div>
+                            </div>
+                        </div>
+                        <br/>
+                        <!-- LEYENDA -->
+                        <div align="center">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="list-group-item" style="margin-left: 400px; width: 150;">
+                                            <div id="leyenda-amazon">
+                                                <span style="margin-left: 30px">Amazon</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="list-group-item" style="margin-left: 10px; width: 150;">
+                                            <div id="leyenda-google">
+                                                <span style="margin-left: 30px">Google</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="list-group-item" style="margin-left: 10px; width: 150;">
+                                            <div id="leyenda-heroku">
+                                                <span style="margin-left: 30px">Heroku</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
         </div>
+
+            <h3 class="page-subhead-line"></h3>
+
     </div>
 
     <div style="display:none;">
@@ -152,8 +169,16 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-<script src="<c:url value="/resources/js/jquery.min.js"/>" type="text/javascript"></script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
-<script src="<c:url value="/resources/js/app/morris-bar-data.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/resources/js/jquery-1.10.2.js"/>"></script>
+<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
+
+<script src="<c:url value="/resources/js/lib/jquery.min.js"/>"></script>
+<script src="<c:url value="/resources/js/lib/jquery-ui.min.js"/>"></script>
+<script src="<c:url value="/resources/js/lib/jquery.jqGrid.min.js"/>"></script>
+<script src="<c:url value="/resources/js/lib/i18n/grid.locale-en.js"/>"></script>
+
+<script src="<c:url value="/resources/js/app/morris-bar-data.js"/>"></script>
+<script src="<c:url value="/resources/js/app/morris-donut-data.js"/>"></script>
+<script src="<c:url value="/resources/js/app/tablaComparativa.js"/>"></script>
 
 </html>

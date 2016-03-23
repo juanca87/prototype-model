@@ -116,10 +116,8 @@ public class ResultadoEjecucionController {
 
     /**
      * Devuelve un json con los resultados de la ultima ejecucion de los 3 proveedores
-     * TODO poner este resultado en una tabla en la pagina de comparacion
-     * TODO ver el bosquejo en el cuaderno
      */
-    @RequestMapping(value = "/getComparacion")
+    @RequestMapping(value = "/getComparacion", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<String> getComparacion() {
 
@@ -131,6 +129,34 @@ public class ResultadoEjecucionController {
             return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));
         } catch (Exception e) {
             log.error("Se produjo un error al obtener los resultados de la comparación: " + e.getMessage());
+
+            return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
+                    HttpStatus.BAD_REQUEST));
+        }
+
+    }
+
+    @RequestMapping(value = "getAtributoByName/{atributo}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> getAtributoByName(@PathVariable String atributo) {
+
+        try {
+
+            json = "";
+            mapper = new ObjectMapper();
+
+            if (!StringUtils.isEmpty(atributo)) {
+                json = mapper.writeValueAsString(resultadoEjecucion.getAtributoByName(atributo));
+                return (new ResponseEntity<String>(json, getHpptHeader(), HttpStatus.OK));
+            } else {
+                return (new ResponseEntity<String>(
+                        getErrorMessage("error", "No se encontro el atributo").toJSONString(), getHpptHeader(),
+                        HttpStatus.BAD_REQUEST));
+            }
+
+        } catch (Exception e) {
+
+            log.error("Se produjo un error al obtener el historial de ejecuciones: " + e.getMessage());
 
             return (new ResponseEntity<String>(getErrorMessage("error", e.getMessage()).toJSONString(), getHpptHeader(),
                     HttpStatus.BAD_REQUEST));

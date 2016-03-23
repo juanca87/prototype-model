@@ -10,9 +10,9 @@ if (hostAddress == "localhost")
   portNumber = 8080;
 
 // url para los resultados de la comparacion
-var jsonUrl = "http://" + hostAddress + ":" + portNumber + contextPathUrl + "/getUltimaEjecucion.json";
+var jsonUEArea = "http://" + hostAddress + ":" + portNumber + contextPathUrl + "/getUltimaEjecucion.json";
 
-var areaJson = $.getJSON(jsonUrl, function(json) {
+var areaJson = $.getJSON(jsonUEArea, function(json) {
 
   $(function() {
     Morris.Area({

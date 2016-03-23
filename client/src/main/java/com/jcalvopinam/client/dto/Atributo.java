@@ -6,41 +6,23 @@ package com.jcalvopinam.client.dto;
  */
 public class Atributo {
 
-    private String atributo;
-    private String amazon;
-    private String google;
-    private String heroku;
+    private String label;
+    private double value;
 
-    public String getAtributo() {
-        return atributo;
+    public String getLabel() {
+        return label;
     }
 
-    public void setAtributo(String atributo) {
-        this.atributo = atributo;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public String getAmazon() {
-        return amazon;
+    public double getValue() {
+        return value;
     }
 
-    public void setAmazon(String amazon) {
-        this.amazon = amazon;
-    }
-
-    public String getGoogle() {
-        return google;
-    }
-
-    public void setGoogle(String google) {
-        this.google = google;
-    }
-
-    public String getHeroku() {
-        return heroku;
-    }
-
-    public void setHeroku(String heroku) {
-        this.heroku = heroku;
+    public void setValue(double value) {
+        this.value = value;
     }
 
 }

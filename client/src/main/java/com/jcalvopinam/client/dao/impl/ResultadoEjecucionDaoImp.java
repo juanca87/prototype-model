@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jcalvopinam.client.dao.IResultadoEjecucionDao;
 import com.jcalvopinam.client.dto.Atributo;
+import com.jcalvopinam.client.dto.Proveedor;
 import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 
@@ -24,7 +25,8 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
     private static final String GOOGLE = "google";
     private static final String HEROKU = "heroku";
 
-    List<Atributo> listaAtributosProveedor = null;
+    List<Proveedor> listaAtributosProveedor = null;
+    List<Proveedor> listaAtributosUltimaEjecucion = new ArrayList<Proveedor>();
 
     @Autowired
     private SessionFactory session;
@@ -64,9 +66,10 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
     }
 
     @Override
-    public List<Atributo> getUltimaEjecucion() {
-        listaAtributosProveedor = new ArrayList<Atributo>();
-        List<Atributo> ultimaEjecucion = setResultadoUltimaEjecucion(getListaUltimaEjecucion());
+    public List<Proveedor> getUltimaEjecucion() {
+        listaAtributosProveedor = new ArrayList<Proveedor>();
+        List<Proveedor> ultimaEjecucion = setResultadoUltimaEjecucion(getListaUltimaEjecucion());
+        this.setListaAtributosUltimaEjecucion(ultimaEjecucion);
         return ultimaEjecucion;
     }
 
@@ -94,6 +97,45 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
         return listaResultados;
     }
 
+    @Override
+    public List<ResultadoEjecucion> getComparacion() {
+        List<ResultadoEjecucion> resultado = this.getListaUltimaEjecucion();
+        return resultado;
+    }
+
+    /**
+     * Busca el atributo y recuperar los resultados
+     * 
+     * @param atributo
+     *            nombre del atributo
+     * @return objeto Atributo
+     */
+    @Override
+    public List<Atributo> getAtributoByName(String atributo) {
+
+        List<Proveedor> listaProveedores = this.getUltimaEjecucion();
+        List<Atributo> listaAtributos = new ArrayList<Atributo>();
+        Atributo resultadoAmazon = new Atributo();
+        Atributo resultadoGoogle = new Atributo();
+        Atributo resultadoHeroku = new Atributo();
+
+        for (Proveedor p : listaProveedores) {
+            if (p.getAtributo().contains(atributo)) {
+                resultadoAmazon.setLabel(AMAZON);
+                resultadoAmazon.setValue(Double.parseDouble(p.getAmazon()));
+                listaAtributos.add(resultadoAmazon);
+                resultadoGoogle.setLabel(GOOGLE);
+                resultadoGoogle.setValue(Double.parseDouble(p.getGoogle()));
+                listaAtributos.add(resultadoGoogle);
+                resultadoHeroku.setLabel(HEROKU);
+                resultadoHeroku.setValue(Double.parseDouble(p.getHeroku()));
+                listaAtributos.add(resultadoHeroku);
+                break;
+            }
+        }
+        return listaAtributos;
+    }
+
     /**
      * Obtiene los resultado de la ejecucion por proveedor
      * 
@@ -115,16 +157,16 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
      * @param resultados
      * @return Lista de Proveedores
      */
-    private List<Atributo> setResultadoUltimaEjecucion(List<ResultadoEjecucion> resultados) {
+    private List<Proveedor> setResultadoUltimaEjecucion(List<ResultadoEjecucion> resultados) {
 
-        Atributo anchoBanda = new Atributo();
-        Atributo cpu = new Atributo();
-        Atributo escrituraDisco = new Atributo();
-        Atributo escrituraMemoria = new Atributo();
-        Atributo instruccionesMinuto = new Atributo();
-        Atributo latencia = new Atributo();
-        Atributo lecturaDisco = new Atributo();
-        Atributo lecturaMemoria = new Atributo();
+        Proveedor anchoBanda = new Proveedor();
+        Proveedor cpu = new Proveedor();
+        Proveedor escrituraDisco = new Proveedor();
+        Proveedor escrituraMemoria = new Proveedor();
+        Proveedor instruccionesMinuto = new Proveedor();
+        Proveedor latencia = new Proveedor();
+        Proveedor lecturaDisco = new Proveedor();
+        Proveedor lecturaMemoria = new Proveedor();
 
         for (ResultadoEjecucion resultado : resultados) {
 
@@ -203,6 +245,8 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
         listaAtributosProveedor.add(lecturaDisco);
         listaAtributosProveedor.add(lecturaMemoria);
 
+        this.setListaAtributosUltimaEjecucion(listaAtributosUltimaEjecucion);
+
         return listaAtributosProveedor;
     }
 
@@ -240,9 +284,12 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
     }
 
-    @Override
-    public List<ResultadoEjecucion> getComparacion() {
-        List<ResultadoEjecucion> resultado = this.getListaUltimaEjecucion();
-        return resultado;
+    public List<Proveedor> getListaAtributosUltimaEjecucion() {
+        return listaAtributosUltimaEjecucion;
     }
+
+    public void setListaAtributosUltimaEjecucion(List<Proveedor> listaAtributosUltimaEjecucion) {
+        this.listaAtributosUltimaEjecucion = listaAtributosUltimaEjecucion;
+    }
+
 }

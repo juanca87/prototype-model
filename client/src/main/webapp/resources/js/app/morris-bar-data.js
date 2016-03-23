@@ -10,9 +10,9 @@ if (hostAddress == "localhost")
   portNumber = 8080;
 
 // url para los resultados de la comparacion
-var jsonUrl = "http://" + hostAddress + ":" + portNumber + contextPathUrl + "/getUltimaEjecucion.json";
+var jsonUEBar = "http://" + hostAddress + ":" + portNumber + contextPathUrl + "/getUltimaEjecucion.json";
 
-var barJson = $.getJSON(jsonUrl, function(json) {
+var barJson = $.getJSON(jsonUEBar, function(json) {
 
   $(function() {
     Morris.Bar({

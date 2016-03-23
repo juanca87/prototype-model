@@ -161,3 +161,9 @@
   height: 20px;
   background: #413290;
 }
+
+th.ui-th-column div {
+  white-space: normal !important;
+  height: auto !important;
+  padding: 2px;
+}

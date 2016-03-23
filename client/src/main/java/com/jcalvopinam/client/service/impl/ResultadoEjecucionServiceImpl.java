@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jcalvopinam.client.dao.IResultadoEjecucionDao;
 import com.jcalvopinam.client.dto.Atributo;
+import com.jcalvopinam.client.dto.Proveedor;
 import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
 import com.jcalvopinam.client.model.ResultadoEjecucion;
 import com.jcalvopinam.client.service.IResultadoEjecucionService;
@@ -53,7 +54,7 @@ public class ResultadoEjecucionServiceImpl implements IResultadoEjecucionService
     }
 
     @Transactional
-    public List<Atributo> getUltimaEjecucion() {
+    public List<Proveedor> getUltimaEjecucion() {
         return resultadoEjecucionDao.getUltimaEjecucion();
     }
 
@@ -66,4 +67,10 @@ public class ResultadoEjecucionServiceImpl implements IResultadoEjecucionService
     public List<ResultadoEjecucion> getComparacion() {
         return resultadoEjecucionDao.getComparacion();
     }
+
+    @Transactional
+    public List<Atributo> getAtributoByName(String atributo) {
+        return resultadoEjecucionDao.getAtributoByName(atributo);
+    }
+
 }
