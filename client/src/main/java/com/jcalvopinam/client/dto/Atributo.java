@@ -7,7 +7,7 @@ package com.jcalvopinam.client.dto;
 public class Atributo {
 
     private String label;
-    private double value;
+    private Double value;
 
     public String getLabel() {
         return label;
@@ -17,11 +17,11 @@ public class Atributo {
         this.label = label;
     }
 
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

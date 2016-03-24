@@ -23,20 +23,28 @@ $('#combobox').change(function() {
     donutChart.removeChild(donutChart.firstChild);
   }
 
+  if (atributo == "Procesamiento")
+    atributo = "Instrucciones por Minuto";
+
   // url para los resultados de la comparacion
   var jsonUEDonut = "http://" + hostAddress + ":" + portNumber + contextPathUrl + "/getAtributoByName/" + atributo;
 
   var donutJson = $.getJSON(jsonUEDonut, function(json) {
 
     $(function() {
+
       Morris.Donut({
         element : 'morris-donut-chart',
         data : json,
         colors : [ '#e8a02a', '#3974c4', '#413290' ],
         resize : true
-      });
+      }).select(0);
 
+      $("#mejorAtributo").text(json[0].label);
+      $("#mejorTiempo").text(json[0].value);
+      $("#mejorResultado").show();
     });
+
   }).done(function() {
     $("#waiting").hide();
   }).fail(function() {

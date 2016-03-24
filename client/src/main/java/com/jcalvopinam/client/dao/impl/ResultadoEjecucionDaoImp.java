@@ -1,6 +1,8 @@
 package com.jcalvopinam.client.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -121,19 +123,20 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
         for (Proveedor p : listaProveedores) {
             if (p.getAtributo().contains(atributo)) {
-                resultadoAmazon.setLabel(AMAZON);
-                resultadoAmazon.setValue(Double.parseDouble(p.getAmazon()));
-                listaAtributos.add(resultadoAmazon);
                 resultadoGoogle.setLabel(GOOGLE);
                 resultadoGoogle.setValue(Double.parseDouble(p.getGoogle()));
                 listaAtributos.add(resultadoGoogle);
+                resultadoAmazon.setLabel(AMAZON);
+                resultadoAmazon.setValue(Double.parseDouble(p.getAmazon()));
+                listaAtributos.add(resultadoAmazon);
                 resultadoHeroku.setLabel(HEROKU);
                 resultadoHeroku.setValue(Double.parseDouble(p.getHeroku()));
                 listaAtributos.add(resultadoHeroku);
                 break;
             }
         }
-        return listaAtributos;
+
+        return this.listaOrdenada(listaAtributos);
     }
 
     /**
@@ -292,4 +295,21 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
         this.listaAtributosUltimaEjecucion = listaAtributosUltimaEjecucion;
     }
 
+    /**
+     * Ordena la lista de menor a mayor
+     * 
+     * @param atributo
+     *            Lista de atributos
+     * @return Lista de atributos
+     */
+    private List<Atributo> listaOrdenada(List<Atributo> atributo) {
+        Collections.sort(atributo, new Comparator<Atributo>() {
+
+            public int compare(Atributo o1, Atributo o2) {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        Collections.reverse(atributo);
+        return atributo;
+    }
 }

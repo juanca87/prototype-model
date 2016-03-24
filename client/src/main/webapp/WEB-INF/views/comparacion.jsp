@@ -83,79 +83,85 @@
             <div>
                 <!-- DONUT CHART -->
                 <div class="col-lg-4">
-                    <div class="panel panel-default" style="margin-left: -15px; margin-bottom: -83px; height: 512px; border-bottom-right-radius: 0px;">
+                    <div class="panel panel-default"
+                        style="margin-left: -15px; margin-bottom: -16px; height: 512px; border-bottom-right-radius: 0px;">
                         <div class="panel-heading" style="border-top-right-radius: 0px;">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Gráfico por Atributo
                         </div>
-                        <br/>
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label">Atributos</label>
-                            <div class="col-xs-8 selectContainer">
-                                <select id="combobox" class="form-control">
-                                    <option value="0">Seleccione...</option>
-                                    <option value="1">CPU</option>
-                                    <option value="2">Lectura en Memoria</option>
-                                    <option value="3">Escritura en Memoria</option>
-                                    <option value="4">Lectura en Disco</option>
-                                    <option value="5">Escritura en Disco</option>
-                                    <option value="6">Ancho de banda</option>
-                                    <option value="7">Latencia</option>
-                                    <option value="8">Procesamiento</option>
-                                </select>
+                        <div  align="center">
+                            <br/>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Atributos</label>
+                                <div class="col-xs-9 selectContainer">
+                                    <select id="combobox" class="form-control">
+                                        <option value="0">Seleccione...</option>
+                                        <option value="1">CPU</option>
+                                        <option value="2">Lectura en Memoria</option>
+                                        <option value="3">Escritura en Memoria</option>
+                                        <option value="4">Lectura en Disco</option>
+                                        <option value="5">Escritura en Disco</option>
+                                        <option value="6">Ancho de banda</option>
+                                        <option value="7">Latencia</option>
+                                        <option value="8">Procesamiento</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br/><br/>
+                            <div id="morris-donut-chart" style="width:200px; height:200px;"></div>
+                            <br/><br/>
+                            <div id="mejorResultado" style="display: none;">
+                                <label>Menor tiempo:</label>
+                                 <span id="mejorAtributo"></span> / <span id="mejorTiempo"></span>
                             </div>
                         </div>
-                        <br/><br/>
-                        <div id="morris-donut-chart"></div>
                     </div>
                 </div>
             </div>
         
-                <!-- BAR CHART -->
+            <!-- BAR CHART -->
             <div class="panel panel-default">
                     <div class="panel-heading">
                         <i class="fa fa-bar-chart-o fa-fw"></i> Gráfico de Atributos vs Tiempo (seg).
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-8" align="center">
                                 <br/>
                                 <div id="morris-bar-chart"></div>
+                                <br/>
+                                <!-- LEYENDA -->
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="list-group-item" style="width: 150;">
+                                                <div id="leyenda-amazon">
+                                                    <span style="margin-left: 30px">Amazon</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="list-group-item" style="margin-left: 10px; width: 150;">
+                                                <div id="leyenda-google">
+                                                    <span style="margin-left: 30px">Google</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="list-group-item" style="margin-left: 10px; width: 150;">
+                                                <div id="leyenda-heroku">
+                                                    <span style="margin-left: 30px">Heroku</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                        </div>
-                        <br/>
-                        <!-- LEYENDA -->
-                        <div align="center">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div class="list-group-item" style="margin-left: 400px; width: 150;">
-                                            <div id="leyenda-amazon">
-                                                <span style="margin-left: 30px">Amazon</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="list-group-item" style="margin-left: 10px; width: 150;">
-                                            <div id="leyenda-google">
-                                                <span style="margin-left: 30px">Google</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="list-group-item" style="margin-left: 10px; width: 150;">
-                                            <div id="leyenda-heroku">
-                                                <span style="margin-left: 30px">Heroku</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
                         </div>
                     </div>
                 </div>
         </div>
 
-            <h3 class="page-subhead-line"></h3>
+        <h3 class="page-subhead-line"></h3>
 
     </div>
 
