@@ -40,7 +40,7 @@
                         <ul class="nav navbar-nav">
                             <li id="home" class="active"><a href="${contextUrl}home">Home</a></li>
                             <li id="amazonEC2"><a href="${contextUrl}amazon">Amazon EC2</a></li>
-                            <li id="googleAppEngine"><a href="${contextUrl}google">Google App Engine</a></li>
+                            <li id="googleAppEngine"><a href="${contextUrl}google">Google Cloud Engine</a></li>
                             <li id="heroku"><a href="${contextUrl}heroku">Heroku</a></li>
                             <li id="comparacion"><a href="${contextUrl}comparacion">Comparación</a></li>
                         </ul>
@@ -105,12 +105,12 @@
                     <div class="row">
                         <div class="col-xs-3">
                             <!-- <i class="fa fa-comments fa-5x"></i> -->
-                            <img src="resources/img/cloudsLogos/googleAppEngine_bn.png" alt="Google App Engine"
+                            <img src="resources/img/cloudsLogos/googleCloudPlatform_bn.png" alt="Google Cloud Engine"
                                 style="width: 70 px; height: 70;" class="img-u image-responsive" />
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">Nube:</div>
-                            <div>Google App Engine</div>
+                            <div>Google Cloud Engine</div>
                         </div>
                     </div>
                 </div>
@@ -266,6 +266,10 @@
         <input id="hostAddress" type="text" value="${hostAddress}">
     </div>
 
+</div>
+
+<div id="footer-sec">
+    &copy; 2016 Prototipo | Design By : <a href="mailto:juan.calvopina@gmail.com?Subject=Prototype-Model-Project" target="_top" target="_blank">Juan Calvopiña Morillo</a>
 </div>
 
 </body>

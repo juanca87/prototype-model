@@ -18,35 +18,35 @@
                         </tr>
                         <tr style="color: #800080" >
                             <td title="Medición de la Velocidad de la CPU">Velocidad de CPU</td>
-                            <td title="Tiempo de respuesta en segundos">${cpuResult}</td>
+                            <td title="Tiempo de respuesta promedio (5 peticiones) al buscar números primos a partir de una semilla">${cpuResult}</td>
                         </tr>
                         <tr style="color: #008080">
                             <td title="Medición de la velocidad de Lectura en Memoria">Lectura en Memoria</td>
-                            <td title="Tardó ${lecturaMemoriaResult} segundos en leer de Memoria 5MB">
+                            <td title="Tardó ${lecturaMemoriaResult} segundos en leer de Memoria 5 MB">
                             ${lecturaMemoriaResult}</td>
                         </tr>
                         <tr style="color: #ED5713">
                             <td title="Medición de la velocidad de Escritura en Memoria">Escritura en Memoria</td>
-                            <td title="Tardó ${escrituraMemoriaResult} segundos en escribir en Memoria 5MB">
+                            <td title="Tardó ${escrituraMemoriaResult} segundos en escribir en Memoria 5 MB">
                             ${escrituraMemoriaResult}</td>
                         </tr>
                         <tr style="color: #004080">
                             <td title="Medición de la velocidad de Lectura en el Disco Duro">Lectura en Disco</td>
-                            <td title="Tardó ${lecturaDiscoResult} segundos en leer del Disco Duro 5MB">
+                            <td title="Tardó ${lecturaDiscoResult} segundos en leer del Disco Duro 5 MB">
                             ${lecturaDiscoResult}</td>
                         </tr>
                         <tr style="color: #804000">
                             <td title="Medición de la velocidad de Escritura en el Disco Duro">Escritura en Disco</td>
-                            <td title="Tardó ${escrituraDiscoResult} segundos en escribir en el Disco Duro 5MB">
+                            <td title="Tardó ${escrituraDiscoResult} segundos en escribir en el Disco Duro 5 MB">
                             ${escrituraDiscoResult}</td>
                         </tr>
                         <tr style="color: #408000">
                             <td title="Medición del tiempo de respuesta del servidor de www.google.com">Latencia</td>
-                            <td title="Tiempo de respuesta en segundos">${latencyResult}</td>
+                            <td title="Tiempo de respuesta promedio (5 peticiones) en hacer ping al servidor">${latencyResult}</td>
                         </tr>
                         <tr style="color: #800000">
                             <td title="Medición de la velocidad de descargar">Ancho de Banda</td>
-                            <td title="Tardó ${bandwithResult} segundos en descargar 2MB">
+                            <td title="Tardó ${bandwithResult} segundos en descargar 2 MB">
                             ${bandwithResult}</td>
                         </tr>
                         <tr style="color: #4C4C4C">
@@ -61,35 +61,35 @@
                             <th>Medida</th>
                         </tr>
                         <tr style="color: #800080" >
-                            <td title="Medición de la Velocidad de la CPU">[seg/min].</td>
+                            <td title="Medición de la Velocidad de la CPU">[seg].</td>
                         </tr>
                         <tr style="color: #008080">
-                            <td title="Tiempo de respuesta de la velocidad de Lectura en Memoria de 5MB">
-                            5MB [seg/min].</td>
+                            <td title="Tiempo de respuesta de la velocidad de Lectura en Memoria de 5 MB">
+                            5 MB / [seg].</td>
                         </tr>
                         <tr style="color: #ED5713">
-                            <td title="Tiempo de respuesta de la velocidad de Escritura en Memoria de 5MB">
-                            5MB [seg/min].</td>
+                            <td title="Tiempo de respuesta de la velocidad de Escritura en Memoria de 5 MB">
+                            5 MB / [seg].</td>
                         </tr>
                         <tr style="color: #004080">
-                            <td title="Tiempo de respuesta de la velocidad de Lectura en Disco de 5MB">
-                            5MB [seg/min].</td>
+                            <td title="Tiempo de respuesta de la velocidad de Lectura en Disco de 5 MB">
+                            5 MB / [seg].</td>
                         </tr>
                         <tr style="color: #804000">
-                            <td title="Tiempo de respuesta de la velocidad de Escritura en Disco de 5MB">
-                            5MB [seg/min].</td>
+                            <td title="Tiempo de respuesta de la velocidad de Escritura en Disco de 5 MB">
+                            5 MB / [seg].</td>
                         </tr>
                         <tr style="color: #408000">
                             <td title="Tardó ${latencyResult} segundos la ejecución de 5 'ping' a www.google.com">
-                            5 ping [seg/min].</td>
+                            [seg].</td>
                         </tr>
                         <tr style="color: #800000">
-                            <td title="Tiempo de respuesta de la velocidad de descargar 2MB">
-                            2MB [seg/min].</td>
+                            <td title="Tiempo de respuesta de la velocidad de descargar 2 MB">
+                            2 MB / [seg].</td>
                         </tr>
                         <tr style="color: #4C4C4C">
                             <td title="Tiempo de respuesta de Procesamiento">
-                            [seg/min]</td>
+                            [seg]</td>
                         </tr>
                     </table>
 
@@ -115,10 +115,6 @@
         </div>
 
     </c:if>
-
-    <div id="footer-sec">
-        &copy; 2016 Prototipo | Design By : <a href="http://www.binarytheme.com/" target="_blank">Juan Calvopiña Morillo</a>
-    </div>
 
 <!-- /. FOOTER  -->
 <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->

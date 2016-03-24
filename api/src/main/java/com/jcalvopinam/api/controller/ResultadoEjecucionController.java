@@ -101,15 +101,16 @@ public class ResultadoEjecucionController {
 
             long startTime = System.nanoTime();
 
-            Disco escrituraDiscoMeasure = new Disco();
-            Valor escrituraDiscoResult = escrituraDiscoMeasure.getTiempoEscrituraDisco();
+            Disco discoMeasure = new Disco();
+            discoMeasure.ejecutarRendimiento();
+
+            Valor escrituraDiscoResult = discoMeasure.getTiempoEscrituraDisco();
             String resultadoED = "0";
             if (escrituraDiscoResult.getErrorMessage().isEmpty()) {
                 resultadoED = escrituraDiscoResult.getResult();
             }
 
-            Disco lecturaDiscoMeasure = new Disco();
-            Valor lecturaDiscoResult = lecturaDiscoMeasure.getTiempoLecturaDisco();
+            Valor lecturaDiscoResult = discoMeasure.getTiempoLecturaDisco();
             String resultadoLD = "0";
             if (lecturaDiscoResult.getErrorMessage().isEmpty()) {
                 resultadoLD = lecturaDiscoResult.getResult();

@@ -45,7 +45,7 @@
                         <ul class="nav navbar-nav">
                             <li id="home"><a href="${contextUrl}home">Home</a></li>
                             <li id="amazonEC2"><a href="${contextUrl}amazon">Amazon EC2</a></li>
-                            <li id="googleAppEngine"><a href="${contextUrl}google">Google App Engine</a></li>
+                            <li id="googleAppEngine"><a href="${contextUrl}google">Google Cloud Engine</a></li>
                             <li id="heroku"><a href="${contextUrl}heroku">Heroku</a></li>
                             <li id="comparacion" class="active"><a href="${contextUrl}comparacion">Comparación</a></li>
                         </ul>
@@ -71,9 +71,9 @@
     <div class="row">
         <div class="col-md-12">
             <h3 class="page-head-line">Comparación de Resultados</h3>
-            <div id="accordion" class="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    Tabla Comparativa
+                    <i class="fa fa-table fa-fw"></i> Tabla Comparativa
                 </div>
                 <div class="panel-body" align="center" style="border-style:solid; color: #F5F5F5; border-width: 1px;">
                     <table id="comparacionGrid" style="font-family: 'Open Sans', sans-serif;"></table>
@@ -86,7 +86,7 @@
                     <div class="panel panel-default"
                         style="margin-left: -15px; margin-bottom: -16px; height: 512px; border-bottom-right-radius: 0px;">
                         <div class="panel-heading" style="border-top-right-radius: 0px;">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Gráfico por Atributo
+                            <i class="fa fa-pie-chart fa-fw"></i> Gráfico por Atributo
                         </div>
                         <div  align="center">
                             <br/>
@@ -167,6 +167,10 @@
 
     <div style="display:none;">
         <input id="hostAddress" type="text" value="${hostAddress}">
+    </div>
+
+    <div id="footer-sec">
+        &copy; 2016 Prototipo | Design By : <a href="mailto:juan.calvopina@gmail.com?Subject=Prototype-Model-Project" target="_top" target="_blank">Juan Calvopiña Morillo</a>
     </div>
 
 </body>

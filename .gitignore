@@ -6,4 +6,5 @@
 fileName.txt
 imagen_Descargada.jpg
 derby.log
-
+.DS_Store
+**/.DS_Store

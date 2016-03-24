@@ -26,12 +26,13 @@ public class AnchoBanda {
 
     public Valor getBandwith(String urlString) {
 
+        String filePath = System.getProperty("user.dir") + File.separator;
+        String fileName = "imagenDescargada.jpg";
         String result = "";
         String errorMessage = "";
-        String fileOutput = System.getProperty("user.dir") + File.separator + "imagen_Descargada.jpg";
 
-        BufferedInputStream in = null;
-        FileOutputStream fout = null;
+        BufferedInputStream bis = null;
+        FileOutputStream fos = null;
 
         long startTime = System.nanoTime();
 
@@ -40,40 +41,45 @@ public class AnchoBanda {
             URLConnection uc = url.openConnection();
             uc.addRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
             uc.connect();
-            in = new BufferedInputStream(uc.getInputStream());
-            fout = new FileOutputStream(fileOutput);
+
+            bis = new BufferedInputStream(uc.getInputStream());
+            fos = new FileOutputStream(filePath + fileName);
+
+            logAnchoBanda.info("Directorio del archivo descargado: " + filePath);
 
             final byte data[] = new byte[1024];
             int count;
 
-            while ((count = in.read(data, 0, 1024)) != -1) {
-                fout.write(data, 0, count);
+            while ((count = bis.read(data, 0, 1024)) != -1) {
+                fos.write(data, 0, count);
             }
 
             long endTime = System.nanoTime();
             long totalTime = endTime - startTime;
 
-            logAnchoBanda.info("Tiempo de descarga> " + totalTime);
+            File file = new File(filePath, fileName);
+            logAnchoBanda.info(String.format("Tardó %.3f segundos en descargar %d MB", totalTime / 1e9, file.length()));
+            file.deleteOnExit();
 
             result = common.formatearResultado(totalTime);
 
         } catch (Exception e) {
             result = "0";
-            logAnchoBanda.error("There has been an unexpected error: " + e.getMessage());
+            logAnchoBanda.error("Ha ocurrido un error inesperado: " + e.getMessage());
             errorMessage = e.getMessage();
             e.printStackTrace();
         } finally {
-            if (in != null) {
+            if (bis != null) {
                 try {
-                    in.close();
+                    bis.close();
                 } catch (IOException e) {
                     logAnchoBanda.error("Input Error: " + e.getMessage());
                     errorMessage = e.getMessage();
                 }
             }
-            if (fout != null) {
+            if (fos != null) {
                 try {
-                    fout.close();
+                    fos.close();
                 } catch (IOException e) {
                     logAnchoBanda.error("Output Error: " + e.getMessage());
                     errorMessage = e.getMessage();

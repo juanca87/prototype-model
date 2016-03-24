@@ -17,68 +17,80 @@ public class CPU {
 
     private static final Logger logCPU = LoggerFactory.getLogger(CPU.class);
 
+    public static void main(String[] args) {
+        CPU p = new CPU();
+        p.getCPUMeasure();
+    }
+
+    /**
+     * El código de ejemplo calcula un bloque de 10000 números primos para determinar la utilización de la CPU. La
+     * prueba se repite 5 veces para obtener un promedio de CPU
+     */
     public Valor getCPUMeasure() {
 
+        String result = "";
         String errorMessage = "";
-        float counter = 0, average = 0;
-        int max = 30;
 
-        for (int i = 1; i <= max; i++) {
-            long start = System.nanoTime();
-            // number of available processors;
-            int cpuCount = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
-            Random random = new Random(start);
-            int seed = Math.abs(random.nextInt());
+        int numMuestras = 5;
+        float muestra = 0;
+        float promedio = 0;
 
-            int primes = 10000;
-            long startCPUTime = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime();
+        for (int i = 1; i <= numMuestras; i++) {
+            long tiempoInicial = System.nanoTime();
+            int numCPUs = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
+            Random numAleatorio = new Random(tiempoInicial);
+            int semilla = Math.abs(numAleatorio.nextInt());
 
-            start = System.nanoTime();
+            logCPU.info("Petición [" + i + "]: Cantidad de CPUs:" + numCPUs + " semilla aleatoria:" + semilla);
 
-            while (primes != 0) {
-                if (isPrime(seed)) {
-                    primes--;
+            int numPrimos = 10000;
+            long inicioCPU = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime();
+            tiempoInicial = System.nanoTime();
+
+            while (numPrimos != 0) {
+                if (esPrimo(semilla)) {
+                    numPrimos--;
                 }
-                seed++;
+                semilla++;
             }
 
-            float cpuPercent = calcCPU(startCPUTime, start, cpuCount);
-            counter += cpuPercent;
+            float calcularCPU = calcCPU(inicioCPU, tiempoInicial, numCPUs);
+            muestra += calcularCPU;
 
-            if (i == max) {
-                average = counter / max;
+            if (i == numMuestras) {
+                promedio = muestra / numMuestras;
             }
 
         }
 
-        logCPU.info("<CPU> Velocidad en nano: " + average);
-        String result = String.valueOf(average);
+        result = String.valueOf(promedio);
 
         if (result.length() > 5)
             result = result.substring(0, 5);
 
+        logCPU.info("Uso de CPU:" + result);
+
         return new Valor(result, errorMessage);
     }
 
-    private static float calcCPU(long cpuStartTime, long elapsedStartTime, int cpuCount) {
-        long end = System.nanoTime();
-        long totalAvailCPUTime = cpuCount * (end - elapsedStartTime);
-        long totalUsedCPUTime = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - cpuStartTime;
-        float per = ((float) totalUsedCPUTime) / (float) totalAvailCPUTime;
-        return per;
+    private float calcCPU(long inicioCPU, long tiempoInicial, int numCPUs) {
+        long tiempoFinal = System.nanoTime();
+        long totalTipoCPU = numCPUs * (tiempoFinal - tiempoInicial);
+        long totalUsedCPUTime = ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime() - inicioCPU;
+        return ((float) totalUsedCPUTime * 100) / (float) totalTipoCPU;
     }
 
-    private static boolean isPrime(int n) {
-        if (n <= 2) {
+    private boolean esPrimo(int n) {
+        if (n <= 2)
             return n == 2;
-        }
-        if (n % 2 == 0) {
+
+        if (n % 2 == 0)
             return false;
-        }
+
         for (int i = 3, end = (int) Math.sqrt(n); i <= end; i += 2) {
-            if (n % i == 0) {
+            if (n % i == 0)
                 return false;
-            }
+
         }
         return true;
     }

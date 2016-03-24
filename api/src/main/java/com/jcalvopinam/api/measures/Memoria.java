@@ -46,7 +46,7 @@ public class Memoria {
             logMemoria.info("<Memoria> Tiempo de escritura en nano: " + elapsedTime);
 
         } catch (Exception e) {
-            logMemoria.error("There has been an unexpected error: " + e.getMessage());
+            logMemoria.error("Ha ocurrido un error inesperado: " + e.getMessage());
             errorMessage = e.getMessage();
         }
 
@@ -78,7 +78,7 @@ public class Memoria {
             result = String.valueOf(elapsedTime);
 
         } catch (Exception e) {
-            logMemoria.error("There has been an unexpected error: " + e.getMessage());
+            logMemoria.error("Ha ocurrido un error inesperado: " + e.getMessage());
             errorMessage = e.getMessage();
         }
 

@@ -43,7 +43,7 @@
                         <ul class="nav navbar-nav">
                             <li id="home"><a href="${contextUrl}home">Home</a></li>
                             <li id="amazonEC2" class="active"><a href="${contextUrl}amazon">Amazon EC2</a></li>
-                            <li id="googleAppEngine"><a href="${contextUrl}google">Google App Engine</a></li>
+                            <li id="googleAppEngine"><a href="${contextUrl}google">Google Cloud Engine</a></li>
                             <li id="heroku"><a href="${contextUrl}heroku">Heroku</a></li>
                             <li id="comparacion"><a href="${contextUrl}comparacion">Comparación</a></li>
                         </ul>
@@ -73,7 +73,7 @@
             <h3 class="page-head-line">Historial de Ejecuciones</h3>
                 <div id="accordion" class="panel panel-default">
                     <div class="panel-heading">
-                        Mediciones anteriores
+                        <i class="fa fa-table fa-fw"></i> Mediciones anteriores
                     </div>
                     <div class="panel-body" style="border-style:solid; color: #F5F5F5; border-width: 1px;">
                         <table>
@@ -133,8 +133,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td>8</td>
-                                                    <td>IM</td>
-                                                    <td>Instrucciones por Minuto</td>
+                                                    <td>P</td>
+                                                    <td>Procesamiento</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -160,7 +160,7 @@
                             <label for="url">URL:</label>
                         </td>
                         <td style="width:90%; padding-right: 10px">
-                            <input type="text" class="form-control" id="urlCaracteristicas"
+                            <input type="text" class="form-control" id="urlCaracteristicas" autofocus
                                 placeholder="Ingrese la url del servidor" autocomplete="on">
                         </td>
                         <td style="width:90%; padding-right: 20px">
@@ -172,7 +172,7 @@
                 </div>
                 <div id="caracteristica" class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> Info
+                        <i class="fa fa-info-circle fa-fw"></i> Info - Amazon EC2 [IaaS - Infrastructure as a Service]
                         <div class="pull-right">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -182,23 +182,23 @@
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li><a href="javascript:mostrarInfo();">Mostrar</a></li>
                                     <li><a href="javascript:ocultarInfo();">Ocultar</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div id="valCaracteristica" class="panel-body" style="border-style:solid; color: #F5F5F5; border-width: 1px;">
+                    <div id="valCaracteristica" class="panel-body" align="center"
+                        style="border-style:solid; color: #F5F5F5; border-width: 1px;">
                         <table>
                             <tr>
                                 <td>
-                                    <div class="table-bordered">
+                                    <div class="table-bordered" align="center">
+                                        <label style="font-size: small;">Características Reales</label>
                                         <table class="table" style="font-size: small;">
                                             <thead>
-                                                <tr>
+                                                <tr class="active">
                                                     <th>#</th>
-                                                    <th>Atributo</th>
-                                                    <th>Valor</th>
+                                                    <th width="150px;">Atributo</th>
+                                                    <th width="200px;">Valor</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -207,7 +207,7 @@
                                                     <td>Sistema Operativo</td>
                                                     <td><span id="soVal"></span></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="active">
                                                     <td>2</td>
                                                     <td>Arquitectura</td>
                                                     <td><span id="aVal"></span></td>
@@ -217,7 +217,7 @@
                                                     <td>Version</td>
                                                     <td><span id="vVal"></span></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="active">
                                                     <td>4</td>
                                                     <td>CPU</td>
                                                     <td><span id="cpuVal"></span></td>
@@ -227,10 +227,56 @@
                                                     <td>Capacidad en Disco</td>
                                                     <td><span id="tdVal"></span></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="active">
                                                     <td>6</td>
                                                     <td>Capacidad en RAM</td>
                                                     <td><span id="trVal"></span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-bordered" align="center">
+                                        <label style="font-size: small;">Características Ofrecidas</label>
+                                        <table class="table" style="font-size: small;">
+                                            <thead>
+                                                <tr class="active">
+                                                    <th>#</th>
+                                                    <th width="150px;">Atributo</th>
+                                                    <th width="200px;">Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Sistema Operativo</td>
+                                                    <td>Linux</td>
+                                                </tr>
+                                                <tr class="active">
+                                                    <td>2</td>
+                                                    <td>Arquitectura</td>
+                                                    <td>amd64</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Version</td>
+                                                    <td>4.1.17-22.30.amzn1.x86_64</td>
+                                                </tr>
+                                                <tr class="active">
+                                                    <td>4</td>
+                                                    <td>CPU</td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td>Capacidad en Disco</td>
+                                                    <td>8 GB</td>
+                                                </tr>
+                                                <tr class="active">
+                                                    <td>6</td>
+                                                    <td>Capacidad en RAM</td>
+                                                    <td>1 GB</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -268,7 +314,6 @@
             </div>
             <h3 class="page-subhead-line"></h3>
         </div>
-
     </div>
 
     <div style="display:none;">
@@ -282,6 +327,10 @@
 
     <div id="pieChart"></div>
 
+</div>
+
+<div id="footer-sec">
+    &copy; 2016 Prototipo | Design By : <a href="mailto:juan.calvopina@gmail.com?Subject=Prototype-Model-Project" target="_top" target="_blank">Juan Calvopiña Morillo</a>
 </div>
 
 </body>

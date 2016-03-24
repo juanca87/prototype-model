@@ -1,11 +1,12 @@
 package com.jcalvopinam.api.measures;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,92 +23,92 @@ public class Disco {
 
     private static final Logger logDisco = LoggerFactory.getLogger(Disco.class);
 
-    private String filePath = System.getProperty("user.dir") + File.separator;
-    private String fileName = "testSavefileInHDD.txt";
-    private String result = "";
-    private String errorMessage = "";
-
     Commons common = new Commons();
 
-    public Valor getTiempoEscrituraDisco() {
+    private Valor tiempoEscrituraDisco;
+    private Valor tiempoLecturaDisco;
 
-        long startTime = System.nanoTime();
-        BufferedWriter writer = null;
+    public void ejecutarRendimiento() {
+
+        String filePath = System.getProperty("user.dir") + File.separator;
+        String fileName = "pruebaGuardarArchivo.txt";
+        String resultEscritura = "";
+        String resultLectura = "";
+        String errorMessage = "";
+
+        int mb = 5;
+        char[] chars = new char[1024];
+        Arrays.fill(chars, 'A');
+        String longLine = new String(chars);
+
+        PrintWriter pw = null;
+        long startTimeWrite = System.nanoTime();
 
         try {
-            File logFile = new File(filePath, fileName);
-            writer = new BufferedWriter(new FileWriter(logFile));
+            File file = new File(filePath, fileName);
+            // File file = File.createTempFile("pruebaGuardarArchivo", ".txt");
+            file.deleteOnExit();
+            logDisco.info("Directorio del archivo generado: " + file.getCanonicalPath());
 
-            logDisco.info("Directorio del archivo generado: " + logFile.getCanonicalPath());
+            pw = new PrintWriter(new FileWriter(file));
 
-            StringBuilder text = new StringBuilder();
-            int n = 10000;
-
-            for (Integer i = 0; i < n; i++) {
-                text.append("La vida es bella. ");
+            for (int i = 0; i < mb * 1024; i++) {
+                pw.println(longLine);
             }
 
-            writer.write(text.toString());
+            pw.close();
 
-        } catch (Exception e) {
-            logDisco.error("There has been an unexpected error: " + e.getMessage());
+            long stopTimeWrite = System.nanoTime() - startTimeWrite;
+
+            logDisco.info(
+                    String.format("Tardó %.3f segundos en escibir %d MB", stopTimeWrite / 1e9, file.length() >> 20));
+
+            resultEscritura = common.formatearResultado(stopTimeWrite);
+
+            long startTimeRead = System.nanoTime();
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            for (String line; (line = br.readLine()) != null;) {
+                logDisco.debug(line);
+            }
+
+            br.close();
+
+            long stopTimeRead = System.nanoTime() - startTimeRead;
+            logDisco.info(String.format("Tardó %.3f segundos en leer %d MB", stopTimeRead / 1e9, file.length() >> 20));
+            file.delete();
+
+            resultLectura = common.formatearResultado(stopTimeRead);
+
+        } catch (IOException e) {
+            logDisco.error("Ha ocurrido un error inesperado: " + e.getMessage());
             errorMessage = e.getMessage();
             e.printStackTrace();
         } finally {
-            try {
-                writer.close();
-            } catch (Exception e) {
-                logDisco.error("Failed to close the connection: " + e.getMessage());
-                errorMessage = e.getMessage();
-                e.printStackTrace();
-            }
+            if (pw != null)
+                pw.close();
         }
 
-        long stopTime = System.nanoTime();
-        long elapsedTime = stopTime - startTime;
+        this.setTiempoEscrituraDisco(new Valor(resultEscritura, errorMessage));
+        this.setTiempoLecturaDisco(new Valor(resultLectura, errorMessage));
 
-        logDisco.info("<Disco> Tiempo de escritura en nano: " + elapsedTime);
+    }
 
-        result = common.formatearResultado(elapsedTime);
+    public Valor getTiempoEscrituraDisco() {
+        return tiempoEscrituraDisco;
+    }
 
-        return new Valor(result, errorMessage);
+    public void setTiempoEscrituraDisco(Valor tiempoEscrituraDisco) {
+        this.tiempoEscrituraDisco = tiempoEscrituraDisco;
     }
 
     public Valor getTiempoLecturaDisco() {
-
-        BufferedReader br = null;
-
-        long startTime = System.nanoTime();
-        long elapsedTime = 0;
-
-        try {
-            String sCurrentLine;
-            br = new BufferedReader(new FileReader(filePath + fileName));
-
-            while ((sCurrentLine = br.readLine()) != null) {
-                logDisco.debug(sCurrentLine);
-            }
-
-            elapsedTime = System.nanoTime() - startTime;
-            logDisco.info("<Disco> Tiempo de lectura en nano: " + elapsedTime);
-
-        } catch (IOException e) {
-            logDisco.error("There has been an unexpected error: " + e.getMessage());
-            errorMessage = e.getMessage();
-            e.printStackTrace();
-        } finally {
-            try {
-                if (br != null)
-                    br.close();
-            } catch (IOException ex) {
-                logDisco.error("Failed to close the connection: " + ex.getMessage());
-                errorMessage = ex.getMessage();
-                ex.printStackTrace();
-            }
-        }
-
-        result = common.formatearResultado(elapsedTime);
-
-        return new Valor(result, errorMessage);
+        return tiempoLecturaDisco;
     }
+
+    public void setTiempoLecturaDisco(Valor tiempoLecturaDisco) {
+        this.tiempoLecturaDisco = tiempoLecturaDisco;
+    }
+
 }

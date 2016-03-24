@@ -42,7 +42,7 @@ public class CloudController {
         logCloud.info("Obteniendo datos de Google");
 
         ModelAndView model = new ModelAndView();
-        model.addObject("servidor", "Google App Engine");
+        model.addObject("servidor", "Google Cloud Engine");
         model.addObject("serverName", "google");
         model.addObject("hostAddress", getServidor());
         model.addObject("message", "Para iniciar el test presione clic en boton <Iniciar>");

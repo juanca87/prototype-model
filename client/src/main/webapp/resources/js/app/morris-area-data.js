@@ -24,7 +24,7 @@ var areaJson = $.getJSON(jsonUEArea, function(json) {
       ymin : 'auto',
       xkey : 'atributo',
       ykeys : [ 'amazon', 'google', 'heroku' ],
-      labels : [ 'Amazon EC2', 'Google App Engine', 'Heroku' ],
+      labels : [ 'Amazon EC2', 'Google Cloud Engine', 'Heroku' ],
       pointSize : 2,
       hideHover : 'auto',
       resize : true

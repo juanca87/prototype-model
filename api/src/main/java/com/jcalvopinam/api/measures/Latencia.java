@@ -20,17 +20,26 @@ import java.io.IOException;
  *
  */
 
+/**
+ * @author Juan Calvopina Morillo <juan.calvopina@gmail.com>
+ *
+ */
 public class Latencia {
 
     private static final Logger logLatencia = LoggerFactory.getLogger(Latencia.class);
 
     Commons common = new Commons();
 
+    public static void main(String[] args) {
+        Latencia l = new Latencia();
+        l.getLatency("www.google.com");
+    }
+
     public Valor getLatency(String ip) {
         String result = "";
         String errorMessage = "";
         int port = 80;
-        int times = 5;
+        int intentoMax = 5;
         String hostaddr = "";
 
         try {
@@ -40,16 +49,18 @@ public class Latencia {
             errorMessage = e.getMessage();
         }
 
-        logLatencia.info("Pinging " + ip + " (" + hostaddr + ") " + times + " times on port " + port + "...\n");
+        logLatencia
+                .info("Ping a " + ip + " (" + hostaddr + ") " + intentoMax + " veces en el puerto " + port + "...\n");
 
-        int total = 0;
-        long totalping = 0;
-        long avg = 0;
+        long tiempoTotal = 0;
+        int intento = 0;
+        long promedio = 0;
+        long acumulaTiempo = 0;
         Socket s = null;
 
-        while (total < times) {
-            total++;
-            long start = System.nanoTime();
+        while (intento < intentoMax) {
+            intento++;
+            long tiempoInicial = System.nanoTime();
 
             try {
                 SocketAddress sockaddr = new InetSocketAddress(hostaddr, port);
@@ -57,7 +68,7 @@ public class Latencia {
                 s.connect(sockaddr, 1000);
             } catch (SocketTimeoutException e) {
                 errorMessage = e.getMessage();
-                logLatencia.error("Socket Request[" + total + "]: Connection timed out.");
+                logLatencia.error("Socket Request[" + intento + "]: Connection timed out.");
                 continue;
             } catch (UnknownHostException u) {
                 logLatencia.error("Unknown Host: " + u.getMessage());
@@ -67,18 +78,18 @@ public class Latencia {
                 errorMessage = io.getMessage();
             }
 
-            long end = System.nanoTime();
-            totalping += (end - start);
-            long totaltime = (end - start);
-            avg = (totalping / total);
+            long tiempoFinal = System.nanoTime();
+            tiempoTotal = (tiempoFinal - tiempoInicial);
+            acumulaTiempo += tiempoTotal;
 
-            logLatencia.info("Socket Request[" + total + "]: Time(In nano): " + totaltime + " Average: " + avg);
+            logLatencia.info("Petición [" + intento + "]: Tiempo " + tiempoTotal + " nanosegundos");
 
         }
 
-        logLatencia.info("\nFinal Result: Average request - " + avg);
+        promedio = (acumulaTiempo / intento);
+        logLatencia.info("Tiempo promedio: " + promedio + " nanosegundos");
 
-        result = common.formatearResultado(avg);
+        result = common.formatearResultado(promedio);
 
         return new Valor(result, errorMessage);
     }
