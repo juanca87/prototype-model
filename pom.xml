@@ -1,25 +1,43 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jcalvopinam</groupId>
     <artifactId>prototype-model</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <description>Este es un modelo prototipo de mi proyecto de tesis: Modelo para evaluar a proveedores de servicios en la nube</description>
+    <description>
+        Este es un modelo prototipo de mi proyecto de tesis: Modelo para evaluar a proveedores de servicios en la nube
+    </description>
 
     <properties>
-        <java-version>1.7</java-version>
+        <java.version>1.7</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.springframework-version>3.2.8.RELEASE</org.springframework-version>
         <spring.security.version>3.2.0.RELEASE</spring.security.version>
         <apache.commons.lang-version>3.4</apache.commons.lang-version>
-        <org.hibernate.version>4.3.0.Final</org.hibernate.version>
         <org.aspectj-version>1.6.10</org.aspectj-version>
         <org.slf4j-version>1.6.6</org.slf4j-version>
         <commons.io-version>2.4</commons.io-version>
+        <servlet-api.version>2.5</servlet-api.version>
+        <jsp-api.version>2.1</jsp-api.version>
+        <log4j.version>1.2.15</log4j.version>
+        <jstl.version>1.2</jstl.version>
+        <standard.version>1.1.2</standard.version>
+        <commons-dbcp.version>1.4</commons-dbcp.version>
+        <maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
+        <hibernate-annotations.version>3.3.1.GA</hibernate-annotations.version>
+        <hibernate-commons-annotations.version>3.3.0.ga</hibernate-commons-annotations.version>
+        <hibernate-core.version>3.3.2.GA</hibernate-core.version>
+        <hibernate-entitymanager.version>3.6.7.Final</hibernate-entitymanager.version>
+        <org.hibernate.version>4.3.0.Final</org.hibernate.version>
+        <junit.version>4.7</junit.version>
         <mockito.version>1.9.5</mockito.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jackson.version>1.8.0</jackson.version>
+        <json-simple.version>1.1</json-simple.version>
+        <derby.version>10.12.1.1</derby.version>
+        <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
     </properties>
 
     <dependencies>
@@ -64,13 +82,11 @@
             <artifactId>spring-security-web</artifactId>
             <version>${spring.security.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
             <version>${spring.security.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
@@ -81,26 +97,31 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <version>${servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
+            <version>${jsp-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>${standard.version}</version>
         </dependency>
 
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -109,33 +130,12 @@
             <scope>test</scope>
             <version>${mockito.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
             <version>${mockito.version}</version>
         </dependency>
-
-        <!-- Json -->
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.8.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.8.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -143,62 +143,78 @@
             <version>${org.springframework-version}</version>
         </dependency>
 
+        <!-- Json -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>${json-simple.version}</version>
+        </dependency>
+
         <!-- derby -->
-        <!-- <dependency> <groupId>org.apache.derby</groupId> <artifactId>derby</artifactId> <version>10.12.1.1</version> 
-            </dependency> <dependency> <groupId>org.apache.derby</groupId> <artifactId>derbyclient</artifactId> <version>10.12.1.1</version> 
-            </dependency> <dependency> <groupId>org.apache.derby</groupId> <artifactId>derbynet</artifactId> <version>10.12.1.1</version> 
-            </dependency> -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>${derby.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>${derby.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbynet</artifactId>
+            <version>${derby.version}</version>
+        </dependency>
 
         <!-- MySQL -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.38</version>
+            <version>${mysql-connector-java.version}</version>
         </dependency>
 
-        <!-- Postgresql -->
         <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.1-901-1.jdbc4</version>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${commons-dbcp.version}</version>
         </dependency>
 
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.6.7.Final</version>
+            <version>${hibernate-entitymanager.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>4.3.0.Final</version>
+            <version>${org.hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.3.0.ga</version>
+            <version>${hibernate-commons-annotations.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
-            <version>3.3.1.GA</version>
+            <version>${hibernate-annotations.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>3.3.2.GA</version>
-        </dependency>
-
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
+            <version>${hibernate-core.version}</version>
         </dependency>
 
         <!-- Logging -->
@@ -222,7 +238,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.15</version>
+            <version>${log4j.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.mail</groupId>
@@ -250,7 +266,7 @@
             <artifactId>commons-io</artifactId>
             <version>${commons.io-version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -260,25 +276,25 @@
     </dependencies>
 
     <modules>
-        <module>api</module>
-        <module>client</module>
+        <module>prototype-api</module>
+        <module>prototype-client</module>
     </modules>
 
     <build>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <testSource>1.7</testSource>
-                    <testTarget>1.7</testTarget>
-                    <encoding>UTF-8</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <testSource>${java.version}</testSource>
+                    <testTarget>${java.version}</testTarget>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
