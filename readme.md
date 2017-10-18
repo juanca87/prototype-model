@@ -1,6 +1,6 @@
 # README
 
-###External resources _(templates/icons/libraries)_:
+### External resources _(templates/icons/libraries)_:
 
 __Dashboard:__
 * http://startbootstrap.com/template-overviews/sb-admin-2/
@@ -24,38 +24,37 @@ __Live Morris:__
 * http://jsbin.com/uzosiq/258/embed?js,output
 * http://jsbin.com/ukaxod/144/embed?js,output
 
+### How to run?
 
-### prototype-model
-
-* Database schema:
+* This project uses MySQL Database, so before running the application it is necessary to execute the following command to create the schema
 ```
 CREATE SCHEMA `prototypeDB`;
 ```
 
-* api/client services:
+* To compile the modules, go to the parent folder _(prototype_model)_ and execute the following command:
+```
+cd prototype-model
+mvn clean install
+```
+
+* You can deploy it on apache tomcat or inside of your IDE, when it starts this will create the table.
+
+### Modules:
+* **prototype-api:** this module has the measurable attributes
+* **prototype-client:** this module is designed to consume the services of prototype-api module, save it to the database and show the metrics
+
+### Endpoints:
+```
+> http://<server:8080>/prototype-api/getInfoServidor
+> http://<server:8080>/prototype-api/getResultadoEjecucion/<serverName>
+> http://<server:8080>/prototype-client/getHistorialEjecuciones
+> http://<server:8080>/prototype-client/getComparacion
+> http://<server:8080>/prototype-client/getAtributoByName/<atributeName>
+> http://<server:8080>/prototype-client/getUltimaEjecucion
+```
 
 ```
 * <serverName> : amazon, google or heroku
 * <server:8080> : server (local or remote) and port
 * <atributeName> : CPU, Lectura en Memoria, Escritura en Memoria, Lectura en Disco, Escritura en Disco, Ancho de Banda, Latencia or Procesamiento
-```
-
-```
-> http://<server:8080>/prototype-model-api/getInfoServidor
-> http://<server:8080>/prototype-model-api/getResultadoEjecucion/<serverName>
-> http://<server:8080>/prototype-model-client/getHistorialEjecuciones
-> http://<server:8080>/prototype-model-client/getComparacion
-> http://<server:8080>/prototype-model-client/getAtributoByName/<atributeName>
-> http://<server:8080>/prototype-model-client/getUltimaEjecucion
-```
-
-### Configuration
-* Build and Deploy
-
-```sh
-#For local environment, this assume that use 8080 port
-$ mvn clean -Plocal install
-#For remote environment, this assume that use 80 port
-$ mvn clean -Pprod install
-#Deploy on application server
 ```
