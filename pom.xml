@@ -4,15 +4,22 @@
 
     <groupId>com.jcalvopinam</groupId>
     <artifactId>prototype-model</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
 
     <description>
         Este es un modelo prototipo de mi proyecto de tesis: Modelo para evaluar a proveedores de servicios en la nube
     </description>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.8.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <properties>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.springframework-version>3.2.8.RELEASE</org.springframework-version>
         <spring.security.version>3.2.0.RELEASE</spring.security.version>
@@ -41,6 +48,17 @@
     </properties>
 
     <dependencies>
+
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Spring Framework -->
         <dependency>
