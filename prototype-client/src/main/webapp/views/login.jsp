@@ -1,29 +1,29 @@
-<%@ include file="/WEB-INF/views/includes.jsp"%>
+<%@ include file="includes.jsp"%>
 
-<c:url var="loginPostUrl" value="/j_spring_security_check"/>
-<c:url var="protectedUrl" value="/protected"/>
-<c:url var="unprotectedUrl" value="/unprotected"/>
-<c:url var="logoutUrl" value="/j_spring_security_logout"/>
+<c:url var="loginPostUrl" value="/login"/>
+<c:url var="logoutUrl" value="/logout"/>
 <c:url var="loginUrl" value="/login"/>
+<c:url var="contextUrl" value="/"/>
 
 <!DOCTYPE html>
 
-<html lang="en-US">
 <head>
-    <meta charset="utf-8">
+    <title>Login</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/styleLogin.css"/>"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="resources/css/styleLogin.css"/>
 </head>
 
 <body>
 
 <c:if test="${pageContext.request.userPrincipal.name != null}">
-    <jsp:forward page="/home"></jsp:forward>
+    <jsp:forward page="home.jsp"></jsp:forward>
 </c:if>
 
 <div class="container-fluid">
@@ -33,17 +33,17 @@
                 <div class="navbar-collapse collapse" id="additional-nav">
                     <sec:authorize access="isAnonymous()">
                         <ul class="nav navbar-nav">
-                            <li class="active" id="login"><a href="${loginUrl}">Prototype Model</a></li>
+                            <li class="active" id="loginMenu"><a href="${loginUrl}">Prototype Model</a></li>
                         </ul>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <ul class="nav navbar-nav">
-                            <li><a id="webApplicationTitle">Prototype Model</a></li>
+                            <li><a id="applicationTitleMenu">Prototype Model</a></li>
                         </ul>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a id="logout" href="${logoutUrl}">Logout</a></li>
+                            <li><a id="logoutMenu" href="${logoutUrl}">Logout</a></li>
                         </ul>
                     </sec:authorize>
                 </div>
@@ -66,7 +66,7 @@
         <c:if test="${logout}">
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                Sesión cerrada exitosamente!.
+                SesiÃ³n cerrada exitosamente!.
             </div>
         </c:if>
 
@@ -87,26 +87,26 @@
                     <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
                         <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
                     </svg>
-                    <input type="text" id="username" name="j_username" class="login__input name" pattern="\w+"
+                    <input type="text" id="username" name="username" class="login__input name" pattern="\w+"
                        placeholder="Ingrese su nombre de usuario" autocomplete="off" autofocus>
                 </div>
                 <div class="login__row">
                     <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
                         <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
                     </svg>
-                    <input id="password" name='j_password' type="password" class="login__input pass"
-                       placeholder="Ingrese su contraseña" autocomplete="off">
+                    <input id="password" name='password' type="password" class="login__input pass"
+                       placeholder="Ingrese su contraseÃ±a" autocomplete="off">
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <br/><br/>
-                <button type="submit" id="login" class="btn btn-success login__submit">Iniciar Sesión</button>
+                <button type="submit" id="login" class="btn btn-success login__submit">Iniciar SesiÃ³n</button>
             </form>
         </div>
     </div>
 
 </body>
 
-<script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
 
 </html>

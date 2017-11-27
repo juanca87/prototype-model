@@ -1,7 +1,7 @@
-<%@ include file="/WEB-INF/views/includes.jsp"%>
+<%@ include file="includes.jsp"%>
 
-<c:url var="loginPostUrl" value="/j_spring_security_check"/>
-<c:url var="logoutUrl" value="/j_spring_security_logout"/>
+<c:url var="loginPostUrl" value="/login"/>
+<c:url var="logoutUrl" value="/logout"/>
 <c:url var="loginUrl" value="/login"/>
 <c:url var="contextUrl" value="/"/>
 
@@ -10,6 +10,7 @@
 <head>
     <title>Home</title>
 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
@@ -42,7 +43,7 @@
                             <li id="amazonEC2"><a href="${contextUrl}amazon">Amazon EC2</a></li>
                             <li id="googleAppEngine"><a href="${contextUrl}google">Google Cloud Engine</a></li>
                             <li id="heroku"><a href="${contextUrl}heroku">Heroku</a></li>
-                            <li id="comparacion"><a href="${contextUrl}comparacion">Comparaci髇</a></li>
+                            <li id="comparacion"><a href="${contextUrl}comparacion">Comparaci贸n</a></li>
                         </ul>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
@@ -167,7 +168,7 @@
                 </div>
                 <a href="${contextUrl}comparacion">
                     <div class="panel-footer">
-                        <span class="pull-left">Comparaci髇 de resultados entre los diferentes proveedores.
+                        <span class="pull-left">Comparaci贸n de resultados entre los diferentes proveedores.
                             Ver Detalles</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
@@ -180,7 +181,7 @@
                 <div class="carousel-inner">
                     <div class="item active">
                         <div class="col-md-10 col-md-offset-1">
-                            <h4><i class="fa fa-quote-left"></i>Modelo de evaluacion con metricas de atributos de calidad. <i class="fa fa-quote-right"></i></h4>
+                            <h4><i class="fa fa-quote-left"></i>Modelo de evaluaci贸n con m茅tricas de atributos de calidad. <i class="fa fa-quote-right"></i></h4>
                             <div class="user-img pull-right">
                                 <img src="resources/img/methodologyLogos/iso.png" alt="" class="img-u image-responsive" />
                             </div>
@@ -189,7 +190,7 @@
                     </div>
                     <div class="item">
                         <div class="col-md-10 col-md-offset-1">
-                            <h4><i class="fa fa-quote-left"></i>Model de evaluacion en base atributos tomados de ITIL <i class="fa fa-quote-right"></i></h4>
+                            <h4><i class="fa fa-quote-left"></i>Model de evaluaci贸n en base atributos tomados de ITIL <i class="fa fa-quote-right"></i></h4>
                             <div class="user-img pull-right">
                                 <img src="resources/img/methodologyLogos/itil.png" alt="" class="img-u image-responsive" />
                             </div>
@@ -225,17 +226,17 @@
                 <div class="panel-body">
                     <div class="list-group">
                         <div class="list-group-item">
-                            <i class="fa fa-tasks fa-fw"></i> 趌tima ejecuci髇 Amazon:  
+                            <i class="fa fa-tasks fa-fw"></i> 脷ltima Ejecuci贸n Amazon:
                             <span class="pull-right text-muted small"><em>${fechaAmazon}</em>
                             </span>
                         </div>
                         <div class="list-group-item">
-                            <i class="fa fa-tasks fa-fw"></i> 趌tima ejecuci髇 Google:  
+                            <i class="fa fa-tasks fa-fw"></i> 脷ltima Ejecuci贸n Google:
                             <span class="pull-right text-muted small"><em>${fechaGoogle}</em>
                             </span>
                         </div>
                         <div class="list-group-item">
-                            <i class="fa fa-tasks fa-fw"></i> 趌tima ejecuci髇 Heroku:  
+                            <i class="fa fa-tasks fa-fw"></i> 脷ltima Ejecuci贸n Heroku:
                             <span class="pull-right text-muted small"><em>${fechaHeroku}</em>
                             </span>
                         </div>
@@ -253,7 +254,7 @@
         <div class="col-lg-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-area-chart-o fa-fw"></i> Gr醘ico de Atributos vs Tiempo (seg).
+                    <i class="fa fa-area-chart-o fa-fw"></i> Gr谩fico de Atributos vs Tiempo (seg).
                 </div>
                 <div class="panel-body">
                     <div id="morris-area-chart"></div>
@@ -269,7 +270,10 @@
 </div>
 
 <div id="footer-sec">
-    &copy; 2016 Prototipo | Design By : <a href="mailto:juan.calvopina@gmail.com?Subject=Prototype-Model-Project" target="_top" target="_blank">Juan Calvopi馻 Morillo</a>
+    &copy; 2016 Prototipo | Design By :
+    <a href="mailto:juan.calvopina@gmail.com?Subject=Prototype-Model-Project" target="_top" target="_blank">
+        Juan Calvopi帽a Morillo
+    </a>
 </div>
 
 </body>

@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/views/includes.jsp"%>
+<%@ include file="includes.jsp"%>
 
 <c:set var="req" value="${pageContext.request}" />
 <c:set var="uri" value="${req.requestURI}" />
@@ -17,6 +17,6 @@
 <base href="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/" />
 <link rel="stylesheet" href="resources/css/styles.css">
 </head>
-<body class="body-500">
+<body class="body-404">
 </body>
 </html>
