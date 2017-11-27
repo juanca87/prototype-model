@@ -22,27 +22,25 @@
  * SOFTWARE.
  */
 
-package com.jcalvopinam.api.controller;
+package com.jcalvopinam.api.web;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
- *
  */
 
-@Controller
+@RestController
 public class HomeController {
 
-    @RequestMapping(value = { "/", "/index", "/home" }, method = RequestMethod.GET)
-    public ModelAndView home() {
+    @RequestMapping(value = {"/index", "/home"}, method = RequestMethod.GET)
+    public String home() {
 
         Locale locale = new Locale("es");
 
@@ -51,12 +49,12 @@ public class HomeController {
 
         String formattedDate = dateFormat.format(date);
 
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Prototype Model Api");
-        model.addObject("message", "Welcome to the API's list the server Time is:" + formattedDate);
-        model.addObject("datetime", "The server Time is:" + formattedDate);
-        model.setViewName("home");
+        StringBuilder sb = new StringBuilder("Prototype Model Api\n");
+        sb.append("Welcome to the API's list the server Time is:")
+          .append(formattedDate)
+          .append("The server Time is:")
+          .append(formattedDate);
 
-        return model;
+        return sb.toString();
     }
 }

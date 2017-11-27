@@ -64,8 +64,7 @@ public class Latencia {
             errorMessage = e.getMessage();
         }
 
-        logLatencia
-                .info("Ping a " + ip + " (" + hostaddr + ") " + intentoMax + " veces en el puerto " + port + "...\n");
+        logLatencia.info("Ping a " + ip + " (" + hostaddr + ") " + intentoMax + " veces en el puerto " + port + "...\n");
 
         long tiempoTotal = 0;
         int intento = 0;

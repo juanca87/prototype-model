@@ -119,7 +119,6 @@ public class InfoServidor {
         log.info("Arquitectura del Sistema Operativo: " + this.arquitectura);
         this.version = System.getProperty("os.version");
         log.info("Version del Sistema Operativo: " + this.version);
-
     }
 
 }
