@@ -22,39 +22,27 @@
  * SOFTWARE.
  */
 
-package com.jcalvopinam.client.dao;
+package com.jcalvopinam.client;
 
-import java.util.List;
-
-import com.jcalvopinam.client.dto.Atributo;
-import com.jcalvopinam.client.dto.Proveedor;
-import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
-import com.jcalvopinam.client.model.ResultadoEjecucion;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
  *
  */
-public interface IResultadoEjecucionDao {
+@SpringBootApplication
+public class PrototypeClientApplication extends SpringBootServletInitializer {
 
-    public void add(ResultadoEjecucion resultado);
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(PrototypeClientApplication.class);
+    }
 
-    public void update(ResultadoEjecucion resultado);
-
-    public void delete(int id);
-
-    public ResultadoEjecucion getResultadoEjecucion(int id);
-
-    public List<ResultadoEjecucion> getAllResultadosEjecucion();
-
-    public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName);
-
-    public List<Proveedor> getUltimaEjecucion();
-
-    public UltimaFechaEjecucion getFechaUltimaEjecucion();
-
-    public List<ResultadoEjecucion> getComparacion();
-
-    public List<Atributo> getAtributoByName(String atributo);
+    public static void main(String[] args) {
+        SpringApplication.run(PrototypeClientApplication.class, args);
+    }
 
 }
