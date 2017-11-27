@@ -22,17 +22,10 @@
  * SOFTWARE.
  */
 
-package com.jcalvopinam.client.model;
+package com.jcalvopinam.client.domain;
 
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
@@ -40,10 +33,11 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class ResultadoEjecucion {
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @Column
     private String cpu;
@@ -76,11 +70,11 @@ public class ResultadoEjecucion {
     @Column
     private String servidor;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -1,2 +1,0 @@
---mysql
-CREATE SCHEMA `prototypeDB`;

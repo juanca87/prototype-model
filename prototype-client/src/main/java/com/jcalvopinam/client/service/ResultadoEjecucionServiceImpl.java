@@ -22,78 +22,71 @@
  * SOFTWARE.
  */
 
-package com.jcalvopinam.client.dao.impl;
+package com.jcalvopinam.client.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import com.jcalvopinam.client.dao.IResultadoEjecucionDao;
+import com.jcalvopinam.client.domain.ResultadoEjecucion;
+import com.jcalvopinam.client.domain.ResultadoEjecucionRepository;
 import com.jcalvopinam.client.dto.Atributo;
 import com.jcalvopinam.client.dto.Proveedor;
 import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
-import com.jcalvopinam.client.model.ResultadoEjecucion;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
  *
  */
-@Repository
-public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
+@Service
+public class ResultadoEjecucionServiceImpl implements ResultadoEjecucionService {
 
     private static final String AMAZON = "amazon";
     private static final String GOOGLE = "google";
     private static final String HEROKU = "heroku";
 
     List<Proveedor> listaAtributosProveedor = null;
-    List<Proveedor> listaAtributosUltimaEjecucion = new ArrayList<Proveedor>();
+    List<Proveedor> listaAtributosUltimaEjecucion = new ArrayList<>();
 
     @Autowired
-    private SessionFactory session;
+    private ResultadoEjecucionRepository resultadoEjecucionRepository;
 
     @Override
     public void add(ResultadoEjecucion resultado) {
-        session.getCurrentSession().save(resultado);
+        resultadoEjecucionRepository.save(resultado);
     }
 
     @Override
     public void update(ResultadoEjecucion resultado) {
-        session.getCurrentSession().update(resultado);
+        resultadoEjecucionRepository.save(resultado);
     }
 
     @Override
-    public void delete(int id) {
-        session.getCurrentSession().delete(getResultadoEjecucion(id));
+    public void delete(long id) {
+        resultadoEjecucionRepository.delete(getResultadoEjecucion(id));
     }
 
     @Override
-    public ResultadoEjecucion getResultadoEjecucion(int id) {
-        return (ResultadoEjecucion) session.getCurrentSession().get(ResultadoEjecucion.class, id);
+    public ResultadoEjecucion getResultadoEjecucion(Long id) {
+        return resultadoEjecucionRepository.getOne(id);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<ResultadoEjecucion> getAllResultadosEjecucion() {
-        return session.getCurrentSession().createQuery("from ResultadoEjecucion").list();
+        return resultadoEjecucionRepository.findAll();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName) {
-        return session.getCurrentSession()
-                .createQuery("from ResultadoEjecucion where servidor = :serverName order by fecha desc")
-                .setParameter("serverName", serverName).setMaxResults(200).list();
+        return resultadoEjecucionRepository.findResultadoEjecucionByServidor(serverName);
     }
 
     @Override
     public List<Proveedor> getUltimaEjecucion() {
-        listaAtributosProveedor = new ArrayList<Proveedor>();
+        listaAtributosProveedor = new ArrayList<>();
         List<Proveedor> ultimaEjecucion = setResultadoUltimaEjecucion(getListaUltimaEjecucion());
         this.setListaAtributosUltimaEjecucion(ultimaEjecucion);
         return ultimaEjecucion;
@@ -101,9 +94,10 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
     /**
      * Recupera una lista con los resultados de la utilma fecha de ejecucion de cada proveedor
-     * 
+     *
      * @return Lista de ResultadoEjecucion
      */
+    @Override
     public List<ResultadoEjecucion> getListaUltimaEjecucion() {
         UltimaFechaEjecucion fechaUltimaEjecucion = this.getFechaUltimaEjecucion();
 
@@ -131,9 +125,8 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
     /**
      * Busca el atributo y recuperar los resultados
-     * 
-     * @param atributo
-     *            nombre del atributo
+     *
+     * @param atributo nombre del atributo
      * @return objeto Atributo
      */
     @Override
@@ -165,22 +158,21 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
     /**
      * Obtiene los resultado de la ejecucion por proveedor
-     * 
+     *
      * @param fecha
      * @param servidor
      * @return Lista de ResultadoEjecucion
      */
     @SuppressWarnings("unchecked")
     private List<ResultadoEjecucion> getResultadoByServidor(Date fecha, String servidor) {
-        List<ResultadoEjecucion> resultado = session.getCurrentSession()
-                .createQuery("from ResultadoEjecucion where fecha = :fechaActual and " + "servidor = :nombreServidor")
-                .setParameter("fechaActual", fecha).setParameter("nombreServidor", servidor).setMaxResults(1).list();
+        List<ResultadoEjecucion> resultado = resultadoEjecucionRepository
+                .findResultadoEjecucionByFechaAndServidor(fecha, servidor);
         return resultado;
     }
 
     /**
      * Setea los resultados de la ultima ejecucion en una lista de proveedores
-     * 
+     *
      * @param resultados
      * @return Lista de Proveedores
      */
@@ -279,9 +271,10 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
     /**
      * Obtiene UltimaFechaEjecucion de todos los proveedor en un unico Objeto
-     * 
+     *
      * @return Objeto UltimaFechaEjecucion
      */
+    @Override
     public UltimaFechaEjecucion getFechaUltimaEjecucion() {
         UltimaFechaEjecucion ultimaEjecucion = new UltimaFechaEjecucion();
         Date fechaAmazon = this.getUltimaFechaEjecucionByServidor(AMAZON);
@@ -297,42 +290,35 @@ public class ResultadoEjecucionDaoImp implements IResultadoEjecucionDao {
 
     /**
      * Obtiene la fecha de la ultima ejecucion por cada proveedor
-     * 
+     *
      * @param servidor
      * @return Date
      */
-    private Date getUltimaFechaEjecucionByServidor(String servidor) {
-        Date fechaActual = (Date) session.getCurrentSession()
-                .createQuery("Select fecha from ResultadoEjecucion where servidor = :nombreServidor "
-                        + "order by fecha desc")
-                .setParameter("nombreServidor", servidor).setMaxResults(1).uniqueResult();
-
-        return fechaActual;
+    @Override
+    public Date getUltimaFechaEjecucionByServidor(String servidor) {
+        ResultadoEjecucion ultimaEjecucion = resultadoEjecucionRepository.findResultadoEjecucionByServidorOrderByFechaDesc(servidor);
+        return ultimaEjecucion.getFecha();
 
     }
 
+    @Override
     public List<Proveedor> getListaAtributosUltimaEjecucion() {
         return listaAtributosUltimaEjecucion;
     }
 
+    @Override
     public void setListaAtributosUltimaEjecucion(List<Proveedor> listaAtributosUltimaEjecucion) {
         this.listaAtributosUltimaEjecucion = listaAtributosUltimaEjecucion;
     }
 
     /**
      * Ordena la lista de menor a mayor
-     * 
-     * @param atributo
-     *            Lista de atributos
+     *
+     * @param atributo Lista de atributos
      * @return Lista de atributos
      */
     private List<Atributo> listaOrdenada(List<Atributo> atributo) {
-        Collections.sort(atributo, new Comparator<Atributo>() {
-
-            public int compare(Atributo o1, Atributo o2) {
-                return o2.getValue().compareTo(o1.getValue());
-            }
-        });
+        Collections.sort(atributo, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
         Collections.reverse(atributo);
         return atributo;
     }

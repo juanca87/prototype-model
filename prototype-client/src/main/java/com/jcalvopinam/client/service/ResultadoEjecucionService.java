@@ -22,31 +22,47 @@
  * SOFTWARE.
  */
 
-package com.jcalvopinam.client.security;
+package com.jcalvopinam.client.service;
 
-import org.springframework.security.web.util.matcher.RegexRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.stereotype.Component;
+import com.jcalvopinam.client.domain.ResultadoEjecucion;
+import com.jcalvopinam.client.dto.Atributo;
+import com.jcalvopinam.client.dto.Proveedor;
+import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.regex.Pattern;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
  *
  */
-@Component
-public class CsrfSecurityRequestMatcher implements RequestMatcher {
-    private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
-    private RegexRequestMatcher unprotectedMatcher = new RegexRequestMatcher("/unprotected", null);
+public interface ResultadoEjecucionService {
 
-    @Override
-    public boolean matches(HttpServletRequest request) {
-        if(allowedMethods.matcher(request.getMethod()).matches()){
-            return false;
-        }
+    void add(ResultadoEjecucion resultado);
 
-        return !unprotectedMatcher.matches(request);
-    }
+    void update(ResultadoEjecucion resultado);
+
+    void delete(long id);
+
+    ResultadoEjecucion getResultadoEjecucion(Long id);
+
+    List<ResultadoEjecucion> getAllResultadosEjecucion();
+
+    List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName);
+
+    List<Proveedor> getUltimaEjecucion();
+
+    Date getUltimaFechaEjecucionByServidor(String servidor);
+
+    List<ResultadoEjecucion> getListaUltimaEjecucion();
+
+    List<ResultadoEjecucion> getComparacion();
+
+    List<Atributo> getAtributoByName(String atributo);
+
+    UltimaFechaEjecucion getFechaUltimaEjecucion();
+
+    List<Proveedor> getListaAtributosUltimaEjecucion();
+
+    void setListaAtributosUltimaEjecucion(List<Proveedor> listaAtributosUltimaEjecucion);
 }
-

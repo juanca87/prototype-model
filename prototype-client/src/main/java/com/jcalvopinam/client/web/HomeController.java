@@ -22,13 +22,11 @@
  * SOFTWARE.
  */
 
-package com.jcalvopinam.client.controller;
+package com.jcalvopinam.client.web;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import org.codehaus.jackson.map.ObjectMapper;
+import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
+import com.jcalvopinam.client.service.ResultadoEjecucionService;
+import com.jcalvopinam.client.utils.Localizacion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +34,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
-import com.jcalvopinam.client.service.IResultadoEjecucionService;
-import com.jcalvopinam.client.utils.Localizacion;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
@@ -52,19 +50,16 @@ public class HomeController {
     private static final Logger logHome = LoggerFactory.getLogger(HomeController.class);
     private static final String SERVIDOR_LOCAL = "LOCAL";
 
-    String json = null;
-    ObjectMapper mapper = null;
-
     @Value("${host.address}")
     private String currentHost = "";
 
     @Autowired
-    private IResultadoEjecucionService resultadoEjecucion;
+    private ResultadoEjecucionService resultadoEjecucionService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView home() {
+    public String home(Map<String, Object> model) {
 
-        logHome.info("Obteniendo detos de index");
+        logHome.info("Obteniendo datos de index");
 
         Locale locale = new Locale("es");
 
@@ -73,39 +68,62 @@ public class HomeController {
 
         String formattedDate = dateFormat.format(date);
 
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Spring security - Hello World!");
-        model.addObject("message", "Welcome, the server Time is:" + formattedDate);
-        model.setViewName("index");
+        model.put("title", "Spring security - Hello World!");
+        model.put("message", "Welcome, the server Time is:" + formattedDate);
 
-        return model;
+        return "index";
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView adminPage() {
+    public String adminPage(Map<String, Object> model) {
 
         logHome.info("Obteniendo datos de home");
 
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Modelo para Evaluar a Proveedores de Servicio en la Nube.");
-        model.addObject("message", "Prototipo que permite evaluar algunos de los atributos claves.");
-        model.addObject("hostAddress", getServidor());
-        model.setViewName("home");
+        model.put("title", "Modelo para Evaluar a Proveedores de Servicio en la Nube.");
+        model.put("message", "Prototipo que permite evaluar algunos de los atributos claves.");
+        model.put("hostAddress", getServidor());
 
-        try {
-            UltimaFechaEjecucion ultima = resultadoEjecucion.getUltimaFechaEjecucion();
-            model.addObject("fechaAmazon", ultima.getFechaAmazon());
-            model.addObject("fechaGoogle", ultima.getFechaGoogle());
-            model.addObject("fechaHeroku", ultima.getFechaHeroku());
+        return "home";
+    }
 
-            return model;
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    public String login() {
+        return "login";
+    }
 
-        } catch (Exception e) {
-            logHome.error("Se produjo un error al obtener el historial de ejecuciones: " + e.getMessage());
+    @RequestMapping(value = "/amazon", method = RequestMethod.GET)
+    public String amazon() {
+        return "amazon";
+    }
 
-            return new ModelAndView();
-        }
+    @RequestMapping(value = "/google", method = RequestMethod.GET)
+    public String google() {
+        return "google";
+    }
 
+    @RequestMapping(value = "/heroku", method = RequestMethod.GET)
+    public String heroku() {
+        return "heroku";
+    }
+
+    @RequestMapping(value = "/protected", method = RequestMethod.GET)
+    public String securityProtected() {
+        return "protected";
+    }
+
+    @RequestMapping(value = "/unprotected", method = RequestMethod.GET)
+    public String securityUnProtected(){
+        return "unprotected";
+    }
+
+    @RequestMapping(value = "error", method = RequestMethod.GET)
+    public String error(){
+        return "error";
+    }
+
+    @RequestMapping(value = "/ultimaFechaEjecucion", method = RequestMethod.GET)
+    public UltimaFechaEjecucion ultimaFechaEjecucion() {
+        return resultadoEjecucionService.getFechaUltimaEjecucion();
     }
 
     private String getServidor() {

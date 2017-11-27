@@ -22,39 +22,23 @@
  * SOFTWARE.
  */
 
-package com.jcalvopinam.client.service;
+package com.jcalvopinam.client.domain;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Date;
 import java.util.List;
-
-import com.jcalvopinam.client.dto.Atributo;
-import com.jcalvopinam.client.dto.Proveedor;
-import com.jcalvopinam.client.dto.UltimaFechaEjecucion;
-import com.jcalvopinam.client.model.ResultadoEjecucion;
 
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
  *
  */
-public interface IResultadoEjecucionService {
+public interface ResultadoEjecucionRepository extends JpaRepository<ResultadoEjecucion, Long> {
 
-    public void save(ResultadoEjecucion resultado);
+    List<ResultadoEjecucion> findResultadoEjecucionByServidor(String server);
 
-    public void update(ResultadoEjecucion resultado);
+    List<ResultadoEjecucion> findResultadoEjecucionByFechaAndServidor(Date fecha, String server);
 
-    public void delete(int id);
-
-    public ResultadoEjecucion getResultadoEjecucion(int id);
-
-    public List<ResultadoEjecucion> getAllResultadosEjecucion();
-
-    public List<ResultadoEjecucion> getAllResultadosEjecucion(String serverName);
-
-    public List<Proveedor> getUltimaEjecucion();
-
-    public UltimaFechaEjecucion getUltimaFechaEjecucion();
-
-    public List<ResultadoEjecucion> getComparacion();
-
-    public List<Atributo> getAtributoByName(String atributo);
+    ResultadoEjecucion findResultadoEjecucionByServidorOrderByFechaDesc(String server);
 
 }
