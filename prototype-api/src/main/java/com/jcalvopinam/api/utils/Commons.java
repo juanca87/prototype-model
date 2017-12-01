@@ -24,7 +24,6 @@
 
 package com.jcalvopinam.api.utils;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 
 /**
@@ -32,17 +31,6 @@ import org.springframework.util.StringUtils;
  *
  */
 public class Commons {
-
-    /**
-     * Agrega la cabecera a la respuesta del mensaje
-     * 
-     * @return HttpHeaders object
-     */
-    public static HttpHeaders getHpptHeader() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Allow-Origin", "*");
-        return headers;
-    }
 
     /**
      * @param valor
