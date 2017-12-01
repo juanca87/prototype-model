@@ -4,7 +4,7 @@
 
 <c:url var="protectedUrl" value="/protected"/>
 <c:url var="unprotectedUrl" value="/unprotected"/>
-<c:url var="logoutUrl" value="/j_spring_security_logout"/>
+<c:url var="logoutUrl" value="/logout"/>
 <c:url var="loginUrl" value="/login"/>
 
 <!DOCTYPE html>

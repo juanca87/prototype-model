@@ -106,6 +106,11 @@ public class HomeController {
         return "heroku";
     }
 
+    @RequestMapping(value = "/comparacion", method = RequestMethod.GET)
+    public String comparacion(){
+        return "comparacion";
+    }
+
     @RequestMapping(value = "/protected", method = RequestMethod.GET)
     public String securityProtected() {
         return "protected";
@@ -114,11 +119,6 @@ public class HomeController {
     @RequestMapping(value = "/unprotected", method = RequestMethod.GET)
     public String securityUnProtected(){
         return "unprotected";
-    }
-
-    @RequestMapping(value = "error", method = RequestMethod.GET)
-    public String error(){
-        return "error";
     }
 
     @RequestMapping(value = "/ultimaFechaEjecucion", method = RequestMethod.GET)

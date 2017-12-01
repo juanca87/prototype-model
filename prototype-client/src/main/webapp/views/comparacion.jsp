@@ -1,7 +1,7 @@
 <%@ include file="includes.jsp"%>
 
-<c:url var="loginPostUrl" value="/j_spring_security_check"/>
-<c:url var="logoutUrl" value="/j_spring_security_logout"/>
+<c:url var="loginPostUrl" value="/login"/>
+<c:url var="logoutUrl" value="/logout"/>
 <c:url var="loginUrl" value="/login"/>
 <c:url var="contextUrl" value="/"/>
 

@@ -43,7 +43,7 @@
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a id="logoutMenu" href="${logoutUrl}">Logout</a></li>
+                            <li><a id="logout" href="${logoutUrl}">Logout</a></li>
                         </ul>
                     </sec:authorize>
                 </div>
