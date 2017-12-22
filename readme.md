@@ -45,8 +45,8 @@ mvn clean install
 
 ### Endpoints:
 ```
-> http://<server:8080>/prototype-api/getInfoServidor
-> http://<server:8080>/prototype-api/getResultadoEjecucion/<serverName>
+> http://<server:8081>/prototype-api/getInfoServidor
+> http://<server:8081>/prototype-api/getResultadoEjecucion/<serverName>
 > http://<server:8080>/prototype-client/getHistorialEjecuciones
 > http://<server:8080>/prototype-client/getComparacion
 > http://<server:8080>/prototype-client/getAtributoByName/<atributeName>
