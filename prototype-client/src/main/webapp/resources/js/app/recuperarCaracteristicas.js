@@ -18,7 +18,7 @@ function recuperarCaracteristicas() {
 
   // obtiene la url
   var url = $("#urlCaracteristicas").val();
-  // var contents = "http://localhost:8080/prototype-model-api/getInfoServidor.json";
+  // var contents = "http://localhost:8081/prototype-model-api/getInfoServidor.json";
 
   // obtiene el json de la url
   var parseJson = $.getJSON(url, function(json) {
