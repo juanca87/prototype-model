@@ -56,7 +56,7 @@ public class HomeController {
     @Autowired
     private ResultadoEjecucionService resultadoEjecucionService;
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String home(Map<String, Object> model) {
 
         logHome.info("Obteniendo datos de index");
@@ -91,26 +91,6 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping(value = "/amazon", method = RequestMethod.GET)
-    public String amazon() {
-        return "amazon";
-    }
-
-    @RequestMapping(value = "/google", method = RequestMethod.GET)
-    public String google() {
-        return "google";
-    }
-
-    @RequestMapping(value = "/heroku", method = RequestMethod.GET)
-    public String heroku() {
-        return "heroku";
-    }
-
-    @RequestMapping(value = "/comparacion", method = RequestMethod.GET)
-    public String comparacion(){
-        return "comparacion";
-    }
-
     @RequestMapping(value = "/protected", method = RequestMethod.GET)
     public String securityProtected() {
         return "protected";
@@ -127,6 +107,7 @@ public class HomeController {
     }
 
     private String getServidor() {
+        System.out.printf("host.address: " + currentHost);
         if (currentHost.equals(SERVIDOR_LOCAL))
             return Localizacion.getInfoServidorLocal();
         else
