@@ -55,7 +55,7 @@ public class ResultadoEjecucionServiceImpl implements ResultadoEjecucionService 
     private ResultadoEjecucionRepository resultadoEjecucionRepository;
 
     @Override
-    public void add(ResultadoEjecucion resultado) {
+    public void save(ResultadoEjecucion resultado) {
         resultadoEjecucionRepository.save(resultado);
     }
 
@@ -297,7 +297,7 @@ public class ResultadoEjecucionServiceImpl implements ResultadoEjecucionService 
     @Override
     public Date getUltimaFechaEjecucionByServidor(String servidor) {
         ResultadoEjecucion ultimaEjecucion = resultadoEjecucionRepository.findResultadoEjecucionByServidorOrderByFechaDesc(servidor);
-        return ultimaEjecucion.getFecha();
+        return ultimaEjecucion != null ? ultimaEjecucion.getFecha() : null;
 
     }
 

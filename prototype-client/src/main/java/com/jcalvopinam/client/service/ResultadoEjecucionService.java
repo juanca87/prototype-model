@@ -38,7 +38,7 @@ import java.util.List;
  */
 public interface ResultadoEjecucionService {
 
-    void add(ResultadoEjecucion resultado);
+    void save(ResultadoEjecucion resultado);
 
     void update(ResultadoEjecucion resultado);
 
