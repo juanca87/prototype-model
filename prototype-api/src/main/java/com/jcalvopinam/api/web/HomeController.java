@@ -39,7 +39,7 @@ import java.util.Locale;
 @RestController
 public class HomeController {
 
-    @RequestMapping(value = {"/index", "/home"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/index", "/home"}, method = RequestMethod.GET)
     public String home() {
 
         Locale locale = new Locale("es");
@@ -50,7 +50,7 @@ public class HomeController {
         String formattedDate = dateFormat.format(date);
 
         StringBuilder sb = new StringBuilder("Prototype Model Api\n");
-        sb.append("Welcome to the API's list the server Time is:")
+        sb.append("Welcome to the API's list the server Time is: ")
           .append(formattedDate)
           .append("The server Time is:")
           .append(formattedDate);
