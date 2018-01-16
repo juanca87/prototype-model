@@ -123,7 +123,7 @@ public class Disco {
         return tiempoEscrituraDisco;
     }
 
-    public void setTiempoEscrituraDisco(Valor tiempoEscrituraDisco) {
+    private void setTiempoEscrituraDisco(Valor tiempoEscrituraDisco) {
         this.tiempoEscrituraDisco = tiempoEscrituraDisco;
     }
 
@@ -131,7 +131,7 @@ public class Disco {
         return tiempoLecturaDisco;
     }
 
-    public void setTiempoLecturaDisco(Valor tiempoLecturaDisco) {
+    private void setTiempoLecturaDisco(Valor tiempoLecturaDisco) {
         this.tiempoLecturaDisco = tiempoLecturaDisco;
     }
 
