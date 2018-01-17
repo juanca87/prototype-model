@@ -24,11 +24,8 @@
 
 package com.jcalvopinam.api.utils;
 
-import org.springframework.util.StringUtils;
-
 /**
  * @author Juan Calvopina M. <juan.calvopina@gmail.com>
- *
  */
 public class Commons {
 
@@ -37,9 +34,8 @@ public class Commons {
      * @return String
      */
     public String formatearResultado(long valor) {
-        String resultado = "";
-        if (!StringUtils.isEmpty(valor)) {
-            resultado = String.valueOf(valor);
+        String resultado = String.valueOf(valor);
+        if (resultado.length() >= 5) {
             resultado = resultado.substring(0, 2) + "." + resultado.substring(2, 5);
         } else {
             resultado = "0.0";
