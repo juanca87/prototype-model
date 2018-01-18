@@ -51,8 +51,6 @@ public class HomeController {
 
         StringBuilder sb = new StringBuilder("Prototype Model Api\n");
         sb.append("Welcome to the API's list the server Time is: ")
-          .append(formattedDate)
-          .append("The server Time is:")
           .append(formattedDate);
 
         return sb.toString();
