@@ -31,12 +31,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = HomeController.class, secure = false)
@@ -59,13 +59,11 @@ public class HomeControllerTest {
 
         when(homeController.home()).thenReturn(expected);
 
-        MvcResult mvcResult = mockMvc.perform(get("/")
-                                                      .header(ACCESS_CONTROL_REQUEST_METHOD, GET)
-                                                      .header(ORIGIN, HOST))
-                                     .andReturn();
-        String result = mvcResult.getResponse().getContentAsString();
-        assertNotNull(result);
-        assertEquals(expected, result.substring(0, 65));
+        mockMvc.perform(get("/")
+                                .header(ACCESS_CONTROL_REQUEST_METHOD, GET)
+                                .header(ORIGIN, HOST))
+               .andExpect(status().isOk())
+               .andExpect(content().string(containsString(expected)));
     }
 
 }
