@@ -13,4 +13,9 @@ public class PrototypeApiApplicationTests {
     public void contextLoads() {
     }
 
+    @Test
+    public void applicationContextTest() {
+        PrototypeApiApplication.main(new String[]{});
+    }
+
 }
